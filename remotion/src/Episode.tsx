@@ -13,7 +13,7 @@ const useCaptionFont = () => {
     document.fonts.load("700 100px 'Fredoka'").then(go, go); const t = setTimeout(go, 8000); return () => clearTimeout(t); }, [handle]);
 };
 
-export const MASTER = 0.93;        // -0.6 dB safety trim on every audio layer so the encoded true peak stays below 0 dBFS
+export const MASTER = 0.89;        // -1 dB safety trim on every audio layer so the encoded true peak stays below 0 dBFS
 export const CAPTION = { top: '68%', fontSize: 136, stroke: 28, maxHoldMs: 250 };
 
 const Word: React.FC<{ text: string }> = ({ text }) => {

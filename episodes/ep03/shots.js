@@ -276,7 +276,7 @@ export const beats = [
     act(s, c) {
       kidsUp(s); pickleOut(s).pose({ armL: [48, -30, 0], armR: [48, -30, 0] }).expr({ eyes: 'open', brows: 'raised', mouth: 'flat' });
       const so = c.w('im'), k = seg(c.t, so - 0.1, so + 0.15);
-      s.bean.pose({ torso: [24 * k, 0, 0], head: [18 - 30 * k, 0, 0], armL: [20, -10, 0], armR: [20, -10, 0] }).expr({ eyes: k > 0.5 ? 'closed' : 'sad', brows: 'worried', mouth: 'frown', look: [0, k > 0.5 ? 0 : -0.3] });
+      s.bean.pose({ torso: [10 * k, 0, 0], head: [18 - 20 * k, 0, 0], armL: [20, -10, 0], armR: [20, -10, 0] }).expr({ eyes: k > 0.5 ? 'closed' : 'sad', brows: 'worried', mouth: 'frown', look: [0, k > 0.5 ? 0 : -0.3] });
       s.dottie.expr({ eyes: 'wide', brows: 'worried', mouth: 'flat', look: [0.6, 0] });
     } },
   { id: 'fake', line: 'L18',
@@ -284,7 +284,7 @@ export const beats = [
     act(s, c) {
       kidsUp(s); pickleOut(s).pose({ armL: [48, -30, 0], armR: [48, -30, 0] }).expr({ eyes: 'open', brows: 'raised', mouth: 'flat' });
       s.dottie.pose({ armL: [50, 6, 0], armR: [20, -10, 0], head: [8, 0, 6], torso: [8, 0, 0] }).expr({ eyes: 'sad', brows: 'worried', mouth: 'teeth', look: [0, 0.3], sweat: true });
-      s.bean.pose({ torso: [24, 0, 0], head: [-12, 0, 0] }).expr({ eyes: 'closed', brows: 'worried', mouth: 'frown' });
+      s.bean.pose({ torso: [10, 0, 0], head: [-2, 0, 0] }).expr({ eyes: 'closed', brows: 'worried', mouth: 'frown' });
     } },
   { id: 'iknow', line: 'L19',
     shots: [{ on: 'pickle', dist: 1.0, yaw: -25, pitch: -2 }, camIns, { on: 'pickle', dist: 0.85, yaw: -32, pitch: -3 }, kidsBush],

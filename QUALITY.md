@@ -70,7 +70,7 @@ Every episode must match these settings. The machine-readable copies live in `we
 - Ducking: under each line the bed is pulled to 9 dB below speech level, then tightened per word until
   **every spoken word is ≥ 6 dB above music + effects** (measured on the louder stereo channel). `tools/check-mix.mjs` fails the build otherwise.
 
-## 6. Assembly — Remotion (`remotion/`, `tools/render-video.mjs`)
+## 6. Assembly — Remotion (`remotion/`, `tools/render-video.mjs`; every audio layer plays at 0.89 = −1 dB so the encoded true peak stays below 0 dBFS)
 - Layers: PNG frames + individual voice clips + ducked bed.
 - Captions: `@remotion/captions` (`createTikTokStyleCaptions`, `combineTokensWithinMilliseconds: 0`) → **one word at a time**.
   Fredoka Bold, 136 px (long words shrink to fit), white, 28 px black outline (`paint-order: stroke fill`), soft drop shadow,
