@@ -5,7 +5,8 @@ import fs from 'node:fs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
 const { beats } = await import(`../${dir}/shots.js`);
 const script = JSON.parse(fs.readFileSync(`${dir}/script.json`)), voices = JSON.parse(fs.readFileSync(`${dir}/voices.json`)), words = JSON.parse(fs.readFileSync(`${dir}/words.json`));
-const FPS = script.fps, PAD = [0.1, 0.2], MIN_SHOT = 1.0, MAX_SHOT = 2.0, TARGET = 1.5;
+const FPS = script.fps, K = 1 / (script.speed ?? 1);      // a 1.5x episode keeps the 1–2 s cut rhythm of the un-sped story: 0.67–1.33 s on screen
+const PAD = [0.1 * K, 0.2 * K], MIN_SHOT = 1.0 * K, MAX_SHOT = 2.0 * K, TARGET = 1.5 * K;
 const q = t => Math.round(t * FPS) / FPS;
 const tl = { ep, title: script.title, fps: FPS, beats: [], shots: [], voices: [], cues: [], music: [], captions: [], mouth: {} };
 let t = 0, shotIndex = 0;
@@ -33,7 +34,7 @@ for (const b of beats) {
   const cuts = [0]; const wordStarts = bw.map(w => w.start);
   for (let i = 1; i < n; i++) {
     let c = dur * i / n; const prev = cuts[i - 1];
-    const snap = wordStarts.filter(w => Math.abs(w - c) < 0.3 && w - prev >= MIN_SHOT && w - prev <= MAX_SHOT && (dur - w) / (n - i) >= MIN_SHOT && (dur - w) / (n - i) <= MAX_SHOT).sort((a, b2) => Math.abs(a - c) - Math.abs(b2 - c))[0];
+    const snap = wordStarts.filter(w => Math.abs(w - c) < 0.3 * K && w - prev >= MIN_SHOT && w - prev <= MAX_SHOT && (dur - w) / (n - i) >= MIN_SHOT && (dur - w) / (n - i) <= MAX_SHOT).sort((a, b2) => Math.abs(a - c) - Math.abs(b2 - c))[0];
     cuts.push(q(snap ?? c));
   }
   cuts.push(dur);
@@ -53,5 +54,5 @@ tl.cues.sort((a, b) => a.t - b.t);
 fs.writeFileSync(`${dir}/timeline.json`, JSON.stringify(tl));
 console.log(`duration ${t.toFixed(2)}s  frames ${tl.frames}  beats ${tl.beats.length}  shots ${tl.shots.length}`);
 const lens = tl.shots.map(s => s.end - s.start);
-for (const s of tl.shots) { const d = s.end - s.start; console.log(String(s.i).padStart(2), s.beat.padEnd(10), `setup ${s.setup}${s.rep ? ' (punch-in x' + s.rep + ')' : ''}`.padEnd(22), `${s.start.toFixed(2)} → ${s.end.toFixed(2)}`, `${d.toFixed(2)}s`, d < MIN_SHOT - 0.01 || d > MAX_SHOT + 0.01 ? '  <-- outside 1–2 s' : ''); }
+for (const s of tl.shots) { const d = s.end - s.start; console.log(String(s.i).padStart(2), s.beat.padEnd(10), `setup ${s.setup}${s.rep ? ' (punch-in x' + s.rep + ')' : ''}`.padEnd(22), `${s.start.toFixed(2)} → ${s.end.toFixed(2)}`, `${d.toFixed(2)}s`, d < MIN_SHOT - 0.01 || d > MAX_SHOT + 0.01 ? '  <-- outside the cut range' : ''); }
 console.log(`shot length: min ${Math.min(...lens).toFixed(2)}  max ${Math.max(...lens).toFixed(2)}  avg ${(lens.reduce((a, b) => a + b) / lens.length).toFixed(2)}`);

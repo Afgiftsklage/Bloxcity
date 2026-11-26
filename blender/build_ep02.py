@@ -64,6 +64,24 @@ character2('bean',   dict(skin='#F7C59A', top='#FFC93C', pants='#3B5BA9', shoe='
 character2('dottie', dict(skin='#F2B890', top='#FF7EB6', pants='#7A5CC9', shoe='#4A3586', hair='#3A2452', accent='#6FE3D0'), dottie)
 character2('pickle', dict(skin='#EDB48C', top='#5E9B5A', pants='#6B5A48', shoe='#3B2F26', hair='#F1EFEA', accent='#D8343F'), pickle)
 
+def cap_kid(head, torso, hm, acc, skin):                       # EP03 customers
+    box('HairTop', (HW + 0.014, HD + 0.014, 0.05), (0, 0.004, HH - 0.02), hm, head, bevel=BV)
+    box('Cap', (HW + 0.02, HD + 0.02, 0.05), (0, 0, HH + 0.012), acc, head, bevel=BV)
+    box('CapBrim', (HW * 0.8, 0.1, 0.018), (0, -HD / 2 - 0.05, HH - 0.004), acc, head, bevel=0.006)
+    box('Logo', (0.1, 0.012, 0.1), (0, -TORSO[1] / 2 - 0.003, 0.03), acc, torso, bevel=0.005)
+def bob_kid(head, torso, hm, acc, skin):
+    box('HairTop', (HW + 0.02, HD + 0.02, 0.07), (0, 0.004, HH - 0.022), hm, head, bevel=BV)
+    for sx in (-1, 1): box(f'HairSide{sx}', (0.035, HD + 0.02, 0.17), (sx * (HW / 2 + 0.008), 0.004, HH - 0.1), hm, head, bevel=0.006)
+    box('HairBack', (HW + 0.02, 0.04, 0.2), (0, HD / 2 + 0.002, HH - 0.115), hm, head, bevel=0.006)
+    box('Collar', (0.16, 0.012, 0.04), (0, -TORSO[1] / 2 - 0.003, TORSO[2] / 2 - 0.03), acc, torso, bevel=0.005)
+def spiky_kid(head, torso, hm, acc, skin):
+    box('HairTop', (HW + 0.014, HD + 0.014, 0.05), (0, 0.004, HH - 0.02), hm, head, bevel=BV)
+    for i, x in enumerate((-0.08, -0.027, 0.027, 0.08)): box(f'Spike{i}', (0.045, 0.1, 0.07), (x, 0, HH + 0.03), hm, head, bevel=0.01, rot=(0.25, 0, 0))
+    box('Stripe', (TORSO[0] + 0.006, TORSO[1] + 0.006, 0.045), (0, 0, -0.02), acc, torso, bevel=0.004)
+character2('max', dict(skin='#C98A5E', top='#3FA7A0', pants='#2F3E56', shoe='#1F2A3A', hair='#2A1D1A', accent='#F2B441'), cap_kid)
+character2('ana', dict(skin='#F2C6A0', top='#B28DFF', pants='#F6E6B4', shoe='#7A5CC9', hair='#D9793B', accent='#FFFFFF'), bob_kid)
+character2('leo', dict(skin='#8D5B3F', top='#E4572E', pants='#4A6FA5', shoe='#2B2B33', hair='#1B1B22', accent='#FFD23F'), spiky_kid)
+
 # ---------------------------------------------------------------- street set
 bt.new_collection('street')
 M = {k: pbr(k, k) for k in ('grass', 'pavement', 'brick', 'asphalt', 'planks', 'roof', 'wood')}
@@ -192,7 +210,8 @@ for k in range(16):
     ball(f'Gum{k}', 0.05, P(gx + 0.215 * math.cos(a) * math.cos(b2), 0.95 + 0.215 * math.sin(b2), gz + 0.215 * math.sin(a) * math.cos(b2)), random.choice(cm))
 sbox('GumCap', (gx, 1.22, gz), (0.2, 0.07, 0.2), flat('gumred', '#D8343F', 0.4), bevel=0.02)
 sbox('ShopMat', (ddx, 0.04, sz + 0.5), (1.0, 0.03, 0.6), flat('shopmat', '#7A3FA0', 0.9), bevel=0.008)
-tree('STree', 12.4, -3.2, 1.8, 1.1); bush('SBush0', 11.8, -1.7, 0.7, 0.5)
+tree('STree', 12.6, -3.4, 1.8, 1.1)
+sbox('HideBush', (11.35, 0.29, -1.0), (1.35, 0.58, 0.6), leafs[1], bevel=0.1); sbox('HideBushTop', (11.5, 0.6, -1.05), (0.7, 0.2, 0.45), leafs[2], bevel=0.08)
 
 # --- distance: a row of little houses + hills so the street has depth
 for i in range(9):
@@ -231,5 +250,47 @@ box('WalletClasp', (0.03, 0.05, 0.03), (0, 0, 0.0), flat('brass', '#D9B04C', 0.3
 pk = empty('PickleProp', P(0.5, -5, 0))
 ball('PickleBody', 0.05, (0, 0, 0), flat('pickle', '#6FA83A', 0.45), pk, scale=(1, 1, 2.3), jitter=0.006)
 for i in range(7): ball(f'PickleBump{i}', 0.012, (0.045 * math.cos(i * 2.1), 0.045 * math.sin(i * 2.1), -0.08 + i * 0.027), flat('pickle2', '#5A8F2E', 0.5), pk)
+
+# ---------------------------------------------------------------- EP03 additions
+# broken-window state (the engine hides ShopGlass and shows GlassShards)
+sh = empty('GlassShards', P(0, 0, 0)); glassm = flat('shard', '#DFF4FF', 0.08)
+random.seed(5)
+for i in range(16):
+    t = i / 16 * 2 * math.pi; ex, ey = (wl + wr) / 2 + math.cos(t) * (wr - wl) / 2 * 0.98, (wy0 + wy1) / 2 + math.sin(t) * (wy1 - wy0) / 2 * 0.98
+    ex = min(max(ex, wl + 0.08), wr - 0.08); ey = min(max(ey, wy0 + 0.08), wy1 - 0.08)
+    sbox(f'Shard{i}', (ex, ey, sz - 0.05), (0.16 + random.random() * 0.22, 0.2 + random.random() * 0.3, 0.015), glassm, sh, bevel=0, rot=(0, random.random() * 3, 0))
+for i in range(9): sbox(f'ShardGround{i}', (wl + 0.2 + random.random() * 1.6, 0.05, sz + 0.25 + random.random() * 0.5), (0.1 + random.random() * 0.1, 0.012, 0.08 + random.random() * 0.1), glassm, sh, bevel=0, rot=(0, 0, random.random() * 3))
+# security camera above the shop door
+sbox('ShopCamArm', (ddx + 0.75, 2.75, sz + 0.12), (0.06, 0.06, 0.26), dark, bevel=0.01)
+sbox('ShopCam', (ddx + 0.75, 2.7, sz + 0.33), (0.16, 0.14, 0.3), white, bevel=0.03, rot=(0.35, 0, 0))
+sbox('ShopCamLens', (ddx + 0.75, 2.66, sz + 0.47), (0.09, 0.09, 0.05), dark, bevel=0.02, rot=(0.35, 0, 0))
+ball('ShopCamLed', 0.022, P(ddx + 0.81, 2.74, sz + 0.46), flat('camled', '#FF2A2A', 0.3, emit=8.0))
+# lemonade stand (park). StandSignFace gets its text from the engine.
+stx, stz = -4.4, -0.45
+st = empty('LemonStand', P(stx, 0, stz)); yel = flat('lemon', '#FFE14D', 0.5)
+box('StandTable', S(1.4, 0.5, 0.5), P(0, 0.25, 0), M['planks'], st, bevel=0.015, tile=0.6)
+box('StandCloth', S(1.44, 0.4, 0.02), P(0, 0.28, 0.26), yel, st, bevel=0.006)
+for i in range(5): box(f'ClothStripe{i}', S(0.14, 0.4, 0.024), P(-0.56 + i * 0.28, 0.28, 0.262), white, st, bevel=0.004)
+for sx in (-1, 1): box(f'StandPost{sx}', S(0.06, 1.5, 0.06), P(sx * 0.66, 0.75, -0.2), M['wood'], st, bevel=0.01, tile=0.5)
+box('StandBanner', S(1.5, 0.36, 0.05), P(0, 1.42, -0.2), flat('banner', '#FFF4D0', 0.6), st, bevel=0.015)
+empty('StandSignFace', P(0, 1.42, -0.172), st)
+cyl('Pitcher', 0.085, 0.2, P(-0.38, 0.6, 0.02), flat('pitcher', '#FFF39A', 0.25), st, bevel=0.012, segs=20)
+box('PitcherHandle', S(0.03, 0.12, 0.07), P(-0.48, 0.6, 0.02), white, st, bevel=0.008)
+for i in range(5): cyl(f'Cup{i}', 0.035, 0.08, P(-0.08 + i * 0.11, 0.54, 0.08 - (i % 2) * 0.1), flat('cup', '#FFFDF2', 0.5), st, bevel=0.006, segs=14, r2=0.042)
+for i in range(4): ball(f'Lemon{i}', 0.045, P(0.42 + (i % 2) * 0.1, 0.545 + (i // 2) * 0.07, -0.02 + (i % 2) * 0.05), yel, st, scale=(1.15, 1, 1))
+box('CashBox', S(0.2, 0.1, 0.14), P(0.5, 0.55, 0.14), flat('cashbox', '#8A8F98', 0.35, 0.8), st, bevel=0.012)
+# hand props (parked under the ground)
+bl = empty('BallProp', P(1.0, -5, 0)); ball('BallBody', 0.11, (0, 0, 0), white, bl)
+for i, (a, b2) in enumerate(((0, 0), (1.26, 0.9), (2.5, -0.8), (3.8, 0.7), (5.0, -0.5), (0.6, -1.3))):
+    ball(f'BallPatch{i}', 0.045, (0.085 * math.cos(a) * math.cos(b2), 0.085 * math.sin(a) * math.cos(b2), 0.085 * math.sin(b2)), flat('ballred', '#E4572E', 0.4), bl)
+cs = empty('CashProp', P(1.5, -5, 0))
+for i in range(5): box(f'Cash{i}', (0.15, 0.08, 0.012), (0.004 * i, 0.003 * (i % 2), i * 0.013), flat('bill', '#7FD18A', 0.7), cs, bevel=0.003, rot=(0, 0, 0.06 * (i - 2)))
+box('CashBand', (0.03, 0.085, 0.07), (0, 0, 0.026), white, cs, bevel=0.003)
+br = empty('BroomProp', P(2.0, -5, 0))
+box('BroomStick', (0.03, 0.03, 0.95), (0, 0, 0.1), M['wood'], br, bevel=0.006, tile=0.5)
+box('BroomHead', (0.3, 0.07, 0.13), (0, 0, -0.42), flat('bristle', '#E8C76A', 0.9), br, bevel=0.012)
+box('BroomBand', (0.31, 0.08, 0.03), (0, 0, -0.35), flat('gumred', '#D8343F', 0.4), br, bevel=0.006)
+cp = empty('CupProp', P(2.5, -5, 0)); cyl('CupBody', 0.035, 0.085, (0, 0, 0), flat('cup', '#FFFDF2', 0.5), cp, bevel=0.006, segs=14, r2=0.044)
+cyl('CupDrink', 0.038, 0.01, (0, 0, 0.04), yel, cp, bevel=0.002, segs=14)
 
 bt.export(bt.col, 'street.glb')

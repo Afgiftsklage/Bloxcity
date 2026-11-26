@@ -1,0 +1,1164 @@
+{
+ "L01": [
+  {
+   "text": "I",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "just",
+   "start": 0.22,
+   "end": 0.38
+  },
+  {
+   "text": "broke",
+   "start": 0.38,
+   "end": 0.62
+  },
+  {
+   "text": "Mister",
+   "start": 0.62,
+   "end": 0.84
+  },
+  {
+   "text": "Pickle's",
+   "start": 0.84,
+   "end": 1.16
+  },
+  {
+   "text": "window",
+   "start": 1.16,
+   "end": 1.36
+  },
+  {
+   "text": "and",
+   "start": 1.36,
+   "end": 1.94
+  },
+  {
+   "text": "nobody",
+   "start": 1.94,
+   "end": 2.14
+  },
+  {
+   "text": "saw",
+   "start": 2.14,
+   "end": 2.4
+  },
+  {
+   "text": "me",
+   "start": 2.4,
+   "end": 2.58
+  }
+ ],
+ "L02": [
+  {
+   "text": "I",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "saw",
+   "start": 0.2,
+   "end": 0.48
+  },
+  {
+   "text": "you",
+   "start": 0.48,
+   "end": 0.76
+  }
+ ],
+ "L03": [
+  {
+   "text": "Dottie!",
+   "start": 0,
+   "end": 0.38
+  },
+  {
+   "text": "Please",
+   "start": 0.62,
+   "end": 0.74
+  },
+  {
+   "text": "don't",
+   "start": 0.74,
+   "end": 0.96
+  },
+  {
+   "text": "tell!",
+   "start": 0.96,
+   "end": 1.12
+  }
+ ],
+ "L04": [
+  {
+   "text": "That",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "window",
+   "start": 0.2,
+   "end": 0.48
+  },
+  {
+   "text": "costs",
+   "start": 0.48,
+   "end": 0.84
+  },
+  {
+   "text": "two",
+   "start": 0.84,
+   "end": 1.14
+  },
+  {
+   "text": "hundred",
+   "start": 1.14,
+   "end": 1.46
+  },
+  {
+   "text": "dollars",
+   "start": 1.46,
+   "end": 1.78
+  }
+ ],
+ "L05": [
+  {
+   "text": "Two",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "HUNDRED?",
+   "start": 0.22,
+   "end": 0.78
+  },
+  {
+   "text": "I",
+   "start": 1.04,
+   "end": 1.38
+  },
+  {
+   "text": "have",
+   "start": 1.38,
+   "end": 1.5
+  },
+  {
+   "text": "four",
+   "start": 1.5,
+   "end": 1.76
+  },
+  {
+   "text": "dollars",
+   "start": 1.76,
+   "end": 2.12
+  },
+  {
+   "text": "and",
+   "start": 2.12,
+   "end": 2.68
+  },
+  {
+   "text": "a",
+   "start": 2.68,
+   "end": 2.8
+  },
+  {
+   "text": "button",
+   "start": 2.8,
+   "end": 2.96
+  }
+ ],
+ "L06": [
+  {
+   "text": "Then",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "we",
+   "start": 0.2,
+   "end": 0.32
+  },
+  {
+   "text": "need",
+   "start": 0.32,
+   "end": 0.44
+  },
+  {
+   "text": "a",
+   "start": 0.44,
+   "end": 0.58
+  },
+  {
+   "text": "business",
+   "start": 0.58,
+   "end": 0.88
+  },
+  {
+   "text": "A",
+   "start": 0.88,
+   "end": 1.32
+  },
+  {
+   "text": "lemonade",
+   "start": 1.32,
+   "end": 1.62
+  },
+  {
+   "text": "stand!",
+   "start": 1.62,
+   "end": 1.92
+  }
+ ],
+ "L07": [
+  {
+   "text": "Lemonade!",
+   "start": 0,
+   "end": 0.58
+  },
+  {
+   "text": "One",
+   "start": 0.74,
+   "end": 0.96
+  },
+  {
+   "text": "dollar!",
+   "start": 0.96,
+   "end": 1.24
+  },
+  {
+   "text": "Fresh",
+   "start": 1.68,
+   "end": 1.76
+  },
+  {
+   "text": "lemonade!",
+   "start": 1.74,
+   "end": 2.34
+  }
+ ],
+ "L08": [
+  {
+   "text": "Nobody",
+   "start": 0,
+   "end": 0.76
+  },
+  {
+   "text": "is",
+   "start": 0.76,
+   "end": 1.0
+  },
+  {
+   "text": "buying",
+   "start": 1.0,
+   "end": 1.28
+  },
+  {
+   "text": "We",
+   "start": 1.28,
+   "end": 1.84
+  },
+  {
+   "text": "made",
+   "start": 1.84,
+   "end": 2.02
+  },
+  {
+   "text": "zero",
+   "start": 2.02,
+   "end": 2.34
+  },
+  {
+   "text": "dollars",
+   "start": 2.34,
+   "end": 2.7
+  }
+ ],
+ "L09": [
+  {
+   "text": "Because",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "you're",
+   "start": 0.2,
+   "end": 0.4
+  },
+  {
+   "text": "selling",
+   "start": 0.4,
+   "end": 0.58
+  },
+  {
+   "text": "it",
+   "start": 0.58,
+   "end": 0.72
+  },
+  {
+   "text": "wrong",
+   "start": 0.72,
+   "end": 0.92
+  },
+  {
+   "text": "Watch",
+   "start": 0.92,
+   "end": 1.32
+  },
+  {
+   "text": "this",
+   "start": 1.32,
+   "end": 1.56
+  }
+ ],
+ "L10": [
+  {
+   "text": "MAGIC",
+   "start": 0,
+   "end": 0.44
+  },
+  {
+   "text": "lemonade!",
+   "start": 0.44,
+   "end": 0.92
+  },
+  {
+   "text": "One",
+   "start": 1.1,
+   "end": 1.36
+  },
+  {
+   "text": "sip",
+   "start": 1.36,
+   "end": 1.5
+  },
+  {
+   "text": "makes",
+   "start": 1.5,
+   "end": 1.68
+  },
+  {
+   "text": "you",
+   "start": 1.68,
+   "end": 1.82
+  },
+  {
+   "text": "run",
+   "start": 1.82,
+   "end": 1.94
+  },
+  {
+   "text": "SUPER",
+   "start": 1.94,
+   "end": 2.22
+  },
+  {
+   "text": "fast!",
+   "start": 2.22,
+   "end": 2.62
+  },
+  {
+   "text": "Only",
+   "start": 2.88,
+   "end": 3.0
+  },
+  {
+   "text": "ten",
+   "start": 3.0,
+   "end": 3.2
+  },
+  {
+   "text": "dollars!",
+   "start": 3.2,
+   "end": 3.46
+  }
+ ],
+ "L11": [
+  {
+   "text": "Super",
+   "start": 0,
+   "end": 0.28
+  },
+  {
+   "text": "fast?",
+   "start": 0.28,
+   "end": 0.62
+  },
+  {
+   "text": "I'll",
+   "start": 0.88,
+   "end": 1.02
+  },
+  {
+   "text": "take",
+   "start": 1.02,
+   "end": 1.14
+  },
+  {
+   "text": "FIVE",
+   "start": 1.14,
+   "end": 1.52
+  },
+  {
+   "text": "cups!",
+   "start": 1.52,
+   "end": 1.68
+  }
+ ],
+ "L12": [
+  {
+   "text": "Dottie",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "that's",
+   "start": 0.32,
+   "end": 0.64
+  },
+  {
+   "text": "a",
+   "start": 0.64,
+   "end": 0.72
+  },
+  {
+   "text": "lie",
+   "start": 0.72,
+   "end": 0.92
+  },
+  {
+   "text": "It's",
+   "start": 0.92,
+   "end": 1.46
+  },
+  {
+   "text": "just",
+   "start": 1.46,
+   "end": 1.56
+  },
+  {
+   "text": "lemons",
+   "start": 1.56,
+   "end": 1.84
+  },
+  {
+   "text": "and",
+   "start": 1.84,
+   "end": 1.94
+  },
+  {
+   "text": "water",
+   "start": 1.94,
+   "end": 2.14
+  }
+ ],
+ "L13": [
+  {
+   "text": "It's",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "called",
+   "start": 0.22,
+   "end": 0.36
+  },
+  {
+   "text": "marketing",
+   "start": 0.36,
+   "end": 0.8
+  },
+  {
+   "text": "Look!",
+   "start": 0.8,
+   "end": 1.34
+  },
+  {
+   "text": "Two",
+   "start": 1.62,
+   "end": 1.7
+  },
+  {
+   "text": "hundred",
+   "start": 1.7,
+   "end": 1.94
+  },
+  {
+   "text": "dollars!",
+   "start": 1.94,
+   "end": 2.22
+  }
+ ],
+ "L14": [
+  {
+   "text": "Hey!",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "I'm",
+   "start": 0.44,
+   "end": 0.6
+  },
+  {
+   "text": "not",
+   "start": 0.6,
+   "end": 0.7
+  },
+  {
+   "text": "faster",
+   "start": 0.7,
+   "end": 1.04
+  },
+  {
+   "text": "I'm",
+   "start": 1.04,
+   "end": 1.48
+  },
+  {
+   "text": "just",
+   "start": 1.48,
+   "end": 1.62
+  },
+  {
+   "text": "sticky",
+   "start": 1.62,
+   "end": 2.16
+  },
+  {
+   "text": "I",
+   "start": 2.16,
+   "end": 2.7
+  },
+  {
+   "text": "want",
+   "start": 2.7,
+   "end": 2.8
+  },
+  {
+   "text": "my",
+   "start": 2.8,
+   "end": 2.92
+  },
+  {
+   "text": "money",
+   "start": 2.92,
+   "end": 3.06
+  },
+  {
+   "text": "back!",
+   "start": 3.06,
+   "end": 3.3
+  }
+ ],
+ "L15": [
+  {
+   "text": "Uh",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "oh",
+   "start": 0.26,
+   "end": 0.46
+  },
+  {
+   "text": "RUN!",
+   "start": 0.86,
+   "end": 1.16
+  }
+ ],
+ "L16": [
+  {
+   "text": "Why",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "text": "are",
+   "start": 0.24,
+   "end": 0.34
+  },
+  {
+   "text": "you",
+   "start": 0.34,
+   "end": 0.46
+  },
+  {
+   "text": "two",
+   "start": 0.46,
+   "end": 0.62
+  },
+  {
+   "text": "hiding",
+   "start": 0.62,
+   "end": 0.8
+  },
+  {
+   "text": "behind",
+   "start": 0.8,
+   "end": 1.06
+  },
+  {
+   "text": "my",
+   "start": 1.06,
+   "end": 1.2
+  },
+  {
+   "text": "bush?",
+   "start": 1.2,
+   "end": 1.46
+  }
+ ],
+ "L17": [
+  {
+   "text": "Mister",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "Pickle",
+   "start": 0.32,
+   "end": 0.62
+  },
+  {
+   "text": "I",
+   "start": 0.62,
+   "end": 1.22
+  },
+  {
+   "text": "broke",
+   "start": 1.22,
+   "end": 1.36
+  },
+  {
+   "text": "your",
+   "start": 1.36,
+   "end": 1.5
+  },
+  {
+   "text": "window",
+   "start": 1.5,
+   "end": 1.74
+  },
+  {
+   "text": "With",
+   "start": 1.74,
+   "end": 2.24
+  },
+  {
+   "text": "my",
+   "start": 2.24,
+   "end": 2.38
+  },
+  {
+   "text": "ball",
+   "start": 2.38,
+   "end": 2.64
+  },
+  {
+   "text": "I'm",
+   "start": 2.64,
+   "end": 3.24
+  },
+  {
+   "text": "sorry",
+   "start": 3.24,
+   "end": 3.46
+  }
+ ],
+ "L18": [
+  {
+   "text": "And",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "I",
+   "start": 0.3,
+   "end": 0.42
+  },
+  {
+   "text": "sold",
+   "start": 0.42,
+   "end": 0.66
+  },
+  {
+   "text": "fake",
+   "start": 0.66,
+   "end": 0.92
+  },
+  {
+   "text": "magic",
+   "start": 0.92,
+   "end": 1.22
+  },
+  {
+   "text": "lemonade",
+   "start": 1.22,
+   "end": 1.58
+  },
+  {
+   "text": "to",
+   "start": 1.58,
+   "end": 1.7
+  },
+  {
+   "text": "pay",
+   "start": 1.7,
+   "end": 1.84
+  },
+  {
+   "text": "for",
+   "start": 1.84,
+   "end": 2.02
+  },
+  {
+   "text": "it",
+   "start": 2.02,
+   "end": 2.16
+  }
+ ],
+ "L19": [
+  {
+   "text": "I",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "text": "know",
+   "start": 0.16,
+   "end": 0.3
+  },
+  {
+   "text": "I",
+   "start": 0.3,
+   "end": 0.84
+  },
+  {
+   "text": "have",
+   "start": 0.84,
+   "end": 0.94
+  },
+  {
+   "text": "a",
+   "start": 0.94,
+   "end": 1.02
+  },
+  {
+   "text": "camera",
+   "start": 1.02,
+   "end": 1.26
+  },
+  {
+   "text": "I",
+   "start": 1.26,
+   "end": 1.86
+  },
+  {
+   "text": "was",
+   "start": 1.86,
+   "end": 1.98
+  },
+  {
+   "text": "waiting",
+   "start": 1.98,
+   "end": 2.18
+  },
+  {
+   "text": "to",
+   "start": 2.18,
+   "end": 2.36
+  },
+  {
+   "text": "see",
+   "start": 2.36,
+   "end": 2.5
+  },
+  {
+   "text": "if",
+   "start": 2.5,
+   "end": 2.64
+  },
+  {
+   "text": "you",
+   "start": 2.64,
+   "end": 2.72
+  },
+  {
+   "text": "would",
+   "start": 2.72,
+   "end": 2.82
+  },
+  {
+   "text": "tell",
+   "start": 2.82,
+   "end": 2.94
+  },
+  {
+   "text": "the",
+   "start": 2.94,
+   "end": 3.06
+  },
+  {
+   "text": "truth",
+   "start": 3.06,
+   "end": 3.22
+  }
+ ],
+ "L20": [
+  {
+   "text": "You",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "KNEW?",
+   "start": 0.22,
+   "end": 0.56
+  },
+  {
+   "text": "The",
+   "start": 0.98,
+   "end": 1.08
+  },
+  {
+   "text": "whole",
+   "start": 1.08,
+   "end": 1.22
+  },
+  {
+   "text": "time?",
+   "start": 1.22,
+   "end": 1.5
+  }
+ ],
+ "L21": [
+  {
+   "text": "Give",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "the",
+   "start": 0.2,
+   "end": 0.36
+  },
+  {
+   "text": "money",
+   "start": 0.36,
+   "end": 0.5
+  },
+  {
+   "text": "back",
+   "start": 0.5,
+   "end": 0.84
+  },
+  {
+   "text": "Then",
+   "start": 0.84,
+   "end": 1.38
+  },
+  {
+   "text": "you",
+   "start": 1.38,
+   "end": 1.48
+  },
+  {
+   "text": "can",
+   "start": 1.48,
+   "end": 1.58
+  },
+  {
+   "text": "work",
+   "start": 1.58,
+   "end": 1.72
+  },
+  {
+   "text": "it",
+   "start": 1.72,
+   "end": 1.82
+  },
+  {
+   "text": "off",
+   "start": 1.82,
+   "end": 1.96
+  },
+  {
+   "text": "in",
+   "start": 1.96,
+   "end": 2.08
+  },
+  {
+   "text": "my",
+   "start": 2.08,
+   "end": 2.2
+  },
+  {
+   "text": "shop",
+   "start": 2.2,
+   "end": 2.4
+  }
+ ],
+ "L22": [
+  {
+   "text": "Work?",
+   "start": 0,
+   "end": 0.36
+  },
+  {
+   "text": "In",
+   "start": 0.64,
+   "end": 0.72
+  },
+  {
+   "text": "a",
+   "start": 0.72,
+   "end": 0.84
+  },
+  {
+   "text": "CANDY",
+   "start": 0.84,
+   "end": 1.1
+  },
+  {
+   "text": "shop?",
+   "start": 1.1,
+   "end": 1.24
+  },
+  {
+   "text": "Okay!",
+   "start": 1.5,
+   "end": 1.68
+  }
+ ],
+ "L23": [
+  {
+   "text": "One",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "week",
+   "start": 0.2,
+   "end": 0.34
+  },
+  {
+   "text": "later",
+   "start": 0.34,
+   "end": 0.6
+  },
+  {
+   "text": "the",
+   "start": 0.6,
+   "end": 0.86
+  },
+  {
+   "text": "window",
+   "start": 0.86,
+   "end": 1.06
+  },
+  {
+   "text": "is",
+   "start": 1.06,
+   "end": 1.28
+  },
+  {
+   "text": "fixed",
+   "start": 1.28,
+   "end": 1.56
+  },
+  {
+   "text": "You",
+   "start": 1.56,
+   "end": 1.96
+  },
+  {
+   "text": "two",
+   "start": 1.96,
+   "end": 2.12
+  },
+  {
+   "text": "are",
+   "start": 2.12,
+   "end": 2.28
+  },
+  {
+   "text": "free",
+   "start": 2.28,
+   "end": 2.46
+  },
+  {
+   "text": "to",
+   "start": 2.46,
+   "end": 2.58
+  },
+  {
+   "text": "go",
+   "start": 2.58,
+   "end": 2.72
+  }
+ ],
+ "L24": [
+  {
+   "text": "Actually",
+   "start": 0,
+   "end": 0.46
+  },
+  {
+   "text": "can",
+   "start": 1.12,
+   "end": 1.2
+  },
+  {
+   "text": "we",
+   "start": 1.18,
+   "end": 1.36
+  },
+  {
+   "text": "keep",
+   "start": 1.36,
+   "end": 1.6
+  },
+  {
+   "text": "working",
+   "start": 1.6,
+   "end": 1.8
+  },
+  {
+   "text": "here?",
+   "start": 1.8,
+   "end": 2.04
+  }
+ ],
+ "L25": [
+  {
+   "text": "Why?",
+   "start": 0,
+   "end": 0.28
+  }
+ ],
+ "L26": [
+  {
+   "text": "No",
+   "start": 0,
+   "end": 0.52
+  },
+  {
+   "text": "reason",
+   "start": 0.52,
+   "end": 0.72
+  }
+ ],
+ "L27": [
+  {
+   "text": "My",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "candy!",
+   "start": 0.18,
+   "end": 0.54
+  },
+  {
+   "text": "You",
+   "start": 0.94,
+   "end": 1.02
+  },
+  {
+   "text": "ate",
+   "start": 1.02,
+   "end": 1.16
+  },
+  {
+   "text": "ALL",
+   "start": 1.16,
+   "end": 1.42
+  },
+  {
+   "text": "of",
+   "start": 1.42,
+   "end": 1.56
+  },
+  {
+   "text": "it!",
+   "start": 1.56,
+   "end": 1.68
+  }
+ ],
+ "L28": [
+  {
+   "text": "We'll",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "text": "work",
+   "start": 0.24,
+   "end": 0.36
+  },
+  {
+   "text": "that",
+   "start": 0.36,
+   "end": 0.5
+  },
+  {
+   "text": "off",
+   "start": 0.5,
+   "end": 0.64
+  },
+  {
+   "text": "too!",
+   "start": 0.64,
+   "end": 0.82
+  }
+ ],
+ "L29": [
+  {
+   "text": "Hey",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "is",
+   "start": 0.22,
+   "end": 0.66
+  },
+  {
+   "text": "the",
+   "start": 0.66,
+   "end": 0.82
+  },
+  {
+   "text": "magic",
+   "start": 0.82,
+   "end": 1.06
+  },
+  {
+   "text": "lemonade",
+   "start": 1.06,
+   "end": 1.4
+  },
+  {
+   "text": "back?",
+   "start": 1.4,
+   "end": 1.56
+  }
+ ],
+ "L30": [
+  {
+   "text": "NO!",
+   "start": 0,
+   "end": 0.4
+  }
+ ],
+ "L31": [
+  {
+   "text": "NO!",
+   "start": 0,
+   "end": 0.4
+  }
+ ]
+}

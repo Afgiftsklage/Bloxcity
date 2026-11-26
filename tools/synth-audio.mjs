@@ -60,6 +60,8 @@ const SFX = {
   kaching: () => { const o = buf(0.9); mixin(o, decay(bandpass(noise(0.08), 4200, 5), 0.02), 0.6); [[2093, 0.07], [2637, 0.07], [3136, 0.16], [4186, 0.16]].forEach(([f, at]) => mixin(o, decay(tone(0.7, f), 0.16), 0.5, at)); return norm(o, 0.42); },
   knock: () => norm(mixin(decay(tone(0.12, t => 150 + 120 * Math.exp(-t * 60)), 0.03), decay(bandpass(noise(0.06), 900, 3), 0.012), 0.7), 0.7),
   doorslam: () => { const o = decay(tone(0.4, t => 55 + 90 * Math.exp(-t * 40)), 0.09); mixin(o, decay(lowpass(noise(0.25), 1400), 0.04), 0.9); mixin(o, decay(bandpass(noise(0.05), 2600, 4), 0.006), 0.5, 0.03); return norm(o, 0.8); },
+  crash: () => { const o = buf(0.9); mixin(o, decay(highpass(noise(0.5), 2500), 0.12), 1); for (let i = 0; i < 14; i++) mixin(o, decay(tone(0.25, 2200 + 5200 * Math.abs(rnd())), 0.05), 0.35, 0.02 + Math.abs(rnd()) * 0.45); mixin(o, decay(tone(0.2, t => 60 + 100 * Math.exp(-t * 40)), 0.05), 0.9); return norm(o, 0.75); },
+  cricket: () => { const o = buf(0.5); for (let k = 0; k < 3; k++) { const n = tone(0.07, 4300, 'sine', 0.004, 0.01); for (let i = 0; i < n.length; i++) n[i] *= 0.5 + 0.5 * Math.sign(Math.sin(i / SR * TAU * 55)); mixin(o, n, 1, k * 0.11); } return norm(o, 0.22); },
   chomp: () => { const o = buf(0.3); [0, 0.13].forEach(at => mixin(o, decay(lowpass(noise(0.1), 1800), 0.025), 1, at)); mixin(o, decay(tone(0.12, 110), 0.03), 0.6); return norm(o, 0.55); },
 };
 

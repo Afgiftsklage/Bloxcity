@@ -62,6 +62,7 @@ const I = Object.fromEntries(ORDER.map((id, i) => [id, i]));
 export function base(s, c) {
   const i = I[c.id];
   s.pickle.hide();
+  for (const n of ['GlassShards', 'LemonStand']) if (s.obj(n)) s.obj(n).visible = false;      // props added to the street set for later episodes
   s.obj('HouseDoorPivot').rotation.y = 0;
   if (i >= I.mywallet && i <= I.apickle) { s.obj('HouseDoorPivot').rotation.y = 1.75; pickleAtDoor(s); }
 }

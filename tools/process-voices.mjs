@@ -4,7 +4,7 @@ import fs from 'node:fs'; import path from 'node:path';
 import { SR, decode, writeWav, gatedRms, db, undb, rms } from './lib/wav.mjs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
 const script = JSON.parse(fs.readFileSync(`${dir}/script.json`));
-const TARGET_DB = -17, PEAK_DB = -3, FPS = script.fps;
+const TARGET_DB = -17, PEAK_DB = -3, FPS = script.fps, SPEED = script.speed ?? 1;     // speed: 1.5 = whole episode plays 1.5x faster, voices keep their natural pitch
 fs.mkdirSync(`${dir}/voices`, { recursive: true });
 const out = {};
 for (const line of script.lines) {
@@ -13,7 +13,7 @@ for (const line of script.lines) {
   const st = line.pitch_semitones ?? script.characters[line.speaker].pitch_semitones ?? 0;
   const pitch = Math.pow(2, st / 12);
   // high-pitched cartoon voice: pitch shift with formants shifted too (duration unchanged)
-  let x = decode(raw, `highpass=f=70,rubberband=pitch=${pitch.toFixed(5)}:formant=shifted:pitchq=quality`);
+  let x = decode(raw, `highpass=f=70,rubberband=tempo=${SPEED}:pitch=${pitch.toFixed(5)}:formant=shifted:pitchq=quality`);
   // trim leading/trailing silence (below -45 dBFS), keep 40 ms pre-roll and 120 ms tail
   const win = Math.round(SR * 0.01), thr = undb(-45); let a = 0, b = x.length;
   while (a + win < b && rms(x, a, a + win) < thr) a += win;
