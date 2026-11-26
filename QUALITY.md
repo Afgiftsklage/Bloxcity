@@ -115,3 +115,8 @@ Every episode must match these settings. The machine-readable copies live in `we
 - Cut rhythm scales with speed: 1–2 s of story = **0.67–1.33 s on screen** (target 1.0 s). Line padding 0.07 s before / 0.13 s after.
 - Target length: about 135 s of story → **~85–90 s finished** (EP03: 83.5 s, 85 shots, 31 lines).
 - Bigger plots need three acts and 4+ voices; budget roughly 65 ElevenLabs credits per line.
+
+## Music (feedback after EP03)
+- The code-synthesised music used in EP01–03 (plucked "sneak / comedy / happy / panic" loops) was judged **bad** by the owner. Do not reuse it.
+- Until a replacement is agreed: keep the synthesised **sound effects**, and decide the music approach with the owner before making the episode
+  (options: no music bed, a much simpler and quieter bed, or generated music from the ElevenLabs music model).
