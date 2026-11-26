@@ -60,7 +60,7 @@ Every episode must match these settings. The machine-readable copies live in `we
 - High-pitched cartoon voices: add `[high voice]` to kid lines **and** pitch up in post with formants shifted (rubberband):
   kids +3 to +3.5 semitones, adults +1.5; a kid "doing a monster voice" is −1.5. Duration is not changed.
 - Processing (`tools/process-voices.mjs`): 70 Hz high-pass → trim silence (−45 dBFS; keep 40 ms pre-roll, 120 ms tail)
-  → normalise every line to **−17 dBFS** (gated RMS of the spoken part, ±1 dB) → soft-limit peaks at −1 dBFS.
+  → normalise every line to **−17 dBFS** (gated RMS of the spoken part, ±1 dB) → soft-limit peaks at −3 dBFS (leaves headroom so voice + bed never clips in the final mix).
 - Word timings: `tools/transcribe.py` (faster-whisper `small.en`) aligned to the script text; also proves each take says the right words.
 
 ## 5. Music & sound effects — `tools/synth-audio.mjs`

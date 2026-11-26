@@ -4,7 +4,7 @@ import fs from 'node:fs'; import path from 'node:path';
 import { SR, decode, writeWav, gatedRms, db, undb, rms } from './lib/wav.mjs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
 const script = JSON.parse(fs.readFileSync(`${dir}/script.json`));
-const TARGET_DB = -17, PEAK_DB = -1, FPS = script.fps;
+const TARGET_DB = -17, PEAK_DB = -3, FPS = script.fps;
 fs.mkdirSync(`${dir}/voices`, { recursive: true });
 const out = {};
 for (const line of script.lines) {
