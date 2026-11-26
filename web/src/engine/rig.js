@@ -6,14 +6,16 @@ import { rad, wobble, hash } from './util.js';
 export const DIM = { LEG_H: 0.30, TORSO_H: 0.30, HEAD_R: 0.145, HEAD_H: 0.25 };   // keep in sync with blender/build_assets.py
 
 export class Character {
-  constructor(name, gltf, { scale = 1, skin = '#F7C59A' } = {}) {
+  constructor(name, gltf, { scale = 1, skin = '#F7C59A', head = null } = {}) {
     this.name = name; this.scale = scale;
+    this.headH = head ? head.h : DIM.HEAD_H; this.headR = head ? Math.max(head.w, head.h) * 0.62 : 0.16;      // head = { type:'box', w, h, d } for block-style characters
     this.group = new THREE.Group(); this.group.name = 'char_' + name; this.group.add(gltf.scene); this.group.scale.setScalar(scale);
     const g = n => gltf.scene.getObjectByName(n);
     this.root = g('Root'); this.torso = g('Torso'); this.head = g('Head');
     this.armL = g('LeftArm'); this.armR = g('RightArm'); this.legL = g('LeftLeg'); this.legR = g('RightLeg');
     this.rest = new Map(); gltf.scene.traverse(o => { this.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone() }); if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-    this.face = new Face(skin, DIM.HEAD_R, 0.022, 0.16); this.head.add(this.face.mesh);
+    this.face = head ? new Face(skin, { type: 'box', w: head.w * 0.96, d: head.d, y0: 0.012, height: head.h * 0.64 }) : new Face(skin, DIM.HEAD_R, 0.022, 0.16);
+    this.head.add(this.face.mesh);
     this.held = {}; this.seed = hash(name.length * 7.3 + name.charCodeAt(0));
     this.reset();
   }
@@ -44,11 +46,11 @@ export class Character {
   }
   sit() { return this.pose({ legL: 88, legR: 88 }); }
   expr(st) { Object.assign(this.faceState, st); return this; }
-  hold(key, obj, on = true) {               // attach a prop to the right hand
-    if (!this.held[key] && obj) { this.held[key] = obj; this.armR.add(obj); }
+  hold(key, obj, on = true, hand = 'R') {   // attach a prop to a hand (right by default)
+    if (!this.held[key] && obj) { this.held[key] = obj; (hand === 'L' ? this.armL : this.armR).add(obj); }
     if (this.held[key]) this.held[key].visible = on; return this;
   }
-  headPos(target = new THREE.Vector3()) { this.group.updateWorldMatrix(true, true); return this.head.localToWorld(target.set(0, DIM.HEAD_H * 0.5, 0)); }
+  headPos(target = new THREE.Vector3()) { this.group.updateWorldMatrix(true, true); return this.head.localToWorld(target.set(0, this.headH * 0.5, 0)); }
   facing() { return this.group.rotation.y; }
   // automatic secondary motion: breathing, blinking, talk-bob + lip sync from the voice envelope
   finish(t, level = 0) {

@@ -1,0 +1,28 @@
+{
+  "id": "ep02",
+  "title": "We found a wallet with $100",
+  "fps": 30,
+  "tts_model": "eleven_v4",
+  "characters": {
+    "bean":   { "voice_id": "TX3LPaxmHKxFdv7VOQHJ", "voice_name": "Liam",    "pitch_semitones": 3.5 },
+    "dottie": { "voice_id": "cgSgspJ2msm6clMCkdW9", "voice_name": "Jessica", "pitch_semitones": 3.0 },
+    "pickle": { "voice_id": "pqHfZKP75CvOlQylNhV4", "voice_name": "Bill",    "pitch_semitones": 1.0 }
+  },
+  "lines": [
+    { "id": "L01", "speaker": "bean",   "tts": "[excited] [high voice] I just found a wallet... with a HUNDRED dollars inside!", "caption": "I just found a wallet with a HUNDRED dollars inside!" },
+    { "id": "L02", "speaker": "dottie", "tts": "[mischievously] [high voice] Keep it! Nobody saw us.", "caption": "Keep it! Nobody saw us" },
+    { "id": "L03", "speaker": "dottie", "tts": "[excited] [high voice] We could buy ALL the candy in the world!", "caption": "We could buy ALL the candy in the world!" },
+    { "id": "L04", "speaker": "bean",   "tts": "[nervous] [high voice] But look... it belongs to Mister Pickle.", "caption": "But look it belongs to Mister Pickle" },
+    { "id": "L05", "speaker": "dottie", "tts": "[sighs] [high voice] Ugh, FINE. But I want a reward.", "caption": "Ugh FINE But I want a reward" },
+    { "id": "L06", "speaker": "pickle", "tts": "[elderly voice] [surprised] My wallet! I looked EVERYWHERE for it!", "caption": "My wallet! I looked EVERYWHERE for it!" },
+    { "id": "L07", "speaker": "pickle", "tts": "[elderly voice] [warmly] You honest kids deserve a reward.", "caption": "You honest kids deserve a reward" },
+    { "id": "L08", "speaker": "dottie", "tts": "[whispers] [excited] [high voice] Here it comes... we're gonna be RICH!", "caption": "Here it comes we're gonna be RICH!" },
+    { "id": "L09", "speaker": "dottie", "tts": "[shouting] [high voice] A PICKLE?! We gave back a hundred dollars... for a PICKLE?!", "caption": "A PICKLE?! We gave back a hundred dollars for a PICKLE?!" },
+    { "id": "L10", "speaker": "bean",   "tts": "[warmly] [high voice] It's okay. We did the right thing.", "caption": "It's okay We did the right thing" },
+    { "id": "L11", "speaker": "bean",   "tts": "[curious] [high voice] Wait... Mister Pickle owns the CANDY shop?", "caption": "Wait Mister Pickle owns the CANDY shop?" },
+    { "id": "L12", "speaker": "pickle", "tts": "[elderly voice] [happy] Honest kids eat free. FOREVER! [chuckles]", "caption": "Honest kids eat free FOREVER!" },
+    { "id": "L13", "speaker": "dottie", "tts": "[screaming] [high voice] FOREVER?!", "caption": "FOREVER?!" },
+    { "id": "L14", "speaker": "bean",   "tts": "[whispers] [high voice] She still thinks it was HER idea.", "caption": "She still thinks it was HER idea" },
+    { "id": "L15", "speaker": "dottie", "tts": "[tired] [high voice] It WAS my idea.", "caption": "It WAS my idea" }
+  ]
+}

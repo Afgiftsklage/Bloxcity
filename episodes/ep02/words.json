@@ -1,0 +1,532 @@
+{
+ "L01": [
+  {
+   "text": "I",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "just",
+   "start": 0.18,
+   "end": 0.34
+  },
+  {
+   "text": "found",
+   "start": 0.34,
+   "end": 0.6
+  },
+  {
+   "text": "a",
+   "start": 0.6,
+   "end": 0.8
+  },
+  {
+   "text": "wallet",
+   "start": 0.8,
+   "end": 1.22
+  },
+  {
+   "text": "with",
+   "start": 1.22,
+   "end": 1.76
+  },
+  {
+   "text": "a",
+   "start": 1.76,
+   "end": 1.92
+  },
+  {
+   "text": "HUNDRED",
+   "start": 1.92,
+   "end": 2.52
+  },
+  {
+   "text": "dollars",
+   "start": 2.52,
+   "end": 2.94
+  },
+  {
+   "text": "inside!",
+   "start": 2.94,
+   "end": 3.36
+  }
+ ],
+ "L02": [
+  {
+   "text": "Keep",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "it!",
+   "start": 0.3,
+   "end": 0.72
+  },
+  {
+   "text": "Nobody",
+   "start": 1.08,
+   "end": 1.34
+  },
+  {
+   "text": "saw",
+   "start": 1.34,
+   "end": 1.82
+  },
+  {
+   "text": "us",
+   "start": 1.82,
+   "end": 2.08
+  }
+ ],
+ "L03": [
+  {
+   "text": "We",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "could",
+   "start": 0.18,
+   "end": 0.34
+  },
+  {
+   "text": "buy",
+   "start": 0.34,
+   "end": 0.58
+  },
+  {
+   "text": "ALL",
+   "start": 0.58,
+   "end": 0.96
+  },
+  {
+   "text": "the",
+   "start": 0.96,
+   "end": 1.18
+  },
+  {
+   "text": "candy",
+   "start": 1.18,
+   "end": 1.46
+  },
+  {
+   "text": "in",
+   "start": 1.46,
+   "end": 1.7
+  },
+  {
+   "text": "the",
+   "start": 1.7,
+   "end": 1.84
+  },
+  {
+   "text": "world!",
+   "start": 1.84,
+   "end": 2.16
+  }
+ ],
+ "L04": [
+  {
+   "text": "But",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "look",
+   "start": 0.26,
+   "end": 0.58
+  },
+  {
+   "text": "it",
+   "start": 0.58,
+   "end": 1.42
+  },
+  {
+   "text": "belongs",
+   "start": 1.42,
+   "end": 1.72
+  },
+  {
+   "text": "to",
+   "start": 1.72,
+   "end": 1.98
+  },
+  {
+   "text": "Mister",
+   "start": 1.98,
+   "end": 2.22
+  },
+  {
+   "text": "Pickle",
+   "start": 2.22,
+   "end": 2.72
+  }
+ ],
+ "L05": [
+  {
+   "text": "Ugh",
+   "start": 0,
+   "end": 1.32
+  },
+  {
+   "text": "FINE",
+   "start": 1.32,
+   "end": 2.14
+  },
+  {
+   "text": "But",
+   "start": 2.14,
+   "end": 2.92
+  },
+  {
+   "text": "I",
+   "start": 2.92,
+   "end": 3.36
+  },
+  {
+   "text": "want",
+   "start": 3.36,
+   "end": 3.5
+  },
+  {
+   "text": "a",
+   "start": 3.5,
+   "end": 3.66
+  },
+  {
+   "text": "reward",
+   "start": 3.66,
+   "end": 3.98
+  }
+ ],
+ "L06": [
+  {
+   "text": "My",
+   "start": 0,
+   "end": 0.28
+  },
+  {
+   "text": "wallet!",
+   "start": 0.28,
+   "end": 0.84
+  },
+  {
+   "text": "I",
+   "start": 1.4,
+   "end": 1.54
+  },
+  {
+   "text": "looked",
+   "start": 1.54,
+   "end": 1.76
+  },
+  {
+   "text": "EVERYWHERE",
+   "start": 1.76,
+   "end": 2.6
+  },
+  {
+   "text": "for",
+   "start": 2.6,
+   "end": 2.9
+  },
+  {
+   "text": "it!",
+   "start": 2.9,
+   "end": 3.16
+  }
+ ],
+ "L07": [
+  {
+   "text": "You",
+   "start": 0,
+   "end": 0.34
+  },
+  {
+   "text": "honest",
+   "start": 0.34,
+   "end": 0.78
+  },
+  {
+   "text": "kids",
+   "start": 0.78,
+   "end": 1.3
+  },
+  {
+   "text": "deserve",
+   "start": 1.3,
+   "end": 1.8
+  },
+  {
+   "text": "a",
+   "start": 1.8,
+   "end": 2.06
+  },
+  {
+   "text": "reward",
+   "start": 2.06,
+   "end": 2.46
+  }
+ ],
+ "L08": [
+  {
+   "text": "Here",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "it",
+   "start": 0.2,
+   "end": 0.38
+  },
+  {
+   "text": "comes",
+   "start": 0.38,
+   "end": 0.9
+  },
+  {
+   "text": "we're",
+   "start": 0.9,
+   "end": 1.6
+  },
+  {
+   "text": "gonna",
+   "start": 1.6,
+   "end": 1.78
+  },
+  {
+   "text": "be",
+   "start": 1.78,
+   "end": 2.06
+  },
+  {
+   "text": "RICH!",
+   "start": 2.06,
+   "end": 2.5
+  }
+ ],
+ "L09": [
+  {
+   "text": "A",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "PICKLE?!",
+   "start": 0.26,
+   "end": 1.28
+  },
+  {
+   "text": "We",
+   "start": 1.28,
+   "end": 1.58
+  },
+  {
+   "text": "gave",
+   "start": 1.58,
+   "end": 1.76
+  },
+  {
+   "text": "back",
+   "start": 1.76,
+   "end": 2.0
+  },
+  {
+   "text": "a",
+   "start": 2.0,
+   "end": 2.18
+  },
+  {
+   "text": "hundred",
+   "start": 2.18,
+   "end": 2.54
+  },
+  {
+   "text": "dollars",
+   "start": 2.54,
+   "end": 3.04
+  },
+  {
+   "text": "for",
+   "start": 3.04,
+   "end": 3.6
+  },
+  {
+   "text": "a",
+   "start": 3.6,
+   "end": 3.8
+  },
+  {
+   "text": "PICKLE?!",
+   "start": 3.8,
+   "end": 4.52
+  }
+ ],
+ "L10": [
+  {
+   "text": "It's",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "okay",
+   "start": 0.22,
+   "end": 0.58
+  },
+  {
+   "text": "We",
+   "start": 0.58,
+   "end": 1.3
+  },
+  {
+   "text": "did",
+   "start": 1.3,
+   "end": 1.46
+  },
+  {
+   "text": "the",
+   "start": 1.46,
+   "end": 1.62
+  },
+  {
+   "text": "right",
+   "start": 1.62,
+   "end": 1.82
+  },
+  {
+   "text": "thing",
+   "start": 1.82,
+   "end": 2.18
+  }
+ ],
+ "L11": [
+  {
+   "text": "Wait",
+   "start": 0,
+   "end": 0.5
+  },
+  {
+   "text": "Mister",
+   "start": 1.44,
+   "end": 1.52
+  },
+  {
+   "text": "Pickle",
+   "start": 1.44,
+   "end": 1.94
+  },
+  {
+   "text": "owns",
+   "start": 1.94,
+   "end": 2.14
+  },
+  {
+   "text": "the",
+   "start": 2.14,
+   "end": 2.38
+  },
+  {
+   "text": "CANDY",
+   "start": 2.38,
+   "end": 2.86
+  },
+  {
+   "text": "shop?",
+   "start": 2.86,
+   "end": 3.04
+  }
+ ],
+ "L12": [
+  {
+   "text": "Honest",
+   "start": 0,
+   "end": 0.42
+  },
+  {
+   "text": "kids",
+   "start": 0.42,
+   "end": 0.72
+  },
+  {
+   "text": "eat",
+   "start": 0.72,
+   "end": 1.02
+  },
+  {
+   "text": "free",
+   "start": 1.02,
+   "end": 1.46
+  },
+  {
+   "text": "FOREVER!",
+   "start": 1.46,
+   "end": 2.54
+  }
+ ],
+ "L13": [
+  {
+   "text": "FOREVER?!",
+   "start": 0,
+   "end": 2.0
+  }
+ ],
+ "L14": [
+  {
+   "text": "She",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "still",
+   "start": 0.26,
+   "end": 0.6
+  },
+  {
+   "text": "thinks",
+   "start": 0.6,
+   "end": 0.88
+  },
+  {
+   "text": "it",
+   "start": 0.88,
+   "end": 1.12
+  },
+  {
+   "text": "was",
+   "start": 1.12,
+   "end": 1.32
+  },
+  {
+   "text": "HER",
+   "start": 1.32,
+   "end": 1.68
+  },
+  {
+   "text": "idea",
+   "start": 1.68,
+   "end": 2.16
+  }
+ ],
+ "L15": [
+  {
+   "text": "It",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "WAS",
+   "start": 0.22,
+   "end": 0.4
+  },
+  {
+   "text": "my",
+   "start": 0.4,
+   "end": 0.72
+  },
+  {
+   "text": "idea",
+   "start": 0.72,
+   "end": 1.14
+  }
+ ]
+}

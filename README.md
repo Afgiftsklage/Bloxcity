@@ -5,7 +5,9 @@ Blender (headless) → Three.js → ElevenLabs voices → synthesised music/SFX 
 House style and every quality setting: see [QUALITY.md](QUALITY.md).
 
 ```
-blender/build_assets.py     characters (pivot rig), props, cozy room  -> web/public/models/*.glb
+blender/build_assets.py     EP01: toy-style characters + cozy room        -> web/public/models/*.glb
+blender/build_ep02.py       block-style characters + street set (park, house, candy shop, candy fantasy)
+blender/bt.py               shared Blender helpers
 web/                        Three.js renderer (Vite): rig, canvas faces, camera, lights, post stack
 episodes/ep01/              script.json, shots.js (blocking + cameras), voices, timeline, audio, frames, out/
 tools/                      fetch-assets, process-voices, transcribe, retime, synth-audio, check-mix, render-frames, render-video
@@ -20,7 +22,7 @@ Needs Node 20+, Python 3.10+, ffmpeg (with rubberband) and Blender 4.2+ on the P
 
 ## Make an episode
 ```bash
-npm run assets                 # only when models change
+npm run assets                 # only when models change (EP02 set: blender -b --python blender/build_ep02.py)
 npm run voices -- ep01         # after the raw ElevenLabs takes are in episodes/ep01/voices_raw/
 npm run captions -- ep01
 npm run retime -- ep01

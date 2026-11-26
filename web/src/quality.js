@@ -16,5 +16,14 @@ export const QUALITY = {
   bloom: { strength: 0.32, radius: 0.65, threshold: 0.92 },
   grade: { warmth: 0.06, saturation: 1.12, contrast: 1.06, lift: 0.012, vignette: 0.42, vignetteSoftness: 0.62 },
   camera: { fov: 38, onDistScale: 1.55, near: 0.05, far: 40, dollyPush: 0.07, driftPos: 0.012, driftRot: 0.35, punchIn: 0.84 },
+  // daylight exterior preset (EP02+). Episodes pick a preset with `set.lighting`.
+  day: {
+    exposure: 0.92,
+    hdri: { file: 'hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr', intensity: 0.7, background: 0.85, rotation: 2.2 },
+    sun:  { color: '#fff0d4', intensity: 3.3, offset: [5, 10, 8], shadowHalf: 5.5, mapSize: 4096 },      // warm key: the sun, from the camera side
+    rim:  { color: '#cfe2ff', intensity: 1.5, offset: [-5, 6, -9] },                                      // cool sky rim from behind
+    hemi: { sky: '#bcd9ff', ground: '#86a865', intensity: 0.55 },
+    bloom: { strength: 0.22, radius: 0.6, threshold: 0.95 },
+  },
   tints: { wall: '#9fc3c9', blanket: { color: '#8c7ae6', noMap: true }, duvet: '#8fc0ee', rug: '#f0a184', couch: '#ffd58a', wood: '#ffe9d2', floor: '#ffeedd' },
 };

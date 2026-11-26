@@ -57,6 +57,9 @@ const SFX = {
   creak: () => { const o = tone(0.55, t => 170 + 150 * t + 25 * Math.sin(t * 43), 'saw', 0.03, 0.12); for (let i = 0; i < o.length; i++) o[i] *= 0.5 + 0.5 * Math.sign(Math.sin(i / SR * TAU * (38 + 30 * i / o.length))); bandpass(o, 1100, 3, 1700); return norm(o, 0.35); },
   scratch: () => { const o = noise(0.32, 0.005, 0.03); let lo = 0, bp = 0; for (let i = 0; i < o.length; i++) { const t = i / o.length, f = 2 * Math.sin(Math.PI * (700 + 2600 * Math.abs(Math.sin(t * Math.PI * 1.5))) / SR), hi = o[i] - lo - bp / 4; bp += f * hi; lo += f * bp; o[i] = bp * (1 - t); } return norm(o, 0.5); },
   squeak: () => norm(tone(0.16, t => 1700 + 1100 * Math.sin(t / 0.16 * Math.PI), 'sine', 0.01, 0.04), 0.3),
+  kaching: () => { const o = buf(0.9); mixin(o, decay(bandpass(noise(0.08), 4200, 5), 0.02), 0.6); [[2093, 0.07], [2637, 0.07], [3136, 0.16], [4186, 0.16]].forEach(([f, at]) => mixin(o, decay(tone(0.7, f), 0.16), 0.5, at)); return norm(o, 0.42); },
+  knock: () => norm(mixin(decay(tone(0.12, t => 150 + 120 * Math.exp(-t * 60)), 0.03), decay(bandpass(noise(0.06), 900, 3), 0.012), 0.7), 0.7),
+  doorslam: () => { const o = decay(tone(0.4, t => 55 + 90 * Math.exp(-t * 40)), 0.09); mixin(o, decay(lowpass(noise(0.25), 1400), 0.04), 0.9); mixin(o, decay(bandpass(noise(0.05), 2600, 4), 0.006), 0.5, 0.03); return norm(o, 0.8); },
   chomp: () => { const o = buf(0.3); [0, 0.13].forEach(at => mixin(o, decay(lowpass(noise(0.1), 1800), 0.025), 1, at)); mixin(o, decay(tone(0.12, 110), 0.03), 0.6); return norm(o, 0.55); },
 };
 
@@ -64,6 +67,7 @@ const SFX = {
 const music = [new Float32Array(N), new Float32Array(N)], sfx = [new Float32Array(N), new Float32Array(N)];
 const put = (bus, x, t, gain = 1, pan = 0) => { const o = Math.round(t * SR), gl = gain * Math.cos((pan + 1) * Math.PI / 4), gr = gain * Math.sin((pan + 1) * Math.PI / 4); for (let i = 0; i < x.length && i + o < N; i++) { if (i + o < 0) continue; bus[0][i + o] += x[i] * gl * 1.414; bus[1][i + o] += x[i] * gr * 1.414; } };
 const sections = tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.duration }));
+const sin2 = i => Math.sin(i * 1.7) * 0.4;
 const shaker = () => norm(decay(highpass(noise(0.05), 5000), 0.012), 0.2);
 const block = f => norm(decay(bandpass(noise(0.06), f, 8), 0.012), 0.5);
 for (const s of sections) {
@@ -83,6 +87,15 @@ for (const s of sections) {
     for (let i = 0; i * b < len; i++) { note(bass[i % 8], i * b, 0.4, 0.5, -0.1, 0.4); put(music, block(i % 2 ? 2100 : 1500), s.t + i * b + b / 2, 0.22, 0.35);
       if (i % 2) { note(64, i * b, 0.2, 0.2, 0.2); note(67, i * b, 0.2, 0.2, 0.2); } }
     for (let i = 0; i * b / 2 < len; i++) { const m = mel[(i >> 1) % 16]; if (m && i % 2 === 0) note(m, i * b / 2, 0.32, 0.3, 0.2, 0.85); }
+  } else if (s.name === 'happy') {                // sunny day: light skipping tune in G major, 120 bpm
+    const b = 60 / 120, bass = [43, 50, 47, 50, 48, 55, 50, 54], mel = [79, 83, 86, 83, 81, 79, 78, null, 76, 79, 83, 79, 81, 83, 86, null];
+    for (let i = 0; i * b < len; i++) { note(bass[i % 8], i * b, 0.4, 0.46, -0.1, 0.4); put(music, shaker(), s.t + i * b + b / 2, 0.45, 0.3); if (i % 2) { note(62, i * b, 0.18, 0.16, 0.25); note(67, i * b, 0.18, 0.16, 0.25); } }
+    for (let i = 0; i * b / 2 < len; i++) { const m = mel[i % 16]; if (m) note(m, i * b / 2, 0.35, 0.27, 0.2, 0.85); }
+  } else if (s.name === 'dream') {                // candy daydream: music-box arpeggios + bell shimmer
+    const b = 60 / 150, arp = [72, 76, 79, 84, 88, 84, 79, 76, 74, 77, 81, 86, 89, 86, 81, 77];
+    for (let i = 0; i * b / 2 < len; i++) { note(arp[i % 16] + 12, i * b / 2, 0.6, 0.24, sin2(i), 0.95); if (i % 4 === 0) note(arp[i % 16] - 24, i * b / 2, 0.8, 0.4, 0, 0.4); }
+  } else if (s.name === 'drumroll') {             // snare roll that stops dead for the reveal
+    const roll = Math.min(len, 1.2); for (let t = 0; t < roll; t += 0.035) put(music, norm(decay(bandpass(noise(0.05), 1900, 1.2), 0.012), 0.5), s.t + t, 0.35 + 0.5 * t / roll, 0);
   } else if (s.name === 'panic') {                // frantic chromatic gallop
     const b = 60 / 176; for (let i = 0; i * b / 2 < len; i++) { note(72 + [0, 1, 3, 4, 6, 7, 9, 10, 12, 10, 9, 7, 6, 4, 3, 1][i % 16], i * b / 2, 0.14, 0.32, (i % 2) * 0.5 - 0.25, 0.9);
       if (i % 2 === 0) note(i % 4 ? 43 : 36, i * b / 2, 0.2, 0.5, 0, 0.4); put(music, shaker(), s.t + i * b / 2, 0.55, 0.3); }

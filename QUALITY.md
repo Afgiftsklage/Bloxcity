@@ -88,3 +88,22 @@ Every episode must match these settings. The machine-readable copies live in `we
 6. **Frames** → `npm run frames -- <ep>`.
 7. **Video** → `npm run video -- <ep>` → `episodes/<ep>/out/<ep>.mp4`.
 8. **Final check** → still frames across the video (captions, framing) + the mix check, then deliver the MP4.
+
+## Character styles
+- **v1 "toy"** (EP01): cylinder head, wrapped face decal, 3-segment soft bevels. Models `char_*.glb`, built by `blender/build_assets.py`.
+- **v2 "block"** (EP02 onward, the default): box head 0.25 × 0.22 × 0.22 m, torso 0.30 × 0.30 × 0.15, arms 0.12 square, legs 0.147 × 0.15, 9 mm bevels,
+  flat face decal on the front of the head. Models `char2_*.glb`, built by `blender/build_ep02.py`. Same pivot rig and pose API.
+  In `shots.js`: `{ model: 'char2_bean', scale, skin, head: { type: 'box', w: 0.25, h: 0.22, d: 0.22 } }`.
+- Original designs only: no third-party names, logos, faces or assets.
+
+## Sets and lighting presets
+- An episode picks its set in `shots.js`: `export const set = { model, lighting, noCast, bounds, lights, materials }`.
+- `lighting: 'night'` (default, EP01 cozy room): values in sections 3 above.
+- `lighting: 'day'` (EP02 street): Poly Haven `kloofendal_48d_partly_cloudy_puresky` 2k as environment (0.7) **and** visible sky (0.85);
+  sun key `#fff0d4` 3.3 from the camera side with a 4096² shadow map that follows the focus point; cool sky rim `#cfe2ff` 1.5 from behind;
+  hemisphere 0.55; exposure 0.92; bloom 0.22 / threshold 0.95. Everything else (ACES, GTAO, DOF, grade, vignette) is unchanged.
+- One set can hold several locations (EP02: park, house door, candy shop, candy fantasy along one street); cut between them with hard cuts.
+- Multi-location stories run 60–90 s; keep the same cut rhythm (1–2 s).
+
+## Deliverables
+- Final MP4s are sent to the user and are **not** committed (GitHub's 100 MB file limit); frames are never committed.

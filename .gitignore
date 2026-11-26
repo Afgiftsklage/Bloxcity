@@ -5,3 +5,5 @@ episodes/*/render.log
 blender/*.blend1
 *.pyc
 test.png
+episodes/*/out/*.mp4
+episodes/*/video.log

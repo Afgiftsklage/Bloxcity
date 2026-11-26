@@ -26,14 +26,17 @@ const BROWS = {
 };
 
 export class Face {
+  // cylinder head: new Face(skin, headR, y0, height)      box head: new Face(skin, { type: 'box', w, d, y0, height })
   constructor(skin, headR, y0, height, arc = 62) {
-    this.skin = skin;
-    this.canvas = document.createElement('canvas'); this.canvas.width = FACE_W; this.canvas.height = FACE_H;
+    const flat = typeof headR === 'object' ? headR : null;
+    this.skin = skin; this.H = flat ? Math.round(FACE_W * flat.height / flat.w) : FACE_H;
+    this.canvas = document.createElement('canvas'); this.canvas.width = FACE_W; this.canvas.height = this.H;
     this.ctx = this.canvas.getContext('2d');
     this.tex = new THREE.CanvasTexture(this.canvas); this.tex.colorSpace = THREE.SRGBColorSpace; this.tex.anisotropy = 8;
-    const a = arc * Math.PI / 180;
-    const geo = new THREE.CylinderGeometry(headR + 0.0025, headR + 0.0025, height, 48, 1, true, -a, 2 * a);
-    const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, 1 - uv.getX(i));   // un-mirror
+    let geo;
+    if (flat) { geo = new THREE.PlaneGeometry(flat.w, flat.height); geo.translate(0, 0, flat.d / 2 + 0.0018); y0 = flat.y0; height = flat.height; }
+    else { const a = arc * Math.PI / 180; geo = new THREE.CylinderGeometry(headR + 0.0025, headR + 0.0025, height, 48, 1, true, -a, 2 * a);
+      const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, 1 - uv.getX(i)); }   // un-mirror
     this.mat = new THREE.MeshStandardMaterial({ map: this.tex, transparent: true, roughness: 0.6, metalness: 0, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 });
     this.mesh = new THREE.Mesh(geo, this.mat); this.mesh.position.y = y0 + height / 2; this.mesh.renderOrder = 2; this.mesh.name = 'FaceDecal';
     this.key = ''; this.state = {};
@@ -49,8 +52,8 @@ export class Face {
   }
   draw(s) {
     const c = this.ctx, cx = FACE_W / 2;
-    c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, FACE_W, FACE_H);
-    c.translate(cx, 270); c.scale(1.22, 1.22); c.translate(-cx, -270);      // big, readable features
+    c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, FACE_W, this.H);
+    c.translate(0, (this.H - FACE_H) / 2); c.translate(cx, 270); c.scale(1.22, 1.22); c.translate(-cx, -270);      // big, readable features
     c.lineCap = 'round'; c.lineJoin = 'round';
     const eyeY = 205, dx = 128, ew = 54, eh = 70;
     if (s.blush > 0) for (const sx of [-1, 1]) {
