@@ -1,0 +1,29 @@
+{
+  "id": "ep01",
+  "title": "NEVER touch the cake at 3 AM",
+  "fps": 30,
+  "tts_model": "eleven_v4",
+  "characters": {
+    "bean":   { "voice_id": "TX3LPaxmHKxFdv7VOQHJ", "voice_name": "Liam",    "pitch_semitones": 3.5 },
+    "dottie": { "voice_id": "cgSgspJ2msm6clMCkdW9", "voice_name": "Jessica", "pitch_semitones": 3.0 },
+    "mom":    { "voice_id": "EXAVITQu4vr4xnSDxMaL", "voice_name": "Sarah",   "pitch_semitones": 1.5 }
+  },
+  "lines": [
+    { "id": "L01", "speaker": "bean",   "tts": "[whispers] [high voice] My sister says... NEVER touch the cake at 3 AM.", "caption": "My sister says NEVER touch the cake at 3 AM" },
+    { "id": "L02", "speaker": "bean",   "tts": "[whispers] [nervous] [high voice] She says a MONSTER guards it.", "caption": "She says a MONSTER guards it" },
+    { "id": "L03", "speaker": "bean",   "tts": "[mischievously] [high voice] But I'm SO hungry.", "caption": "But I'm SO hungry" },
+    { "id": "L04", "speaker": "bean",   "tts": "[whispers] [high voice] Just one... tiny... bite.", "caption": "Just one tiny bite" },
+    { "id": "L05", "speaker": "dottie", "as": "monster", "pitch_semitones": -1.5, "tts": "[deep voice] [dramatically] WHO... DARES... touch my cake?", "caption": "WHO DARES touch my cake?" },
+    { "id": "L06", "speaker": "bean",   "tts": "[screaming] [high voice] AAAH! The blanket is ALIVE!", "caption": "AAAH! The blanket is ALIVE!" },
+    { "id": "L07", "speaker": "bean",   "tts": "[trembling voice] [high voice] Please, mister monster... don't eat me!", "caption": "Please mister monster don't eat me!" },
+    { "id": "L08", "speaker": "dottie", "as": "monster", "pitch_semitones": -1.5, "tts": "[deep voice] Leave the cake... and go to BED. [giggles]", "caption": "Leave the cake and go to BED" },
+    { "id": "L09", "speaker": "bean",   "tts": "[curious] [high voice] Wait... why does the monster sound like DOTTIE?", "caption": "Wait why does the monster sound like DOTTIE?" },
+    { "id": "L10", "speaker": "dottie", "tts": "[nervous] [high voice] Uh... hi! I'm the... cake inspector?", "caption": "Uh hi! I'm the cake inspector?" },
+    { "id": "L11", "speaker": "bean",   "tts": "[shouting] [high voice] DOTTIE! You ate HALF the cake!", "caption": "DOTTIE! You ate HALF the cake!" },
+    { "id": "L12", "speaker": "dottie", "tts": "[whispers] [high voice] Shh! Okay, okay. You get a slice... if you don't tell Mom.", "caption": "Shh! Okay okay You get a slice if you don't tell Mom" },
+    { "id": "L13", "speaker": "bean",   "tts": "[happy] [high voice] Deal!", "caption": "Deal!" },
+    { "id": "L14", "speaker": "mom",    "tts": "[calm] [sarcastic] Tell Mom... WHAT?", "caption": "Tell Mom WHAT?" },
+    { "id": "L15", "speaker": "bean",   "tts": "[screaming] [high voice] AAAAAH!", "caption": "AAAAAH!" },
+    { "id": "L16", "speaker": "dottie", "tts": "[screaming] [high voice] RUN!", "caption": "AAAH! RUN!" }
+  ]
+}

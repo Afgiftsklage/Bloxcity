@@ -1,0 +1,464 @@
+{
+ "L01": [
+  {
+   "text": "My",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "sister",
+   "start": 0.18,
+   "end": 0.56
+  },
+  {
+   "text": "says",
+   "start": 0.56,
+   "end": 1.06
+  },
+  {
+   "text": "NEVER",
+   "start": 1.06,
+   "end": 2.06
+  },
+  {
+   "text": "touch",
+   "start": 2.06,
+   "end": 2.44
+  },
+  {
+   "text": "the",
+   "start": 2.44,
+   "end": 2.68
+  },
+  {
+   "text": "cake",
+   "start": 2.68,
+   "end": 2.92
+  },
+  {
+   "text": "at",
+   "start": 2.92,
+   "end": 3.18
+  },
+  {
+   "text": "3",
+   "start": 3.18,
+   "end": 3.52
+  },
+  {
+   "text": "AM",
+   "start": 3.52,
+   "end": 3.74
+  }
+ ],
+ "L02": [
+  {
+   "text": "She",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "says",
+   "start": 0.3,
+   "end": 0.6
+  },
+  {
+   "text": "a",
+   "start": 0.6,
+   "end": 0.9
+  },
+  {
+   "text": "MONSTER",
+   "start": 0.9,
+   "end": 1.46
+  },
+  {
+   "text": "guards",
+   "start": 1.46,
+   "end": 1.76
+  },
+  {
+   "text": "it",
+   "start": 1.76,
+   "end": 2.12
+  }
+ ],
+ "L03": [
+  {
+   "text": "But",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "text": "I'm",
+   "start": 0.16,
+   "end": 0.42
+  },
+  {
+   "text": "SO",
+   "start": 0.42,
+   "end": 0.92
+  },
+  {
+   "text": "hungry",
+   "start": 0.92,
+   "end": 1.4
+  }
+ ],
+ "L04": [
+  {
+   "text": "Just",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "one",
+   "start": 0.3,
+   "end": 0.86
+  },
+  {
+   "text": "tiny",
+   "start": 0.86,
+   "end": 1.76
+  },
+  {
+   "text": "bite",
+   "start": 1.76,
+   "end": 2.46
+  }
+ ],
+ "L05": [
+  {
+   "text": "WHO",
+   "start": 0,
+   "end": 0.44
+  },
+  {
+   "text": "DARES",
+   "start": 0.44,
+   "end": 1.74
+  },
+  {
+   "text": "touch",
+   "start": 1.74,
+   "end": 2.42
+  },
+  {
+   "text": "my",
+   "start": 2.42,
+   "end": 2.8
+  },
+  {
+   "text": "cake?",
+   "start": 2.8,
+   "end": 3.22
+  }
+ ],
+ "L06": [
+  {
+   "text": "AAAH!",
+   "start": 0,
+   "end": 1.62
+  },
+  {
+   "text": "The",
+   "start": 1.82,
+   "end": 2.06
+  },
+  {
+   "text": "blanket",
+   "start": 2.06,
+   "end": 2.34
+  },
+  {
+   "text": "is",
+   "start": 2.34,
+   "end": 2.58
+  },
+  {
+   "text": "ALIVE!",
+   "start": 2.58,
+   "end": 3.04
+  }
+ ],
+ "L07": [
+  {
+   "text": "Please",
+   "start": 0,
+   "end": 0.46
+  },
+  {
+   "text": "mister",
+   "start": 0.46,
+   "end": 1.06
+  },
+  {
+   "text": "monster",
+   "start": 1.06,
+   "end": 1.48
+  },
+  {
+   "text": "don't",
+   "start": 1.48,
+   "end": 2.34
+  },
+  {
+   "text": "eat",
+   "start": 2.34,
+   "end": 2.48
+  },
+  {
+   "text": "me!",
+   "start": 2.48,
+   "end": 2.78
+  }
+ ],
+ "L08": [
+  {
+   "text": "Leave",
+   "start": 0,
+   "end": 0.36
+  },
+  {
+   "text": "the",
+   "start": 0.36,
+   "end": 0.56
+  },
+  {
+   "text": "cake",
+   "start": 0.56,
+   "end": 0.96
+  },
+  {
+   "text": "and",
+   "start": 0.96,
+   "end": 1.64
+  },
+  {
+   "text": "go",
+   "start": 1.64,
+   "end": 2.0
+  },
+  {
+   "text": "to",
+   "start": 2.0,
+   "end": 2.16
+  },
+  {
+   "text": "BED",
+   "start": 2.16,
+   "end": 2.72
+  }
+ ],
+ "L09": [
+  {
+   "text": "Wait",
+   "start": 0,
+   "end": 0.44
+  },
+  {
+   "text": "why",
+   "start": 0.44,
+   "end": 1.24
+  },
+  {
+   "text": "does",
+   "start": 1.24,
+   "end": 1.38
+  },
+  {
+   "text": "the",
+   "start": 1.38,
+   "end": 1.54
+  },
+  {
+   "text": "monster",
+   "start": 1.54,
+   "end": 1.9
+  },
+  {
+   "text": "sound",
+   "start": 1.9,
+   "end": 2.26
+  },
+  {
+   "text": "like",
+   "start": 2.26,
+   "end": 2.44
+  },
+  {
+   "text": "DOTTIE?",
+   "start": 2.44,
+   "end": 2.96
+  }
+ ],
+ "L10": [
+  {
+   "text": "Uh",
+   "start": 0,
+   "end": 0.44
+  },
+  {
+   "text": "hi!",
+   "start": 0.84,
+   "end": 1.26
+  },
+  {
+   "text": "I'm",
+   "start": 1.8,
+   "end": 2.1
+  },
+  {
+   "text": "the",
+   "start": 2.1,
+   "end": 2.4
+  },
+  {
+   "text": "cake",
+   "start": 2.4,
+   "end": 3.02
+  },
+  {
+   "text": "inspector?",
+   "start": 3.02,
+   "end": 3.5
+  }
+ ],
+ "L11": [
+  {
+   "text": "DOTTIE!",
+   "start": 0,
+   "end": 0.66
+  },
+  {
+   "text": "You",
+   "start": 0.98,
+   "end": 1.14
+  },
+  {
+   "text": "ate",
+   "start": 1.14,
+   "end": 1.34
+  },
+  {
+   "text": "HALF",
+   "start": 1.34,
+   "end": 1.82
+  },
+  {
+   "text": "the",
+   "start": 1.82,
+   "end": 1.98
+  },
+  {
+   "text": "cake!",
+   "start": 1.98,
+   "end": 2.26
+  }
+ ],
+ "L12": [
+  {
+   "text": "Shh!",
+   "start": 0,
+   "end": 0.74
+  },
+  {
+   "text": "Okay",
+   "start": 0.88,
+   "end": 1.14
+  },
+  {
+   "text": "okay",
+   "start": 1.14,
+   "end": 1.56
+  },
+  {
+   "text": "You",
+   "start": 1.56,
+   "end": 2.24
+  },
+  {
+   "text": "get",
+   "start": 2.24,
+   "end": 2.42
+  },
+  {
+   "text": "a",
+   "start": 2.42,
+   "end": 2.58
+  },
+  {
+   "text": "slice",
+   "start": 2.58,
+   "end": 2.96
+  },
+  {
+   "text": "if",
+   "start": 2.96,
+   "end": 3.68
+  },
+  {
+   "text": "you",
+   "start": 3.68,
+   "end": 3.88
+  },
+  {
+   "text": "don't",
+   "start": 3.88,
+   "end": 4.34
+  },
+  {
+   "text": "tell",
+   "start": 4.34,
+   "end": 4.62
+  },
+  {
+   "text": "Mom",
+   "start": 4.62,
+   "end": 4.88
+  }
+ ],
+ "L13": [
+  {
+   "text": "Deal!",
+   "start": 0,
+   "end": 0.38
+  }
+ ],
+ "L14": [
+  {
+   "text": "Tell",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "Mom",
+   "start": 0.32,
+   "end": 0.78
+  },
+  {
+   "text": "WHAT?",
+   "start": 0.78,
+   "end": 1.7
+  }
+ ],
+ "L15": [
+  {
+   "text": "AAAAAH!",
+   "start": 0,
+   "end": 0.9
+  }
+ ],
+ "L16": [
+  {
+   "text": "AAAH!",
+   "start": 0,
+   "end": 0.76
+  },
+  {
+   "text": "RUN!",
+   "start": 1.0,
+   "end": 1.44
+  }
+ ]
+}

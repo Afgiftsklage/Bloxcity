@@ -1,0 +1,7 @@
+node_modules/
+episodes/*/frames/
+episodes/*/contact/
+episodes/*/render.log
+blender/*.blend1
+*.pyc
+test.png
