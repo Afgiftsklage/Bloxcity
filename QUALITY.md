@@ -107,3 +107,11 @@ Every episode must match these settings. The machine-readable copies live in `we
 
 ## Deliverables
 - Final MP4s are sent to the user and are **not** committed (GitHub's 100 MB file limit); frames are never committed.
+
+## Speed and voices (EP03 onward)
+- **Voices at natural pitch** (`pitch_semitones: 0`, no `[high voice]` tag). EP01–02 used pitched-up voices; that style is retired.
+- **1.5× episodes**: `"speed": 1.5` in `script.json`. Voices are time-stretched 1.5× with pitch preserved (rubberband `tempo=1.5`);
+  everything else is authored in final on-screen time, so music, effects and animation are composed at the fast pace rather than sped up afterwards.
+- Cut rhythm scales with speed: 1–2 s of story = **0.67–1.33 s on screen** (target 1.0 s). Line padding 0.07 s before / 0.13 s after.
+- Target length: about 135 s of story → **~85–90 s finished** (EP03: 83.5 s, 85 shots, 31 lines).
+- Bigger plots need three acts and 4+ voices; budget roughly 65 ElevenLabs credits per line.
