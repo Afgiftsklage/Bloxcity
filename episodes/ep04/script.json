@@ -1,0 +1,132 @@
+{
+  "id": "ep04",
+  "title": "NEVER catch the Tooth Fairy at 3 AM",
+  "fps": 30,
+  "tts_model": "eleven_v4",
+  "style_note": "Built in the EP01 style (toy characters, cozy room at night, pitched-up voices, normal speed) because EP01 is the channel's best performer.",
+  "characters": {
+    "bean": {
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam",
+      "pitch_semitones": 3.5
+    },
+    "dottie": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "voice_name": "Jessica",
+      "pitch_semitones": 3.0
+    },
+    "mom": {
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "voice_name": "Sarah",
+      "pitch_semitones": 1.5
+    }
+  },
+  "music": {
+    "file": "audio/music_src.mp3",
+    "source": "ElevenLabs music (eleven_music_v2_5), generated for this episode",
+    "cues": {
+      "sneak": 0,
+      "comedy": 24,
+      "panic": {
+        "endAt": 58.6
+      },
+      "button": "continue"
+    }
+  },
+  "lines": [
+    {
+      "id": "L01",
+      "speaker": "bean",
+      "tts": "[whispers] [high voice] My tooth fell out... so tonight, I'm catching the TOOTH FAIRY.",
+      "caption": "My tooth fell out so tonight I'm catching the TOOTH FAIRY"
+    },
+    {
+      "id": "L02",
+      "speaker": "bean",
+      "tts": "[whispers] [mischievously] [high voice] Tooth under the pillow... flashlight ready.",
+      "caption": "Tooth under the pillow flashlight ready"
+    },
+    {
+      "id": "L03",
+      "speaker": "bean",
+      "tts": "[whispers] [high voice] Shh... pretend to sleep.",
+      "caption": "Shh pretend to sleep"
+    },
+    {
+      "id": "L04",
+      "speaker": "dottie",
+      "as": "fairy",
+      "pitch_semitones": 4.5,
+      "tts": "[whispers] [sing-song] [high voice] Tooth Fairy... coming throoough...",
+      "caption": "Tooth Fairy coming through"
+    },
+    {
+      "id": "L05",
+      "speaker": "bean",
+      "tts": "[excited whisper] [high voice] She's REAL! Miss Fairy... can I see your wings?",
+      "caption": "She's REAL! Miss Fairy can I see your wings?"
+    },
+    {
+      "id": "L06",
+      "speaker": "dottie",
+      "as": "fairy",
+      "pitch_semitones": 4.5,
+      "tts": "[nervous] [high voice] Uh... they're invisible wings. Very rare.",
+      "caption": "Uh they're invisible wings Very rare"
+    },
+    {
+      "id": "L07",
+      "speaker": "bean",
+      "tts": "[curious] [high voice] Wait... why is the fairy wearing DOTTIE'S pajamas?",
+      "caption": "Wait why is the fairy wearing DOTTIE'S pajamas?"
+    },
+    {
+      "id": "L08",
+      "speaker": "dottie",
+      "tts": "[nervous] [high voice] Uh... hi! I'm the fairy's... assistant?",
+      "caption": "Uh hi! I'm the fairy's assistant?"
+    },
+    {
+      "id": "L09",
+      "speaker": "bean",
+      "tts": "[shouting] [high voice] DOTTIE! You're stealing my TOOTH!",
+      "caption": "DOTTIE! You're stealing my TOOTH!"
+    },
+    {
+      "id": "L10",
+      "speaker": "dottie",
+      "tts": "[whispers] [high voice] Shh! Mom pays me a dollar for every tooth.",
+      "caption": "Shh! Mom pays me a dollar for every tooth"
+    },
+    {
+      "id": "L11",
+      "speaker": "bean",
+      "tts": "[gasps] [greedy] [high voice] A dollar? I have TWENTY teeth!",
+      "caption": "A dollar? I have TWENTY teeth!"
+    },
+    {
+      "id": "L12",
+      "speaker": "dottie",
+      "tts": "[excited] [high voice] We're gonna be RICH!",
+      "caption": "We're gonna be RICH!"
+    },
+    {
+      "id": "L13",
+      "speaker": "mom",
+      "tts": "[calm] [sarcastic] Rich from... WHAT?",
+      "caption": "Rich from WHAT?"
+    },
+    {
+      "id": "L14",
+      "speaker": "bean",
+      "tts": "[screaming] [high voice] AAAAAH!",
+      "caption": "AAAAAH!"
+    },
+    {
+      "id": "L15",
+      "speaker": "dottie",
+      "tts": "[screaming] [high voice] RUN!",
+      "caption": "AAAH! RUN!"
+    }
+  ]
+}

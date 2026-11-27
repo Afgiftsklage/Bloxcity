@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import { SR, decode, writeWav, rms, db, undb } from './lib/wav.mjs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
-const tl = JSON.parse(fs.readFileSync(`${dir}/timeline.json`));
+const tl = JSON.parse(fs.readFileSync(`${dir}/timeline.json`)), script = JSON.parse(fs.readFileSync(`${dir}/script.json`));
 const N = Math.ceil(tl.duration * SR), TAU = Math.PI * 2;
 const MARGIN_DB = 6, DUCK_TARGET_DB = 9;        // spec: >= 6 dB; we aim for 9 dB so there is headroom
 
@@ -72,7 +72,7 @@ const sections = tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.d
 const sin2 = i => Math.sin(i * 1.7) * 0.4;
 const shaker = () => norm(decay(highpass(noise(0.05), 5000), 0.012), 0.2);
 const block = f => norm(decay(bandpass(noise(0.06), f, 8), 0.012), 0.5);
-for (const s of sections) {
+if (!script.music?.file) for (const s of sections) {
   const len = s.end - s.t, tail = Math.round(s.end * SR), start = [music[0].slice(), music[1].slice()];
   const note = (m, t, dur, g, pan = 0, bright = 0.6) => { if (t < len - 0.02) put(music, pluck(mtof(m), dur, bright), s.t + t, g, pan); };
   if (s.name === 'sneak') {                       // tiptoe pizzicato in A minor, 104 bpm
@@ -109,9 +109,33 @@ for (const s of sections) {
   const fade = Math.round(0.07 * SR);
   for (const c of [0, 1]) { for (let i = tail - fade; i < N; i++) { if (i < 0) continue; const k = i < tail ? (tail - i) / fade : 0; music[c][i] = start[c][i] + (music[c][i] - start[c][i]) * k; } }
 }
+if (script.music?.file) fileMusic(); else {
 for (const c of [0, 1]) for (let i = 0; i < N; i++) music[c][i] *= 0.6;
 // one small room reverb on the music for glue (4 feedback combs)
 for (const c of [0, 1]) { const dry = music[c].slice(); for (const [d, g] of [[0.0297 + c * 0.001, 0.72], [0.0371, 0.7], [0.0411 + c * 0.0013, 0.68], [0.0437, 0.66]]) { const D = Math.round(d * SR), y = new Float32Array(N); for (let i = D; i < N; i++) y[i] = dry[i - D] + y[i - D] * g; for (let i = 0; i < N; i++) music[c][i] += y[i] * 0.045; } }
+}
+
+// Music from an audio file (EP04+: ElevenLabs music). script.music = { file, cues: { name: startSec | { endAt: sec } } }.
+// Each timeline music section plays its cue's slice of the file; a cue used again resumes where it stopped; "stop" = silence.
+// { endAt } starts the cue so that the file reaches endAt exactly when the episode ends (lands the track's own ending on the last frame).
+function fileMusic() {
+  const cfg = script.music, src = [decode(`${dir}/${cfg.file}`, 'pan=mono|c0=c0'), decode(`${dir}/${cfg.file}`, 'pan=mono|c0=c1')], head = {};
+  const fi = Math.round(0.03 * SR), fo = Math.round(0.07 * SR);
+  for (const s of sections) {
+    if (s.name === 'stop' || cfg.cues[s.name] == null) continue;
+    const c = cfg.cues[s.name];
+    let from = head[s.name] ?? (typeof c === 'number' ? c : c.endAt - (tl.duration - s.t));
+    if (c === 'continue') from = head.__last ?? 0;
+    const a = Math.round(s.t * SR), b = Math.round(s.end * SR), o = Math.round(from * SR) - a;
+    for (let i = a; i < b && i < N; i++) { const j = i + o; if (j < 0 || j >= src[0].length) continue;
+      const g = Math.min(1, (i - a) / fi, (b - i) / fo); music[0][i] = src[0][j] * g; music[1][i] = src[1][j] * g; }
+    head[s.name] = head.__last = from + (s.end - s.t);
+  }
+  // level: the bed's music sits at about -24 dBFS RMS (measured over the parts that play) before ducking
+  const act = []; for (let i = 0; i < N; i += 2400) { const r = rms(music[0], i, Math.min(N, i + 2400)); if (r > 1e-4) act.push(r); }
+  const lvl = Math.sqrt(act.reduce((x, r) => x + r * r, 0) / Math.max(1, act.length)), g = undb(cfg.level_db ?? -24) / Math.max(1e-6, lvl);
+  for (const ch of music) for (let i = 0; i < N; i++) ch[i] *= g;
+}
 
 for (const c of tl.cues) { const gen = SFX[c.sfx || c.name]; if (!gen) { console.warn('unknown sfx', c.name); continue; } put(sfx, gen(c), c.t, (c.gain ?? 1) * 0.8, c.pan ?? 0); }
 

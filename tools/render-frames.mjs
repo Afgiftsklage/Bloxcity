@@ -11,7 +11,8 @@ const opt = (k, d) => { const i = args.indexOf('--' + k); return i < 0 ? d : (ar
 const dir = `episodes/${ep}`, workers = +opt('workers', 3);
 const server = await createServer({ configFile: 'web/vite.config.js', server: { port: 5173, strictPort: false }, logLevel: 'error' });
 await server.listen(); const url = `http://localhost:${server.config.server.port}/?ep=${ep}`;
-const launch = () => chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--enable-webgl', '--disable-gpu-vsync', '--disable-frame-rate-limit'] });
+const exe = process.env.CHROME_PATH || (fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);   // pre-installed Chromium when the bundled one is missing
+const launch = () => chromium.launch({ executablePath: exe, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--enable-webgl', '--disable-gpu-vsync', '--disable-frame-rate-limit'] });
 const browsers = [];
 async function openPage() {            // one browser process per worker: software GL is single-process, so this is what scales across cores
   const browser = await launch(); browsers.push(browser);

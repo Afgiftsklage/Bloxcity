@@ -120,3 +120,17 @@ Every episode must match these settings. The machine-readable copies live in `we
 - The code-synthesised music used in EP01–03 (plucked "sneak / comedy / happy / panic" loops) was judged **bad** by the owner. Do not reuse it.
 - Until a replacement is agreed: keep the synthesised **sound effects**, and decide the music approach with the owner before making the episode
   (options: no music bed, a much simpler and quieter bed, or generated music from the ElevenLabs music model).
+
+## EP04 — back to the EP01 format (performance data, Nov 2026)
+- Channel stats at the time: EP01 "He touched the cake at 3 AM" 3.4K views (best), the ghost shorts 2.2K / 1K,
+  "Breaking the window" (EP03, 1.5× / natural voices / 84 s) 431, "don't open the box" 158.
+- So EP04 deliberately reuses the EP01 recipe: v1 toy characters, the cozy room at night, one location, ~57 s,
+  **pitched-up voices at normal speed**, a "NEVER … at 3 AM" hook, a fake-out reveal, a sibling deal, and Mom catching them in the last beat.
+  This overrides the "speed and voices (EP03 onward)" defaults for this format; keep the EP03 style for multi-location stories.
+- Music: **ElevenLabs music** (`eleven_music_v2_5`, instrumental, one ~60 s cue per episode) replaces the synthesised loops.
+  `script.json` → `"music": { "file": "audio/music_src.mp3", "cues": { name: startSec | { "endAt": sec } | "continue" } }`;
+  each timeline music section plays its cue's slice of the file, a cue used again resumes where it stopped, `stop` = silence,
+  `{ endAt }` lands the track's own ending on the last frame. Levelled to −24 dBFS RMS, then the usual ducking (≥ 6 dB under every word).
+  Synthesised **sound effects** are unchanged.
+- Small props can be built in code from an episode's `setup()` with `s.prim(kind, dims, opts)` and lights with `s.addLight('spot' | 'point', opts)`
+  (EP04: tooth, flashlight with a real beam, fairy wand). They reset every frame like the GLB props.

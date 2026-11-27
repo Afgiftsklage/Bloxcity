@@ -116,6 +116,7 @@ export class Stage {
   reset() {
     for (const [o, r] of this.rest) { o.position.copy(r.p); o.quaternion.copy(r.q); o.scale.copy(r.s); o.visible = r.v; }
     for (const c of Object.values(this.chars)) c.reset();
+    for (const l of this.dynLights || []) l.intensity = 0;
     if (!this.day) { this.setLights(0); this.setDoor(0); this.practical.intensity = Q.practical.intensity; this.key.intensity = Q.key.intensity; }
     this.renderer.toneMappingExposure = this.exposure;
   }
@@ -148,6 +149,25 @@ export class Stage {
   clone(name, parent = this.scene) {
     const o = this.obj(name).clone(true); o.position.set(0, 0, 0); parent.add(o);
     this.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone(), v: true }); return o;
+  }
+  // small code-built props (EP04+): kind 'box' dims [w,h,d] | 'cyl' [rTop, rBottom, h] | 'sphere' [r] | 'group'; registered so reset() restores them every frame
+  prim(kind, dims = [], { color = '#ffffff', emissive = '#000000', ei = 0, rough = 0.6, metal = 0, parent = this.scene, pos = [0, 0, 0], rot = [0, 0, 0], cast = true, visible = true } = {}) {
+    let o;
+    if (kind === 'group') o = new THREE.Group();
+    else {
+      const g = kind === 'box' ? new THREE.BoxGeometry(...dims) : kind === 'cyl' ? new THREE.CylinderGeometry(dims[0], dims[1] ?? dims[0], dims[2], 28) : new THREE.SphereGeometry(dims[0], 24, 16);
+      o = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color, emissive, emissiveIntensity: ei, roughness: rough, metalness: metal }));
+      o.castShadow = cast; o.receiveShadow = true;
+    }
+    o.position.set(...pos); o.rotation.set(...rot); o.visible = visible; parent.add(o);
+    this.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone(), v: visible }); return o;
+  }
+  // a code-built light (flashlight beam, wand glow); its intensity goes back to 0 on every reset()
+  addLight(kind, { color = '#ffffff', distance = 0, angle = 0.5, penumbra = 0.5, parent = this.scene, pos = [0, 0, 0], target = [0, -1, 0] } = {}) {
+    const l = kind === 'spot' ? new THREE.SpotLight(color, 0, distance, angle, penumbra, 2) : new THREE.PointLight(color, 0, distance, 2);
+    l.position.set(...pos); parent.add(l);
+    if (kind === 'spot') { l.target.position.set(...target); parent.add(l.target); }
+    (this.dynLights ||= []).push(l); return l;
   }
   render(focusDist, focus) {
     if (this.day && focus) {                       // the sun's shadow frustum follows the action
