@@ -1,4 +1,4 @@
-// EP04 — "In this city, your shadow is alive"   (1.5x episode, cuts every 0.67–1.33 s)
+// EP05 — "In this city, your shadow is alive"   (1.5x episode, cuts every 0.67–1.33 s)
 // STREET set with living shadows: every character's shadow is cast by an invisible twin (set.shadowTwins), so a shadow can copy its
 // owner, act on its own (s.shadow(name)) or be missing (ch.noShadow). Dottie never has a shadow — the twist at the end; rewatchers can check.
 // Acts: the house front (the rules) → candy shop (the lies) → Bean's shadow walks out → golden hour in the park (the apology) → Dottie.

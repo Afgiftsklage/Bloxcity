@@ -68,7 +68,7 @@ const SFX = {
 // ------------------------------------------------------------------ music (sections switch at the timeline's music cues)
 const music = [new Float32Array(N), new Float32Array(N)], sfx = [new Float32Array(N), new Float32Array(N)];
 const put = (bus, x, t, gain = 1, pan = 0) => { const o = Math.round(t * SR), gl = gain * Math.cos((pan + 1) * Math.PI / 4), gr = gain * Math.sin((pan + 1) * Math.PI / 4); for (let i = 0; i < x.length && i + o < N; i++) { if (i + o < 0) continue; bus[0][i + o] += x[i] * gl * 1.414; bus[1][i + o] += x[i] * gr * 1.414; } };
-// external music (EP04 on): script.json "music": { "file": "audio/music_src.mp3", "at": 0, "level_db": -24, "fade_out": [t0, t1] } replaces the
+// external music (EP05 on): script.json "music": { "file": "audio/music_src.mp3", "at": 0, "level_db": -24, "fade_out": [t0, t1] } replaces the
 // code-synthesised sections (retired after EP03); the timeline's music: cues are then ignored.
 const script = JSON.parse(fs.readFileSync(`${dir}/script.json`)), ext = script.music?.file ? script.music : null;
 const sections = ext ? [] : tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.duration }));
