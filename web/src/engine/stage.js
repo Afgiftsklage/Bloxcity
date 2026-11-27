@@ -35,7 +35,8 @@ const GradeShader = {
 export class Stage {
   // set = { model: 'room.glb', lighting: 'night' | 'day', noCast: RegExp, materials(mats) }  (default: the EP01 cozy room at night)
   async init(canvas, charDefs, set = {}) {
-    const W = Q.width, H = Q.height, day = set.lighting === 'day', D = Q.day; this.day = day;
+    const W = Q.width, H = Q.height, day = set.lighting === 'day'; this.day = day;
+    const D = this.D = { ...Q.day }; for (const k in set.day ?? {}) D[k] = typeof D[k] === 'object' ? { ...D[k], ...set.day[k] } : set.day[k];      // set.day = per-episode overrides of the daylight preset
     const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
     r.setPixelRatio(1); r.setSize(W, H, false);
     r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = this.exposure = day ? D.exposure : Q.exposure; r.outputColorSpace = THREE.SRGBColorSpace;
@@ -43,8 +44,8 @@ export class Stage {
     const scene = this.scene = new THREE.Scene(); scene.background = new THREE.Color('#05060c');
     this.camera = new THREE.PerspectiveCamera(Q.camera.fov, W / H, Q.camera.near, Q.camera.far);
 
-    const gl = new GLTFLoader(), load = f => gl.loadAsync('/models/' + f);
-    const [room, hdr, ...chars] = await Promise.all([load(set.model ?? 'room.glb'), new RGBELoader().loadAsync('/' + (day ? D.hdri.file : Q.hdri.file)), ...Object.entries(charDefs).map(([n, d]) => load(`${d.model ?? 'char_' + n}.glb`))]);
+    const gl = new GLTFLoader(), load = f => f === null ? Promise.resolve({ scene: new THREE.Group() }) : gl.loadAsync('/models/' + f);      // model: null = the set is built in code (set.builder)
+    const [room, hdr, ...chars] = await Promise.all([load(set.model === null ? null : set.model ?? 'room.glb'), new RGBELoader().loadAsync('/' + (day ? D.hdri.file : Q.hdri.file)), ...Object.entries(charDefs).map(([n, d]) => load(`${d.model ?? 'char_' + n}.glb`))]);
     const pm = new THREE.PMREMGenerator(r); scene.environment = pm.fromEquirectangular(hdr).texture; pm.dispose();
     if (day) { hdr.mapping = THREE.EquirectangularReflectionMapping; scene.background = hdr; scene.backgroundIntensity = D.hdri.background; scene.backgroundRotation.y = scene.environmentRotation.y = D.hdri.rotation; scene.environmentIntensity = D.hdri.intensity; }
     else { hdr.dispose(); scene.environmentIntensity = Q.hdri.intensityNight; }
@@ -109,10 +110,16 @@ export class Stage {
     const bl = day ? D.bloom : Q.bloom; this.bloom = new UnrealBloomPass(new THREE.Vector2(W, H), bl.strength, bl.radius, bl.threshold); comp.addPass(this.bloom);
     comp.addPass(new OutputPass());
     this.grade = new ShaderPass(GradeShader); comp.addPass(this.grade);
-    this.fx = { ao: true, dof: true, bloom: true };
+    this.fx = { ao: true, dof: true, bloom: true }; this.THREE = THREE;
     return this;
   }
   obj(name) { return this.props.get(name); }
+  // episode-built props (shots.js setup): registers the object and its children so reset() restores them every frame
+  add(o, parent = this.scene, cast = true) {
+    parent.add(o);
+    o.traverse(x => { if (x.name) this.props.set(x.name, x); this.rest.set(x, { p: x.position.clone(), q: x.quaternion.clone(), s: x.scale.clone(), v: x.visible }); if (x.isMesh) { x.castShadow = cast; x.receiveShadow = true; } });
+    return o;
+  }
   reset() {
     for (const [o, r] of this.rest) { o.position.copy(r.p); o.quaternion.copy(r.q); o.scale.copy(r.s); o.visible = r.v; }
     for (const c of Object.values(this.chars)) c.reset();
@@ -151,8 +158,8 @@ export class Stage {
   }
   render(focusDist, focus) {
     if (this.day && focus) {                       // the sun's shadow frustum follows the action
-      this.key.target.position.copy(focus); this.key.position.copy(focus).add(new THREE.Vector3(...Q.day.sun.offset));
-      this.rim.target.position.copy(focus); this.rim.position.copy(focus).add(new THREE.Vector3(...Q.day.rim.offset));
+      this.key.target.position.copy(focus); this.key.position.copy(focus).add(new THREE.Vector3(...this.D.sun.offset));
+      this.rim.target.position.copy(focus); this.rim.position.copy(focus).add(new THREE.Vector3(...this.D.rim.offset));
     }
     this.gtao.enabled = this.fx.ao; this.bokeh.enabled = this.fx.dof; this.bloom.enabled = this.fx.bloom;
     const u = this.bokeh.uniforms; u.focus.value = focusDist; u.aperture.value = Q.dof.aperture; u.maxblur.value = Q.dof.maxblur; u.aspect.value = this.camera.aspect;

@@ -2,7 +2,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 const TEX = { floor:'laminate_floor_02', wall:'beige_wall_001', wood:'oak_veneer_01', blanket:'knitted_fleece', rug:'wool_boucle', couch:'curly_teddy_natural',
   grass:'leafy_grass', pavement:'concrete_pavement', brick:'red_brick_03', asphalt:'asphalt_02', planks:'wood_planks', roof:'clay_roof_tiles_02' };
-const HDRIS = [['lebombo', '1k'], ['kloofendal_48d_partly_cloudy_puresky', '2k']];
+const HDRIS = [['lebombo', '1k'], ['kloofendal_48d_partly_cloudy_puresky', '2k'], ['belfast_sunset_puresky', '2k']];
 const j = async u => (await fetch(u, {headers:{'User-Agent':'asset-fetch'}})).json();
 const dl = async (u, f) => { if (fs.existsSync(f)) return; const r = await fetch(u); if(!r.ok) throw new Error(u+' '+r.status); fs.writeFileSync(f, Buffer.from(await r.arrayBuffer())); console.log('saved', f); };
 fs.mkdirSync('assets_src/textures', {recursive:true}); fs.mkdirSync('web/public/hdri', {recursive:true});
@@ -12,3 +12,6 @@ for (const [name, id] of Object.entries(TEX)) {
   for (const [k, m] of Object.entries(maps)) { if (!m) { console.log('missing', id, k); continue; } await dl(m['1k'].jpg.url, path.join('assets_src/textures', `${name}_${k}.jpg`)); }
 }
 for (const [id, res] of HDRIS) { const h = await j(`https://api.polyhaven.com/files/${id}`); await dl(h.hdri[res].hdr.url, `web/public/hdri/${id}_${res}.hdr`); }
+// the code-built city (web/src/sets/bloxcity.js) loads its ground textures straight from web/public/tex
+fs.mkdirSync('web/public/tex', {recursive:true});
+for (const t of ['asphalt', 'pavement', 'planks', 'brick']) for (const k of ['diff', 'nor', 'rough']) fs.copyFileSync(`assets_src/textures/${t}_${k}.jpg`, `web/public/tex/${t}_${k}.jpg`);

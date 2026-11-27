@@ -6,11 +6,14 @@ import { rad, wobble, hash } from './util.js';
 export const DIM = { LEG_H: 0.30, TORSO_H: 0.30, HEAD_R: 0.145, HEAD_H: 0.25 };   // keep in sync with blender/build_assets.py
 
 export class Character {
-  constructor(name, gltf, { scale = 1, skin = '#F7C59A', head = null } = {}) {
+  constructor(name, gltf, { scale = 1, skin = '#F7C59A', head = null, colors = null, hide = [] } = {}) {
     this.name = name; this.scale = scale;
     this.headH = head ? head.h : DIM.HEAD_H; this.headR = head ? Math.max(head.w, head.h) * 0.62 : 0.16;      // head = { type:'box', w, h, d } for block-style characters
     this.group = new THREE.Group(); this.group.name = 'char_' + name; this.group.add(gltf.scene); this.group.scale.setScalar(scale);
     const g = n => gltf.scene.getObjectByName(n);
+    // extras reuse a model with other colours: colors = { hair, skin, top, pants, shoe, accent } (material name suffix), hide = node names
+    if (colors) gltf.scene.traverse(o => { if (o.isMesh) { const k = o.material.name.split('_').pop(); if (colors[k]) { o.material = o.material.clone(); o.material.color.set(colors[k]); } } });
+    for (const n of hide) { const o = g(n); if (o) o.visible = false; }
     this.root = g('Root'); this.torso = g('Torso'); this.head = g('Head');
     this.armL = g('LeftArm'); this.armR = g('RightArm'); this.legL = g('LeftLeg'); this.legR = g('RightLeg');
     this.rest = new Map(); gltf.scene.traverse(o => { this.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone() }); if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });

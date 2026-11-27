@@ -1,0 +1,942 @@
+{
+ "L01": [
+  {
+   "text": "First",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "day",
+   "start": 0.18,
+   "end": 0.34
+  },
+  {
+   "text": "in",
+   "start": 0.34,
+   "end": 0.46
+  },
+  {
+   "text": "Blox",
+   "start": 0.46,
+   "end": 0.62
+  },
+  {
+   "text": "City",
+   "start": 0.62,
+   "end": 0.86
+  },
+  {
+   "text": "Nine",
+   "start": 0.86,
+   "end": 1.42
+  },
+  {
+   "text": "dollars",
+   "start": 1.42,
+   "end": 1.72
+  },
+  {
+   "text": "One",
+   "start": 1.72,
+   "end": 2.2
+  },
+  {
+   "text": "scooter",
+   "start": 2.2,
+   "end": 2.6
+  },
+  {
+   "text": "By",
+   "start": 2.6,
+   "end": 3.06
+  },
+  {
+   "text": "sunset",
+   "start": 3.06,
+   "end": 3.3
+  },
+  {
+   "text": "every",
+   "start": 3.3,
+   "end": 3.72
+  },
+  {
+   "text": "cop",
+   "start": 3.72,
+   "end": 3.9
+  },
+  {
+   "text": "in",
+   "start": 3.9,
+   "end": 4.06
+  },
+  {
+   "text": "town",
+   "start": 4.06,
+   "end": 4.24
+  },
+  {
+   "text": "was",
+   "start": 4.24,
+   "end": 4.4
+  },
+  {
+   "text": "chasing",
+   "start": 4.4,
+   "end": 4.6
+  },
+  {
+   "text": "me",
+   "start": 4.6,
+   "end": 4.82
+  }
+ ],
+ "L02": [
+  {
+   "text": "Good",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "morning",
+   "start": 0.2,
+   "end": 0.56
+  },
+  {
+   "text": "Blox",
+   "start": 0.56,
+   "end": 0.94
+  },
+  {
+   "text": "City!",
+   "start": 0.94,
+   "end": 1.2
+  }
+ ],
+ "L03": [
+  {
+   "text": "New",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "kid",
+   "start": 0.2,
+   "end": 0.38
+  },
+  {
+   "text": "I",
+   "start": 0.38,
+   "end": 0.78
+  },
+  {
+   "text": "got",
+   "start": 0.78,
+   "end": 0.88
+  },
+  {
+   "text": "a",
+   "start": 0.88,
+   "end": 0.98
+  },
+  {
+   "text": "job",
+   "start": 0.98,
+   "end": 1.14
+  },
+  {
+   "text": "for",
+   "start": 1.14,
+   "end": 1.34
+  },
+  {
+   "text": "you",
+   "start": 1.34,
+   "end": 1.48
+  }
+ ],
+ "L04": [
+  {
+   "text": "Take",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "text": "this",
+   "start": 0.18,
+   "end": 0.34
+  },
+  {
+   "text": "box",
+   "start": 0.34,
+   "end": 0.5
+  },
+  {
+   "text": "to",
+   "start": 0.5,
+   "end": 0.66
+  },
+  {
+   "text": "the",
+   "start": 0.66,
+   "end": 0.76
+  },
+  {
+   "text": "pier",
+   "start": 0.76,
+   "end": 0.94
+  },
+  {
+   "text": "Don't",
+   "start": 0.94,
+   "end": 1.54
+  },
+  {
+   "text": "open",
+   "start": 1.54,
+   "end": 1.7
+  },
+  {
+   "text": "it",
+   "start": 1.7,
+   "end": 1.94
+  },
+  {
+   "text": "Don't",
+   "start": 1.94,
+   "end": 2.34
+  },
+  {
+   "text": "be",
+   "start": 2.34,
+   "end": 2.5
+  },
+  {
+   "text": "late",
+   "start": 2.5,
+   "end": 2.7
+  }
+ ],
+ "L05": [
+  {
+   "text": "What's",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "in",
+   "start": 0.26,
+   "end": 0.34
+  },
+  {
+   "text": "the",
+   "start": 0.32,
+   "end": 0.4
+  },
+  {
+   "text": "box?",
+   "start": 0.38,
+   "end": 0.64
+  }
+ ],
+ "L06": [
+  {
+   "text": "Did",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "text": "I",
+   "start": 0.16,
+   "end": 0.28
+  },
+  {
+   "text": "say",
+   "start": 0.28,
+   "end": 0.5
+  },
+  {
+   "text": "ask",
+   "start": 0.5,
+   "end": 0.8
+  },
+  {
+   "text": "questions?",
+   "start": 0.8,
+   "end": 1.16
+  }
+ ],
+ "L07": [
+  {
+   "text": "Easy",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "money",
+   "start": 0.3,
+   "end": 0.58
+  },
+  {
+   "text": "What",
+   "start": 0.58,
+   "end": 0.96
+  },
+  {
+   "text": "could",
+   "start": 0.96,
+   "end": 1.08
+  },
+  {
+   "text": "go",
+   "start": 1.08,
+   "end": 1.2
+  },
+  {
+   "text": "wrong?",
+   "start": 1.2,
+   "end": 1.4
+  }
+ ],
+ "L08": [
+  {
+   "text": "Nice",
+   "start": 0,
+   "end": 0.28
+  },
+  {
+   "text": "box",
+   "start": 0.28,
+   "end": 0.58
+  },
+  {
+   "text": "I'll",
+   "start": 0.58,
+   "end": 1.06
+  },
+  {
+   "text": "take",
+   "start": 1.06,
+   "end": 1.16
+  },
+  {
+   "text": "it",
+   "start": 1.16,
+   "end": 1.26
+  },
+  {
+   "text": "from",
+   "start": 1.26,
+   "end": 1.36
+  },
+  {
+   "text": "here",
+   "start": 1.36,
+   "end": 1.54
+  }
+ ],
+ "L09": [
+  {
+   "text": "Not",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "today",
+   "start": 0.26,
+   "end": 0.58
+  },
+  {
+   "text": "pal!",
+   "start": 0.58,
+   "end": 0.84
+  }
+ ],
+ "L10": [
+  {
+   "text": "Get",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "text": "back",
+   "start": 0.16,
+   "end": 0.42
+  },
+  {
+   "text": "here!",
+   "start": 0.42,
+   "end": 0.64
+  }
+ ],
+ "L11": [
+  {
+   "text": "Sorry!",
+   "start": 0,
+   "end": 0.3
+  },
+  {
+   "text": "Sorry!",
+   "start": 0.62,
+   "end": 0.74
+  },
+  {
+   "text": "Coming",
+   "start": 1.06,
+   "end": 1.16
+  },
+  {
+   "text": "through!",
+   "start": 1.16,
+   "end": 1.38
+  }
+ ],
+ "L12": [
+  {
+   "text": "Not",
+   "start": 0,
+   "end": 0.62
+  },
+  {
+   "text": "the",
+   "start": 0.62,
+   "end": 0.78
+  },
+  {
+   "text": "hot",
+   "start": 0.78,
+   "end": 0.92
+  },
+  {
+   "text": "dogs!",
+   "start": 0.92,
+   "end": 1.16
+  }
+ ],
+ "L13": [
+  {
+   "text": "Lost",
+   "start": 0,
+   "end": 0.74
+  },
+  {
+   "text": "him!",
+   "start": 0.74,
+   "end": 0.98
+  }
+ ],
+ "L14": [
+  {
+   "text": "Hey!",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "That",
+   "start": 0.46,
+   "end": 0.64
+  },
+  {
+   "text": "was",
+   "start": 0.64,
+   "end": 0.74
+  },
+  {
+   "text": "a",
+   "start": 0.74,
+   "end": 0.86
+  },
+  {
+   "text": "red",
+   "start": 0.86,
+   "end": 1.0
+  },
+  {
+   "text": "light!",
+   "start": 1.0,
+   "end": 1.26
+  }
+ ],
+ "L15": [
+  {
+   "text": "Oh",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "no",
+   "start": 0.32,
+   "end": 1.04
+  },
+  {
+   "text": "Now",
+   "start": 1.04,
+   "end": 1.52
+  },
+  {
+   "text": "the",
+   "start": 1.52,
+   "end": 1.64
+  },
+  {
+   "text": "cops?",
+   "start": 1.64,
+   "end": 1.88
+  }
+ ],
+ "L16": [
+  {
+   "text": "Traffic",
+   "start": 0,
+   "end": 0.44
+  },
+  {
+   "text": "update",
+   "start": 0.44,
+   "end": 0.76
+  },
+  {
+   "text": "Some",
+   "start": 0.76,
+   "end": 1.26
+  },
+  {
+   "text": "guy",
+   "start": 1.26,
+   "end": 1.42
+  },
+  {
+   "text": "on",
+   "start": 1.42,
+   "end": 1.52
+  },
+  {
+   "text": "a",
+   "start": 1.52,
+   "end": 1.62
+  },
+  {
+   "text": "scooter",
+   "start": 1.62,
+   "end": 1.88
+  },
+  {
+   "text": "is",
+   "start": 1.88,
+   "end": 2.04
+  },
+  {
+   "text": "having",
+   "start": 2.04,
+   "end": 2.24
+  },
+  {
+   "text": "a",
+   "start": 2.24,
+   "end": 2.42
+  },
+  {
+   "text": "very",
+   "start": 2.42,
+   "end": 2.68
+  },
+  {
+   "text": "bad",
+   "start": 2.68,
+   "end": 2.94
+  },
+  {
+   "text": "day",
+   "start": 2.94,
+   "end": 3.16
+  }
+ ],
+ "L17": [
+  {
+   "text": "All",
+   "start": 0,
+   "end": 0.2
+  },
+  {
+   "text": "units!",
+   "start": 0.2,
+   "end": 0.48
+  },
+  {
+   "text": "Stop",
+   "start": 0.88,
+   "end": 0.96
+  },
+  {
+   "text": "that",
+   "start": 0.92,
+   "end": 1.1
+  },
+  {
+   "text": "scooter!",
+   "start": 1.1,
+   "end": 1.38
+  }
+ ],
+ "L18": [
+  {
+   "text": "The",
+   "start": 0,
+   "end": 0.12
+  },
+  {
+   "text": "bridge",
+   "start": 0.12,
+   "end": 0.28
+  },
+  {
+   "text": "is",
+   "start": 0.28,
+   "end": 0.36
+  },
+  {
+   "text": "going",
+   "start": 0.36,
+   "end": 0.52
+  },
+  {
+   "text": "up!",
+   "start": 0.52,
+   "end": 0.7
+  },
+  {
+   "text": "No",
+   "start": 0.92,
+   "end": 1.0
+  },
+  {
+   "text": "no",
+   "start": 1.0,
+   "end": 1.14
+  },
+  {
+   "text": "no",
+   "start": 1.14,
+   "end": 1.24
+  },
+  {
+   "text": "no",
+   "start": 1.24,
+   "end": 1.34
+  },
+  {
+   "text": "no!",
+   "start": 1.34,
+   "end": 1.53
+  }
+ ],
+ "L19": [
+  {
+   "text": "I'm",
+   "start": 0,
+   "end": 0.4
+  },
+  {
+   "text": "flying!",
+   "start": 0.4,
+   "end": 0.94
+  }
+ ],
+ "L20": [
+  {
+   "text": "You're",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "late",
+   "start": 0.22,
+   "end": 0.34
+  },
+  {
+   "text": "kid",
+   "start": 0.34,
+   "end": 0.58
+  }
+ ],
+ "L21": [
+  {
+   "text": "The",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "text": "whole",
+   "start": 0.16,
+   "end": 0.3
+  },
+  {
+   "text": "city",
+   "start": 0.3,
+   "end": 0.6
+  },
+  {
+   "text": "chased",
+   "start": 0.6,
+   "end": 0.94
+  },
+  {
+   "text": "me!",
+   "start": 0.94,
+   "end": 1.18
+  },
+  {
+   "text": "What",
+   "start": 1.52,
+   "end": 1.7
+  },
+  {
+   "text": "is",
+   "start": 1.7,
+   "end": 1.78
+  },
+  {
+   "text": "in",
+   "start": 1.78,
+   "end": 1.88
+  },
+  {
+   "text": "this",
+   "start": 1.88,
+   "end": 1.98
+  },
+  {
+   "text": "box?",
+   "start": 1.98,
+   "end": 2.24
+  }
+ ],
+ "L22": [
+  {
+   "text": "See",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "for",
+   "start": 0.22,
+   "end": 0.34
+  },
+  {
+   "text": "yourself",
+   "start": 0.34,
+   "end": 0.58
+  }
+ ],
+ "L23": [
+  {
+   "text": "A",
+   "start": 0,
+   "end": 0.14
+  },
+  {
+   "text": "birthday",
+   "start": 0.14,
+   "end": 0.4
+  },
+  {
+   "text": "cake?",
+   "start": 0.4,
+   "end": 0.66
+  }
+ ],
+ "L24": [
+  {
+   "text": "Freeze!",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "Wait",
+   "start": 0.7,
+   "end": 0.84
+  },
+  {
+   "text": "Is",
+   "start": 0.84,
+   "end": 1.3
+  },
+  {
+   "text": "that",
+   "start": 1.3,
+   "end": 1.42
+  },
+  {
+   "text": "my",
+   "start": 1.42,
+   "end": 1.54
+  },
+  {
+   "text": "cake?",
+   "start": 1.54,
+   "end": 1.76
+  }
+ ],
+ "L25": [
+  {
+   "text": "Happy",
+   "start": 0,
+   "end": 0.26
+  },
+  {
+   "text": "birthday",
+   "start": 0.26,
+   "end": 0.68
+  },
+  {
+   "text": "Chief",
+   "start": 0.68,
+   "end": 0.9
+  }
+ ],
+ "L26": [
+  {
+   "text": "Best",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "birthday",
+   "start": 0.32,
+   "end": 0.7
+  },
+  {
+   "text": "ever!",
+   "start": 0.7,
+   "end": 1.12
+  },
+  {
+   "text": "You",
+   "start": 1.5,
+   "end": 1.64
+  },
+  {
+   "text": "still",
+   "start": 1.64,
+   "end": 1.92
+  },
+  {
+   "text": "get",
+   "start": 1.92,
+   "end": 2.06
+  },
+  {
+   "text": "a",
+   "start": 2.06,
+   "end": 2.18
+  },
+  {
+   "text": "ticket",
+   "start": 2.18,
+   "end": 2.34
+  }
+ ],
+ "L27": [
+  {
+   "text": "Here's",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "text": "your",
+   "start": 0.24,
+   "end": 0.34
+  },
+  {
+   "text": "pay",
+   "start": 0.34,
+   "end": 0.52
+  },
+  {
+   "text": "kid",
+   "start": 0.52,
+   "end": 0.74
+  }
+ ],
+ "L28": [
+  {
+   "text": "Nine",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "text": "dollars?",
+   "start": 0.32,
+   "end": 0.74
+  },
+  {
+   "text": "The",
+   "start": 1.06,
+   "end": 1.14
+  },
+  {
+   "text": "ticket",
+   "start": 1.14,
+   "end": 1.28
+  },
+  {
+   "text": "was",
+   "start": 1.28,
+   "end": 1.46
+  },
+  {
+   "text": "ten!",
+   "start": 1.46,
+   "end": 1.7
+  }
+ ],
+ "L29": [
+  {
+   "text": "Same",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "text": "time",
+   "start": 0.24,
+   "end": 0.44
+  },
+  {
+   "text": "tomorrow",
+   "start": 0.44,
+   "end": 0.7
+  }
+ ],
+ "L30": [
+  {
+   "text": "And",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "text": "that",
+   "start": 0.22,
+   "end": 0.34
+  },
+  {
+   "text": "was",
+   "start": 0.34,
+   "end": 0.46
+  },
+  {
+   "text": "only",
+   "start": 0.46,
+   "end": 0.66
+  },
+  {
+   "text": "day",
+   "start": 0.66,
+   "end": 0.84
+  },
+  {
+   "text": "one",
+   "start": 0.84,
+   "end": 1.12
+  }
+ ]
+}

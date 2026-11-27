@@ -1,4 +1,4 @@
-// Music + sound effects composed directly in code (pure JS synthesis, no samples), timed to the timeline's cue points.
+// Sound effects composed directly in code (pure JS synthesis); music = generated tracks named in script.json (EP04+) or the legacy synthesised sections (EP01-03).
 // Then the bed (music + sfx) is ducked under every spoken word so each word sits >= 6 dB above it.
 // usage: node tools/synth-audio.mjs ep01   ->  episodes/ep01/audio/{music,sfx,bed,voice,mix}.wav
 import fs from 'node:fs';
@@ -63,12 +63,40 @@ const SFX = {
   crash: () => { const o = buf(0.9); mixin(o, decay(highpass(noise(0.5), 2500), 0.12), 1); for (let i = 0; i < 14; i++) mixin(o, decay(tone(0.25, 2200 + 5200 * Math.abs(rnd())), 0.05), 0.35, 0.02 + Math.abs(rnd()) * 0.45); mixin(o, decay(tone(0.2, t => 60 + 100 * Math.exp(-t * 40)), 0.05), 0.9); return norm(o, 0.75); },
   cricket: () => { const o = buf(0.5); for (let k = 0; k < 3; k++) { const n = tone(0.07, 4300, 'sine', 0.004, 0.01); for (let i = 0; i < n.length; i++) n[i] *= 0.5 + 0.5 * Math.sign(Math.sin(i / SR * TAU * 55)); mixin(o, n, 1, k * 0.11); } return norm(o, 0.22); },
   chomp: () => { const o = buf(0.3); [0, 0.13].forEach(at => mixin(o, decay(lowpass(noise(0.1), 1800), 0.025), 1, at)); mixin(o, decay(tone(0.12, 110), 0.03), 0.6); return norm(o, 0.55); },
+  // ---- EP04 city sounds
+  siren: () => { const o = tone(1.7, t => 760 + 420 * Math.sin(t * TAU * 1.9), 'tri', 0.08, 0.25); mixin(o, tone(1.7, t => 1140 + 630 * Math.sin(t * TAU * 1.9), 'sine', 0.08, 0.25), 0.25); return norm(lowpass(o, 3800), 0.42); },
+  scoot: () => { const o = tone(1.3, t => 150 + 40 * t + 6 * Math.sin(t * 60), 'saw', 0.08, 0.3); for (let i = 0; i < o.length; i++) o[i] *= 0.6 + 0.4 * Math.sign(Math.sin(i / SR * TAU * (52 + 14 * i / o.length))); return norm(lowpass(bandpass(o, 420, 1.2, 620), 2400), 0.3); },
+  rev: () => { const o = tone(0.9, t => 70 + 150 * Math.pow(t / 0.9, 0.6), 'saw', 0.02, 0.2); for (let i = 0; i < o.length; i++) o[i] *= 0.55 + 0.45 * Math.sign(Math.sin(i / SR * TAU * (30 + 50 * i / o.length))); return norm(lowpass(o, 1500), 0.5); },
+  ring: () => { const o = buf(0.36); for (let k = 0; k < 2; k++) { const n = tone(0.14, 1480, 'sine', 0.004, 0.02); for (let i = 0; i < n.length; i++) n[i] *= 0.5 + 0.5 * Math.sin(i / SR * TAU * 28); mixin(o, n, 1, k * 0.17); mixin(o, tone(0.14, 1960, 'sine', 0.004, 0.02), 0.4, k * 0.17); } return norm(o, 0.4); },
+  radio: () => { const o = bandpass(noise(0.22, 0.005, 0.05), 2400, 2); mixin(o, tone(0.08, t => 900 + 3000 * t, 'sine', 0.004, 0.02), 0.5, 0.02); return norm(o, 0.3); },
+  honk: () => { const o = buf(0.36); for (const f of [392, 494]) mixin(o, tone(0.36, f, 'square', 0.01, 0.06), 0.5); return norm(lowpass(o, 2600), 0.38); },
+  gull: () => { const o = buf(0.7); [[0, 0.22], [0.26, 0.18], [0.46, 0.2]].forEach(([at, d]) => mixin(o, tone(d, t => 1500 + 900 * Math.sin(t / d * Math.PI) - 300 * t / d, 'tri', 0.02, 0.05), 1, at)); return norm(bandpass(o, 2200, 1.5), 0.26); },
+  skid: () => { const o = tone(0.5, t => 1250 - 500 * t + 40 * Math.sin(t * 70), 'saw', 0.01, 0.15); mixin(o, bandpass(noise(0.5, 0.01, 0.15), 2800, 3), 0.7); return norm(bandpass(o, 1900, 2.5), 0.4); },
+  splat: () => norm(mixin(decay(lowpass(noise(0.16), 900), 0.035), decay(tone(0.14, t => 160 - 500 * t), 0.04), 0.8), 0.6),
+  hey: () => { const o = tone(0.32, t => 250 + 90 * Math.sin(t / 0.32 * Math.PI) , 'saw', 0.015, 0.08); const a = bandpass(o.slice(), 750, 4, 620), b = bandpass(o.slice(), 1500, 5, 1900); for (let i = 0; i < o.length; i++) o[i] = a[i] + b[i] * 0.6; return norm(o, 0.5); },
+  whistle: () => { const o = tone(0.5, t => 2850 + 60 * Math.sin(t * TAU * 38), 'sine', 0.01, 0.06); mixin(o, bandpass(noise(0.5, 0.01, 0.06), 2900, 6), 0.35); return norm(o, 0.36); },
+  cheer: () => { const o = buf(1.5); for (let k = 0; k < 9; k++) { const d = 0.5 + Math.abs(rnd()) * 0.6, f0 = 420 + Math.abs(rnd()) * 500, n = tone(d, t => f0 * (1 + 0.5 * t / d) + 30 * Math.sin(t * 40 + k), 'saw', 0.05, 0.3); mixin(o, bandpass(n, 1100, 2, 1700), 0.3, Math.abs(rnd()) * 0.5); } mixin(o, bandpass(noise(1.5, 0.1, 0.6), 1800, 1.2), 0.5); return norm(o, 0.5); },
+  horn: () => { const o = tone(0.55, t => 520 + 260 * Math.min(1, t / 0.12), 'saw', 0.01, 0.1); for (let i = 0; i < o.length; i++) o[i] *= 0.6 + 0.4 * Math.sign(Math.sin(i / SR * TAU * 90)); return norm(bandpass(o, 1300, 2), 0.42); },
+  drum: () => { const o = buf(0.5); for (let t = 0; t < 0.46; t += 0.032) mixin(o, norm(decay(bandpass(noise(0.05), 1900, 1.2), 0.012), 0.5), 0.3 + 0.6 * t / 0.46, t); return norm(o, 0.45); },
 };
 
 // ------------------------------------------------------------------ music (sections switch at the timeline's music cues)
 const music = [new Float32Array(N), new Float32Array(N)], sfx = [new Float32Array(N), new Float32Array(N)];
 const put = (bus, x, t, gain = 1, pan = 0) => { const o = Math.round(t * SR), gl = gain * Math.cos((pan + 1) * Math.PI / 4), gr = gain * Math.sin((pan + 1) * Math.PI / 4); for (let i = 0; i < x.length && i + o < N; i++) { if (i + o < 0) continue; bus[0][i + o] += x[i] * gl * 1.414; bus[1][i + o] += x[i] * gr * 1.414; } };
 const sections = tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.duration }));
+const scriptAll = JSON.parse(fs.readFileSync(`${dir}/script.json`)), scriptCfg = scriptAll.music, SFX_GAIN = scriptAll.sfx_gain ?? 1;
+if (scriptCfg?.tracks) {
+  // EP04 onward: generated music (ElevenLabs music model). A cue names a track ("cruise", "chase") or "stop" (silence).
+  // Every track keeps its own play-head, so returning to a track continues where it left off; 70 ms fades at each switch.
+  const level = undb(scriptCfg.level_db ?? -24), tracks = {}, head = {};
+  for (const [name, file] of Object.entries(scriptCfg.tracks)) { if (!fs.existsSync(`${dir}/${file}`)) { console.warn('missing music track', file); continue; }
+    const L = decode(`${dir}/${file}`, 'pan=mono|c0=c0'), Rr = decode(`${dir}/${file}`, 'pan=mono|c0=c1'), a = Math.round((scriptCfg.skip?.[name] ?? 0) * SR), g = level / Math.max(1e-6, rms(L, a, L.length));
+    tracks[name] = [L.subarray(a).map(v => v * g), Rr.subarray(a).map(v => v * g)]; head[name] = 0; }
+  const fade = Math.round(0.07 * SR);
+  for (const sc of sections) { const tr = tracks[sc.name]; if (!tr) continue; const a = Math.round(sc.t * SR), b = Math.min(N, Math.round(sc.end * SR)), len = tr[0].length;
+    for (let i = a; i < b; i++) { const k = Math.min(1, (i - a) / fade, (b - i) / fade), src = (head[sc.name] + i - a) % len; music[0][i] += tr[0][src] * k; music[1][i] += tr[1][src] * k; }
+    head[sc.name] += b - a; }
+} else {
 const sin2 = i => Math.sin(i * 1.7) * 0.4;
 const shaker = () => norm(decay(highpass(noise(0.05), 5000), 0.012), 0.2);
 const block = f => norm(decay(bandpass(noise(0.06), f, 8), 0.012), 0.5);
@@ -112,8 +140,9 @@ for (const s of sections) {
 for (const c of [0, 1]) for (let i = 0; i < N; i++) music[c][i] *= 0.6;
 // one small room reverb on the music for glue (4 feedback combs)
 for (const c of [0, 1]) { const dry = music[c].slice(); for (const [d, g] of [[0.0297 + c * 0.001, 0.72], [0.0371, 0.7], [0.0411 + c * 0.0013, 0.68], [0.0437, 0.66]]) { const D = Math.round(d * SR), y = new Float32Array(N); for (let i = D; i < N; i++) y[i] = dry[i - D] + y[i - D] * g; for (let i = 0; i < N; i++) music[c][i] += y[i] * 0.045; } }
+}
 
-for (const c of tl.cues) { const gen = SFX[c.sfx || c.name]; if (!gen) { console.warn('unknown sfx', c.name); continue; } put(sfx, gen(c), c.t, (c.gain ?? 1) * 0.8, c.pan ?? 0); }
+for (const c of tl.cues) { const gen = SFX[c.sfx || c.name]; if (!gen) { console.warn('unknown sfx', c.name); continue; } put(sfx, gen(c), c.t, (c.gain ?? 1) * 0.8 * SFX_GAIN, c.pan ?? 0); }
 
 // ------------------------------------------------------------------ voice track + ducking
 const voice = new Float32Array(N);

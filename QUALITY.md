@@ -120,3 +120,22 @@ Every episode must match these settings. The machine-readable copies live in `we
 - The code-synthesised music used in EP01–03 (plucked "sneak / comedy / happy / panic" loops) was judged **bad** by the owner. Do not reuse it.
 - Until a replacement is agreed: keep the synthesised **sound effects**, and decide the music approach with the owner before making the episode
   (options: no music bed, a much simpler and quieter bed, or generated music from the ElevenLabs music model).
+
+## EP04 onward — Blox City (open world), generated music
+- **Format the owner asked for (Nov 2026):** EP01's toy look (v1 models, soft bevels, wrapped face decal) + 1.5x speed + natural-pitch voices, about 80–90 s,
+  an original story in an open-world style city, silent background characters that only make sound effects. GTA-style *vibe* only: original names, places and plot.
+- **Set built in code:** `web/src/sets/bloxcity.js` (no Blender needed). An episode selects it with `set = { model: null, builder: 'bloxcity', lighting: 'day', day: {…overrides} }`.
+  One avenue along x: beach + Mama Lu's Diner (x 0–16), street market (16–34), downtown crossing + donut shop (34–46), drawbridge (50–58), the pier (62–80).
+  Every vehicle and prop is a named object (`Scooter`, `Bike`, `Cop0..2`, `Taxi`, `Package`, `BirthdayCake`, `BridgeL/R`, …) that `shots.js` moves per frame.
+  The builder uses a seeded random generator, so all render workers build the identical city. Camera far plane 320 m, pink distance fog, painted sunset sky
+  (the Poly Haven `belfast_sunset_puresky` 2k HDRI only lights the scene).
+- **Sunset preset** (`episodes/ep04/cast.js`): exposure 0.78, sun `#ffb884` 2.5 from the camera side, pink rim 1.5, hemisphere 0.55, bloom 0.16 / threshold 1.0.
+- **Cast = recoloured v1 models:** `characters.<name> = { model, scale, skin, colors: { hair, top, pants, shoe, accent }, hide: [nodes] }` plus accessories added by the set builder
+  (helmet, police cap + moustache, sunglasses, hats). Adults are scale 1.45–1.62, so character cameras sit 1.38x further back than in EP01.
+- **Vertical framing:** a 9:16 frame is narrow; stage chases in depth (camera ahead of the rider, pursuers behind), keep signs/banners under ~3.7 m wide,
+  and in dialogue put the camera on the open side of each speaker (±45° yaw) so the other character is never between lens and face.
+- **Music = ElevenLabs music model** (`eleven_music_v2_5`, instrumental, one take per track, prompts stored in `script.json`). Tracks live in `episodes/<ep>/audio/music_<name>.mp3`;
+  `script.json` → `music.tracks`. A beat's `music:` cue names a track or `'stop'`; each track keeps its own play-head. Level −24 dBFS RMS before ducking.
+  Check a new track for vocals (run whisper over it) before using it. `sfx_gain` in `script.json` trims all effects for busy episodes.
+- **Voices:** generate at most two lines at a time on the free plan (more are rejected as "busy", which is not charged).
+- **Playwright:** the renderer needs the Playwright version that matches the installed Chromium (cloud sessions: `npm install --no-save playwright@1.63.0`).

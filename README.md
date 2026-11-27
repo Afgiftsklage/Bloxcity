@@ -8,6 +8,7 @@ House style and every quality setting: see [QUALITY.md](QUALITY.md).
 blender/build_assets.py     EP01: toy-style characters + cozy room        -> web/public/models/*.glb
 blender/build_ep02.py       block-style characters + street set (park, house, candy shop, candy fantasy)
 blender/bt.py               shared Blender helpers
+web/src/sets/bloxcity.js    EP04+: the open-world city "Blox City", built in code (roads, beach, diner, market, drawbridge, pier, vehicles)
 web/                        Three.js renderer (Vite): rig, canvas faces, camera, lights, post stack
 episodes/ep01/              script.json, shots.js (blocking + cameras), voices, timeline, audio, frames, out/
 tools/                      fetch-assets, process-voices, transcribe, retime, synth-audio, check-mix, render-frames, render-video
