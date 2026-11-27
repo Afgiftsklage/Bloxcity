@@ -56,6 +56,12 @@
    "caption": "It copies everything you do Well almost everything"
   },
   {
+   "id": "L02b",
+   "speaker": "bean",
+   "tts": "[excited] It shows how you REALLY feel. Scared? It shakes. Happy? It dances!",
+   "caption": "It shows how you REALLY feel Scared? It shakes Happy? It dances!"
+  },
+  {
    "id": "L03",
    "speaker": "bean",
    "tts": "[serious] And shadows have one rule. They can NEVER lie.",
@@ -92,6 +98,12 @@
    "caption": "He's dancing!"
   },
   {
+   "id": "L08b",
+   "speaker": "pickle",
+   "tts": "[suspicious] Uh huh.",
+   "caption": "Uh huh"
+  },
+  {
    "id": "L09",
    "speaker": "dottie",
    "tts": "[suspicious] Bean. Did you eat my chocolate bar?",
@@ -108,6 +120,12 @@
    "speaker": "dottie",
    "tts": "[angry] Your shadow is literally licking its fingers!",
    "caption": "Your shadow is literally licking its fingers!"
+  },
+  {
+   "id": "L11b",
+   "speaker": "dottie",
+   "tts": "[angry] I KNEW it! You owe me TWO chocolate bars!",
+   "caption": "I KNEW it! You owe me TWO chocolate bars!"
   },
   {
    "id": "L12",
@@ -128,6 +146,12 @@
    "caption": "No shadow means no snitch! I can say anything!"
   },
   {
+   "id": "L14b",
+   "speaker": "bean",
+   "tts": "[mischievously] So I went on a little lying spree.",
+   "caption": "So I went on a little lying spree"
+  },
+  {
    "id": "L15",
    "speaker": "bean",
    "tts": "[confident] Max! I can fly. I just don't feel like it today.",
@@ -138,6 +162,18 @@
    "speaker": "max",
    "tts": "[amazed] Whoa! That's so cool!",
    "caption": "Whoa! That's so cool!"
+  },
+  {
+   "id": "L16b",
+   "speaker": "max",
+   "tts": "[excited] Can you teach me?",
+   "caption": "Can you teach me?"
+  },
+  {
+   "id": "L16c",
+   "speaker": "bean",
+   "tts": "[smug] Sorry. It's a secret.",
+   "caption": "Sorry It's a secret"
   },
   {
    "id": "L17",
@@ -168,6 +204,12 @@
    "speaker": "bean",
    "tts": "[sad] ...except mine.",
    "caption": "except mine"
+  },
+  {
+   "id": "L21b",
+   "speaker": "bean",
+   "tts": "[sadly] Turns out, lying isn't fun... when nobody knows how you really feel.",
+   "caption": "Turns out lying isn't fun when nobody knows how you really feel"
   },
   {
    "id": "L22",
@@ -230,5 +272,15 @@
    "caption": "What shadow? Don't tell anyone"
   }
  ],
- "tts_engine": "omnivoice (VoiceStudio default engine), voices cloned from EP03 takes"
+ "tts_engine": "omnivoice (VoiceStudio default engine), voices cloned from EP03 takes",
+ "music": {
+  "file": "audio/music_edit.wav",
+  "source": "audio/music_src.mp3 (ElevenLabs Music v2.5, 60 s instrumental); edit: 0-52 s as is, then its first 18 s slowed x0.78, -2 st, low-passed, under act 3; out before the twist",
+  "at": 0,
+  "level_db": -25,
+  "fade_out": [
+   74.8,
+   76.0
+  ]
+ }
 }

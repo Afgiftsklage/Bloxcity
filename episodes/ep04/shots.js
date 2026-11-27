@@ -62,8 +62,8 @@ export function setup(s) {
   for (let i = 0; i < 7; i++) { const p = s.obj('PickleProp').clone(true); p.position.set(((i % 4) - 1.5) * 0.06, Math.floor(i / 4) * 0.05, (i % 2) * 0.03); p.rotation.set(1.57 + (i % 3) * 0.3, i * 0.7, 0.2 * i); pile.add(p); }
 }
 
-const ORDER = ['hook', 'copies', 'rule', 'liealot', 'offer', 'yum', 'throwup', 'dancing', 'choc', 'never', 'licking', 'goaway', 'leave', 'hedid', 'nosnitch', 'fly', 'cool', 'best', 'all',
-  'sundown', 'play', 'exceptmine', 'looked', 'look2', 'look3', 'found', 'sorry', 'promise', 'return', 'cameback', 'proud', 'noticed', 'noshadow', 'where', 'whatshadow', 'button'];
+const ORDER = ['hook', 'copies', 'feel', 'rule', 'liealot', 'offer', 'yum', 'gag', 'throwup', 'dancing', 'uhhuh', 'choc', 'never', 'licking', 'owe', 'goaway', 'leave', 'hedid', 'nosnitch', 'spree', 'fly', 'cool', 'teach', 'secret', 'best', 'all',
+  'sundown', 'play', 'exceptmine', 'notfun', 'looked', 'look2', 'look3', 'found', 'sorry', 'promise', 'return', 'cameback', 'proud', 'noticed', 'noshadow', 'stare', 'where', 'whatshadow', 'button'];
 const I = Object.fromEntries(ORDER.map((id, i) => [id, i]));
 export function base(s, c) {
   const i = I[c.id];
@@ -98,6 +98,18 @@ export const beats = [
       atHouse(s); const w = c.w('well'), up = seg(c.t, 0.15, 0.4) * (1 - seg(c.t, w - 0.1, w + 0.05));
       s.bean.pose({ armR: [150 * up, 20, 0], armL: [150 * up, 20, 0], lift: sin(sat(c.t / 0.5) * PI) * 0.05 }).expr(c.t > w ? { eyes: 'half', brows: 'skeptic', mouth: 'flat', look: [0.6, 0.5] } : { eyes: 'happy', brows: 'raised', mouth: 'grin' });
       if (c.t > w) { const d = c.t * 9; own(s, 'bean').pose({ armL: [150 + sin(d) * 25, 40, 0], armR: [150 - sin(d) * 25, 40, 0], torso: [0, sin(d * 0.5) * 25, sin(d) * 12], legL: sin(d) * 25, legR: -sin(d) * 25, lift: abs(sin(d)) * 0.05 }); }
+    } },
+  { id: 'feel', line: 'L02b',
+    shots: [{ on: 'bean', dist: 0.95, yaw: 10, pitch: 4 }, ground(...HB), ground(...HB)],
+    sfx: [{ at: 'w:shakes', name: 'rumble', gain: 0.5 }, { at: 'w:dances', name: 'boing', gain: 0.5 }],
+    act(s, c) {
+      atHouse(s); const sc = c.t > c.w('scared') && c.t < c.w('happy'), hp = c.t >= c.w('happy');
+      s.bean.pose({ armL: sc ? [70, -30, 0] : idle, armR: sc ? [70, -30, 0] : idle, torso: [0, 0, sc ? sin(c.t * 50) * 2 : 0] })
+        .expr(sc ? { eyes: 'shock', brows: 'worried', mouth: 'wobble', sweat: true } : hp ? { eyes: 'happy', brows: 'raised', mouth: 'grin' } : { eyes: 'open', brows: 'raised', mouth: 'smile' });
+      const sh = own(s, 'bean'), d = c.t * 10;
+      if (sc) sh.pose({ armL: [130, 20, 0], armR: [130, 20, 0], torso: [-8, 0, sin(c.t * 60) * 6], head: [0, sin(c.t * 70) * 10, 0], legL: sin(c.t * 60) * 6 });
+      else if (hp) sh.pose({ armL: [150 + sin(d) * 25, 40, 0], armR: [150 - sin(d) * 25, 40, 0], torso: [0, 0, sin(d) * 12], legL: sin(d) * 25, legR: -sin(d) * 25, lift: abs(sin(d)) * 0.05 });
+      else sh.pose({ armL: idle, armR: idle });
     } },
   { id: 'rule', line: 'L03',
     shots: [{ on: 'bean', dist: 0.85, yaw: -6, pitch: 2 }, ground(...HB), { on: 'bean', dist: 0.7, yaw: 12, pitch: 1 }],
@@ -135,6 +147,13 @@ export const beats = [
       const g = sin(c.t * 34) * 4;                                                                                               // the shadow gags
       own(s, 'bean').pose({ torso: [48, 0, g], head: [-30, 0, 0], armL: [55, -24, 0], armR: [140, -30, 0], legL: -8, legR: 8 });
     } },
+  { id: 'gag', dur: 1.0, focus: [9.0, 0.2, -0.9],
+    shots: [{ ...ground(...SB), dolly: [0, -0.15, -0.1] }],
+    sfx: [{ at: 0.1, name: 'gurgle', gain: 0.7 }, { at: 0.55, name: 'gurgle', gain: 0.5 }],
+    act(s, c) {
+      atShop(s); s.pickle.expr({ eyes: 'happy', brows: 'raised', mouth: 'smile' }); s.bean.pose({ armR: [110, 10, 0], head: [16, 0, 0] }).expr({ eyes: 'happy', brows: 'raised', mouth: 'grin' });
+      const h = abs(sin(c.t * 6)); own(s, 'bean').pose({ torso: [35 + 30 * h, 0, sin(c.t * 34) * 4], head: [-40 * h, 0, 0], armL: [55, -24, 0], armR: [60 + 80 * h, -30, 0], lift: 0.02 * h });
+    } },
   { id: 'throwup', line: 'L07',
     shots: [ground(...SB), { on: 'pickle', dist: 0.95, yaw: -16, pitch: -2 }],
     sfx: [{ at: 0.05, name: 'gurgle', gain: 0.55 }],
@@ -153,8 +172,15 @@ export const beats = [
         .expr({ eyes: 'happy', brows: 'worried', mouth: 'teeth', sweat: true });
       own(s, 'bean').pose({ torso: [52, 0, sin(c.t * 30) * 4], head: [-32, 0, 0], armL: [50, -30, 0], armR: [140, -30, 0] });     // …still gagging
     } },
+  { id: 'uhhuh', line: 'L08b', min: 0.8,
+    shots: [{ on: 'pickle', dist: 0.9, yaw: 14, pitch: -3 }],
+    act(s, c) {
+      atShop(s); s.pickle.pose({ armL: [48, -24, 0], armR: [48, -24, 0], head: [-14, 0, 8] }).expr({ eyes: 'half', brows: 'skeptic', mouth: 'flat' });
+      s.bean.pose({ armL: [150, 30, 0], armR: [150, 30, 0] }).expr({ eyes: 'happy', brows: 'worried', mouth: 'teeth', sweat: true });
+      own(s, 'bean').pose({ torso: [52, 0, sin(c.t * 30) * 4], head: [-32, 0, 0], armL: [50, -30, 0], armR: [140, -30, 0] });
+    } },
   { id: 'choc', line: 'L09',
-    shots: [{ on: 'dottie', dist: 0.95, yaw: 10, pitch: 2, anchor: 0.45 }, shopTwo, { on: 'dottie', dist: 0.78, yaw: -8, pitch: 1 }],
+    shots: [{ on: 'dottie', dist: 1.1, yaw: 10, pitch: 2, anchor: 0.6 }, shopTwo, { on: 'dottie', dist: 0.78, yaw: -8, pitch: 1 }],
     sfx: [{ at: 0.02, name: 'step', gain: 0.5 }, { at: 0.2, name: 'step', gain: 0.5 }, { at: 'w:chocolate', name: 'sting', gain: 0.35 }],
     act(s, c) {
       atShop(s, faceTo(SB, SD)); s.pickle.hide(); dottieIn(s, c, easeOut(seg(c.t, 0, 0.35)));
@@ -178,6 +204,16 @@ export const beats = [
       s.bean.pose({ head: [-26, 20, 0] }).expr({ eyes: 'shock', brows: 'worried', mouth: 'wobble', sweat: true, look: [0.5, 0.8] });
       own(s, 'bean').pose({ armR: [152, -32, sin(c.t * 10) * 20], armL: idle, head: [-10, 0, 14] });
     } },
+  { id: 'owe', line: 'L11b',
+    shots: [{ on: 'dottie', dist: 0.85, yaw: 4, pitch: 2, shake: 0.4 }, shopTwo],
+    sfx: [{ at: 'w:knew', name: 'thud', gain: 0.6 }, { at: -0.5, name: 'step', gain: 0.5 }, { at: -0.3, name: 'step', gain: 0.5 }],
+    act(s, c) {
+      atShop(s, faceTo(SB, SD)); s.pickle.hide(); const out = seg(c.t, c.dur - 0.7, c.dur);
+      if (out <= 0) dottieIn(s, c).pose({ armR: [90, 0, 0], armL: [48, -24, 0], lift: abs(sin(c.t * 8)) * 0.02 }).expr({ eyes: 'angry', brows: 'angry', mouth: 'scream' });
+      else walk(s.dottie, SD, [SD[0] - 2.2, SD[1] + 0.2], out, c.t, 9, 36).expr({ eyes: 'angry', brows: 'angry', mouth: 'frown' });
+      s.bean.pose({ head: [0, 0, 0] }).expr({ eyes: 'wide', brows: 'worried', mouth: 'wobble', sweat: true });
+      own(s, 'bean').pose({ armL: [150, 20, 0], armR: [150, 20, 0], head: [-20, 0, 0] });                                         // the shadow: guilty, hands up
+    } },
   { id: 'goaway', line: 'L12',
     shots: [{ on: 'bean', dist: 0.85, yaw: 30, pitch: 3, shake: 0.4 }, shopWide, { on: 'bean', dist: 0.7, yaw: 50, pitch: 2, shake: 0.5 }],
     sfx: [{ at: 'w:away', name: 'thud' }],
@@ -185,12 +221,12 @@ export const beats = [
       s.bean.at(...SB, 90).pose({ armL: idle, armR: [90, 0, 0], head: [-26, 0, 0], torso: [8, 0, 0], lift: abs(sin(c.t * 9)) * 0.02 }).expr({ eyes: 'angry', brows: 'angry', mouth: 'scream' });
       own(s, 'bean', 90).pose({ torso: [-14, 0, 0], armL: [130, 30, 0], armR: [130, 30, 0], head: [10, 0, 0] });                  // the shadow cowers
     } },
-  { id: 'leave', dur: 1.9, focus: [9.6, 0.1, -0.6], music: 'sad',
+  { id: 'leave', dur: 2.3, focus: [9.6, 0.1, -0.6], music: 'sad',
     shots: [{ ...ground(...SB, 1.3), dolly: [0.4, 0, 0] }, { pos: [8.2, 1.2, 1.6], look: 'bean', fov: 42, focus: 'bean' }],
     sfx: [{ at: 0.15, name: 'slide', gain: 0.5 }],
     act(s, c) {
       s.bean.at(...SB, 90).pose({ armL: idle, armR: [90 * (1 - seg(c.t, 0.2, 0.6)), 0, 0], head: [-26, 0, 0] }).expr({ eyes: 'open', brows: 'worried', mouth: 'flat', look: [0.6, 0.7] });
-      const u = seg(c.t, 0.35, 1.9), sh = walk(s.shadow('bean'), SB, [SB[0] + 2.4, SB[1] + 0.25], u, c.t, 5, 24);
+      const u = seg(c.t, 0.4, 2.3), sh = walk(s.shadow('bean'), SB, [SB[0] + 2.4, SB[1] + 0.25], u, c.t, 5, 24);
       sh.pose({ head: [-24, 0, 0], torso: [10, 0, 0] }); if (c.u > 0.82) sh.hide();
     } },
   { id: 'hedid', line: 'L13',
@@ -203,6 +239,12 @@ export const beats = [
     act(s, c) {
       const j = sin(sat((c.t - c.w('anything')) / 0.4) * PI);
       s.bean.at(...SB, 0).pose({ armL: [150 * (j > 0 ? 1 : 0.2), 30, 0], armR: [150 * (j > 0 ? 1 : 0.2), 30, 0], lift: j * 0.12 }).expr({ eyes: 'happy', brows: 'raised', mouth: 'grin' });
+    } },
+  { id: 'spree', line: 'L14b',
+    shots: [{ on: 'bean', dist: 0.8, yaw: -18, pitch: 3 }],
+    sfx: [{ at: 'w:spree', name: 'sparkle', gain: 0.5 }],
+    act(s, c) {
+      s.bean.at(...SB, 10).pose({ armL: [80, -38 + sin(c.t * 14) * 8, 0], armR: [80, -38 - sin(c.t * 14) * 8, 0], head: [-6, 0, 8] }).expr({ eyes: 'half', brows: 'angry', mouth: 'smirk' });
     } },
   { id: 'fly', line: 'L15',
     shots: [{ on: 'bean', dist: 0.9, yaw: -16, pitch: 4 }, parkTwo, { on: 'bean', dist: 0.75, yaw: 8, pitch: 4 }],
@@ -218,6 +260,19 @@ export const beats = [
     act(s, c) {
       atPark(s); s.max.pose({ armL: [150, 30, 0], armR: [150, 30, 0], lift: abs(sin(c.t * 8)) * 0.05 }).expr({ eyes: 'shock', brows: 'raised', mouth: 'grin' });
       s.bean.pose({ armL: [80, -40, 0], armR: [80, -40, 0] }).expr({ eyes: 'half', brows: 'raised', mouth: 'smirk' });
+    } },
+  { id: 'teach', line: 'L16b',
+    shots: [{ on: 'max', dist: 0.9, yaw: -10, pitch: 2 }],
+    act(s, c) {
+      atPark(s); s.max.pose({ armL: [70, -20, 0], armR: [70, -20, 0], lift: abs(sin(c.t * 8)) * 0.03 }).expr({ eyes: 'wide', brows: 'raised', mouth: 'grin' });
+      s.bean.pose({ armL: [80, -40, 0], armR: [80, -40, 0] }).expr({ eyes: 'half', brows: 'raised', mouth: 'smirk' });
+    } },
+  { id: 'secret', line: 'L16c',
+    shots: [{ on: 'bean', dist: 0.8, yaw: 14, pitch: 3 }, parkTwo],
+    sfx: [{ at: 'w:secret', name: 'pop', gain: 0.5 }],
+    act(s, c) {
+      atPark(s); s.max.expr({ eyes: 'sad', brows: 'sad', mouth: 'frown' });
+      s.bean.pose({ armL: [80, -40, 0], armR: [80, -40, 0], head: [10, 0, -8] }).expr({ eyes: c.t > c.w('secret') ? 'closed' : 'half', brows: 'raised', mouth: 'smirk' });
     } },
   { id: 'best', line: 'L17',
     shots: [{ on: 'bean', dist: 0.9, yaw: -14, pitch: 3 }, shopTwo, { on: 'pickle', dist: 0.95, yaw: -10, pitch: -2, focus: 'pickle' }],
@@ -264,6 +319,14 @@ export const beats = [
         const a = c.T * 2.6 + i * 2.1, sh = s.shadow(n), st = c.T * 9 + i; sh.group.visible = true;
         sh.at(-6.9 + cos(a) * 0.93, 0.4 + sin(a) * 0.62, (-(a * 180 / PI)) + 180).pose({ legL: sin(st) * 40, legR: -sin(st) * 40, armL: [-sin(st) * 40, 8, 0], armR: [sin(st) * 40, 8, 0], torso: [14, 0, 0] }); });
     } },
+  { id: 'notfun', line: 'L21b',
+    shots: [{ on: 'bean', dist: 0.8, yaw: 20, pitch: 3 }, ground(-4.35, 0.55, 1.4), { on: 'bean', dist: 0.65, yaw: -8, pitch: 2 }],
+    act(s, c) {
+      s.bean.at(-4.35, 0.55, -30).pose({ armL: idle, armR: idle, head: [-18, 0, 0], torso: [6, 0, 0] }).expr({ eyes: 'sad', brows: 'sad', mouth: 'frown', look: [0, 0.6] });
+      ['max', 'ana', 'leo'].forEach((n, i) => { const [x, z] = KIDS[i]; show(s[n]).at(x, z, 0).expr({ eyes: 'happy', brows: 'raised', mouth: 'grin' });
+        const a = c.T * 2.6 + i * 2.1, sh = s.shadow(n), st = c.T * 9 + i; sh.group.visible = true;
+        sh.at(-6.9 + cos(a) * 0.93, 0.4 + sin(a) * 0.62, (-(a * 180 / PI)) + 180).pose({ legL: sin(st) * 40, legR: -sin(st) * 40, armL: [-sin(st) * 40, 8, 0], armR: [sin(st) * 40, 8, 0], torso: [14, 0, 0] }); });
+    } },
   { id: 'looked', line: 'L22',
     shots: [{ pos: [12.6, 1.0, 1.4], look: 'bean', fov: 44, focus: 'bean' }],
     sfx: [{ at: 0.05, name: 'whoosh', gain: 0.4 }],
@@ -297,13 +360,13 @@ export const beats = [
       s.bean.pose({ armR: [80 * h, 6, 0], torso: [8, 0, 0] }).expr({ eyes: 'open', brows: 'worried', mouth: 'smile' });
       benchShadow(s, c.T).pose({ head: [-4, 30, 0], legL: 88, legR: 88 });
     } },
-  { id: 'return', dur: 1.5,
+  { id: 'return', dur: 1.8,
     shots: [benchGround, benchWide], focus: [-5.4, 0.2, -0.9],
-    sfx: [{ at: 0.2, name: 'whoosh', gain: 0.6 }, { at: 1.15, name: 'pop' }, { at: 1.2, name: 'sparkle' }],
+    sfx: [{ at: 0.2, name: 'whoosh', gain: 0.6 }, { at: 1.4, name: 'pop' }, { at: 1.45, name: 'sparkle' }],
     act(s, c) {
-      atBench(s); s.bean.pose({ armR: [80, 6, 0] }).expr({ eyes: c.t > 1.15 ? 'happy' : 'wide', brows: 'raised', mouth: c.t > 1.15 ? 'grin' : 'o' });
-      if (c.t < 0.25) { benchShadow(s, c.T).pose({ legL: 40, legR: 40 }); return; }
-      const u = easeInOut(seg(c.t, 0.25, 1.15)), sh = walk(s.shadow('bean'), [BENCH[0] + 0.15, BENCH[1] + 0.35], FB, u, c.t, 11, 44);
+      atBench(s); s.bean.pose({ armR: [80, 6, 0] }).expr({ eyes: c.t > 1.4 ? 'happy' : 'wide', brows: 'raised', mouth: c.t > 1.4 ? 'grin' : 'o' });
+      if (c.t < 0.3) { benchShadow(s, c.T).pose({ legL: 40, legR: 40 }); return; }
+      const u = easeInOut(seg(c.t, 0.3, 1.4)), sh = walk(s.shadow('bean'), [BENCH[0] + 0.15, BENCH[1] + 0.35], FB, u, c.t, 11, 44);
       if (u >= 1) { s.shadow('bean').free = false; }                                                                  // home: back to copying Bean
     } },
   { id: 'cameback', line: 'L26', music: 'bright',
@@ -322,7 +385,7 @@ export const beats = [
       show(s.dottie).at(...FD, faceTo(FD, FB) + 20).pose({ armL: [20, -20, 0], armR: [20, -20, 0], head: [0, 0, -8] }).expr({ eyes: 'happy', brows: 'raised', mouth: 'smile' });
     } },
   { id: 'noticed', line: 'L28', music: 'stop',
-    shots: [{ on: 'bean', dist: 0.75, yaw: -55, pitch: 2 }, { on: 'bean', dist: 0.62, yaw: -45, pitch: 1 }],
+    shots: [{ on: 'bean', dist: 0.75, yaw: -55, pitch: 2 }, { on: 'bean', dist: 0.75, yaw: -45, pitch: 1, up: -0.03 }],
     sfx: [{ at: 0.1, name: 'rumble', gain: 0.6 }],
     act(s, c) {
       const d = seg(c.t, 0.3, 1.0);
@@ -335,6 +398,13 @@ export const beats = [
     act(s, c) {
       s.bean.at(...FB, faceTo(FB, FD) - 10).pose({ armL: idle, armR: idle, head: [-18, 20, 0] }).expr({ eyes: 'shock', brows: 'worried', mouth: 'o', look: [0.6, 0.6] });
       show(s.dottie).at(...FD, faceTo(FD, FB) + 20).pose({ armL: [20, -20, 0], armR: [20, -20, 0] }).expr({ eyes: 'happy', brows: 'raised', mouth: 'smile' });
+    } },
+  { id: 'stare', dur: 1.0, focus: 'dottie',
+    shots: [{ on: 'dottie', dist: 1.3, yaw: -30, pitch: 10, dolly: [0.15, -0.05, -0.2] }],
+    sfx: [{ at: 0.05, name: 'rumble', gain: 0.6 }],
+    act(s, c) {
+      s.bean.at(...FB, faceTo(FB, FD) - 10).pose({ armL: idle, armR: idle }).expr({ eyes: 'shock', brows: 'worried', mouth: 'o' });
+      show(s.dottie).at(...FD, faceTo(FD, FB) + 20).pose({ armL: [20, -20, 0], armR: [20, -20, 0], head: [0, 0, -6] }).expr({ eyes: 'happy', brows: 'raised', mouth: 'smile' });
     } },
   { id: 'where', line: 'L30',
     shots: [{ on: 'bean', dist: 0.75, yaw: -50, pitch: 2, shake: 0.4 }, { on: 'dottie', dist: 0.9, yaw: -40, pitch: 0, focus: 'dottie' }],
