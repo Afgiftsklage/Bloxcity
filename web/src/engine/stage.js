@@ -15,13 +15,14 @@ import { lerp, rad } from './util.js';
 
 const GradeShader = {
   uniforms: { tDiffuse: { value: null }, warmth: { value: Q.grade.warmth }, saturation: { value: Q.grade.saturation }, contrast: { value: Q.grade.contrast },
-    lift: { value: Q.grade.lift }, vignette: { value: Q.grade.vignette }, softness: { value: Q.grade.vignetteSoftness } },
+    lift: { value: Q.grade.lift }, tint: { value: [1, 1, 1] }, vignette: { value: Q.grade.vignette }, softness: { value: Q.grade.vignetteSoftness } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-  fragmentShader: `uniform sampler2D tDiffuse; uniform float warmth, saturation, contrast, lift, vignette, softness; varying vec2 vUv;
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float warmth, saturation, contrast, lift, vignette, softness; uniform vec3 tint; varying vec2 vUv;
     void main(){
       vec3 c = texture2D(tDiffuse, vUv).rgb;
       c += lift * (1.0 - c);
       c *= vec3(1.0 + warmth, 1.0 + warmth * 0.3, 1.0 - warmth * 0.9);                      // warm white balance
+      c *= tint;                                                                            // GRAPHICS.md colour tint (sunset warm / night cool)
       float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
       c = mix(vec3(l), c, saturation);
       c = (c - 0.5) * contrast + 0.5;
@@ -36,7 +37,10 @@ export class Stage {
   // set = { model: 'room.glb', lighting: 'night' | 'day', noCast: RegExp, materials(mats) }  (default: the EP01 cozy room at night)
   async init(canvas, charDefs, set = {}) {
     const W = Q.width, H = Q.height, day = set.lighting === 'day'; this.day = day;
-    const D = this.D = { ...Q.day }; for (const k in set.day ?? {}) D[k] = typeof D[k] === 'object' ? { ...D[k], ...set.day[k] } : set.day[k];      // set.day = per-episode overrides of the daylight preset
+    const D = this.D = { ...Q.day }, merge = o => { for (const k in o ?? {}) D[k] = typeof D[k] === 'object' ? { ...D[k], ...o[k] } : o[k]; };
+    merge(set.day);                                                                     // set.day = per-episode overrides of the daylight preset
+    const G = this.G = set.look === 'graphics' ? { ...Q.graphics, ...Q.graphics[set.time ?? 'sunset'], time: set.time ?? 'sunset' } : null;
+    if (G && day) merge(G.day);                                                         // GRAPHICS.md lighting state wins over the episode's own values
     const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
     r.setPixelRatio(1); r.setSize(W, H, false);
     r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = this.exposure = day ? D.exposure : Q.exposure; r.outputColorSpace = THREE.SRGBColorSpace;
@@ -103,13 +107,14 @@ export class Stage {
     const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: Q.msaa });
     const comp = this.composer = new EffectComposer(r, rt); comp.setPixelRatio(1); comp.setSize(W, H);
     comp.addPass(new RenderPass(scene, this.camera));
-    const gtao = this.gtao = new GTAOPass(scene, this.camera, W, H); gtao.output = GTAOPass.OUTPUT.Default; gtao.blendIntensity = Q.gtao.blendIntensity;
-    gtao.updateGtaoMaterial({ radius: Q.gtao.radius, distanceExponent: Q.gtao.distanceExponent, thickness: Q.gtao.thickness, scale: Q.gtao.scale, samples: Q.gtao.samples });
+    const AO = G ? G.gtao : Q.gtao, gtao = this.gtao = new GTAOPass(scene, this.camera, W, H); gtao.output = GTAOPass.OUTPUT.Default; gtao.blendIntensity = AO.blendIntensity;
+    gtao.updateGtaoMaterial({ radius: AO.radius, distanceExponent: AO.distanceExponent, thickness: AO.thickness, scale: AO.scale, samples: AO.samples });
     comp.addPass(gtao);
     this.bokeh = new BokehPass(scene, this.camera, { focus: 2, aperture: Q.dof.aperture, maxblur: Q.dof.maxblur }); comp.addPass(this.bokeh);
     const bl = day ? D.bloom : Q.bloom; this.bloom = new UnrealBloomPass(new THREE.Vector2(W, H), bl.strength, bl.radius, bl.threshold); comp.addPass(this.bloom);
     comp.addPass(new OutputPass());
     this.grade = new ShaderPass(GradeShader); comp.addPass(this.grade);
+    if (G) { const gu = this.grade.uniforms; gu.warmth.value = G.grade.warmth; gu.saturation.value = G.grade.saturation; gu.vignette.value = G.grade.vignette; gu.tint.value = G.tint; }
     this.fx = { ao: true, dof: true, bloom: true }; this.THREE = THREE;
     return this;
   }
@@ -162,7 +167,10 @@ export class Stage {
       this.rim.target.position.copy(focus); this.rim.position.copy(focus).add(new THREE.Vector3(...this.D.rim.offset));
     }
     this.gtao.enabled = this.fx.ao; this.bokeh.enabled = this.fx.dof; this.bloom.enabled = this.fx.bloom;
+    this.onRender?.(focus);                        // set builders can follow the action (e.g. the night street-lamp pool)
     const u = this.bokeh.uniforms; u.focus.value = focusDist; u.aperture.value = Q.dof.aperture; u.maxblur.value = Q.dof.maxblur; u.aspect.value = this.camera.aspect;
+    if (this.G) { const g = this.G.dof, k = Math.min(1, Math.max(0, (focusDist - g.near) / (g.far - g.near)));      // GRAPHICS.md: aperture by shot width
+      u.focus.value = focusDist + g.focusOffset; u.aperture.value = lerp(g.apertureClose, g.apertureWide, k); u.maxblur.value = g.maxblur; }
     u.nearClip.value = this.camera.near; u.farClip.value = this.camera.far;
     this.composer.render();
   }

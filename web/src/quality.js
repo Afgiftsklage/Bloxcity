@@ -25,5 +25,23 @@ export const QUALITY = {
     hemi: { sky: '#bcd9ff', ground: '#86a865', intensity: 0.55 },
     bloom: { strength: 0.22, radius: 0.6, threshold: 0.95 },
   },
+  // GRAPHICS.md look (nmbiv-tech, Nov 2026). Opt-in per episode with `set.look = 'graphics'` and `set.time = 'sunset' | 'night'`.
+  // Their scenes use a character ≈ 5.3 units tall, ours ≈ 1.35 m, so lengths are ×0.25 and point-light intensities are rescaled for the shorter distances.
+  graphics: {
+    gtao: { radius: 0.23, distanceExponent: 1.4, thickness: 0.5, scale: 1.2, samples: 16, blendIntensity: 0.95 },
+    dof: { focusOffset: 0.16, near: 3, far: 12, apertureClose: 0.0088, apertureWide: 0.0016, maxblur: 0.012 },   // shallow focus on close-ups, deep on wides
+    grade: { warmth: 0, saturation: 1.12, vignette: 0.32 },
+    carPaint: { metalness: 0.35, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.08 },
+    sunset: {
+      day: { exposure: 0.78, sun: { color: '#ffa060', intensity: 2.8 }, hdri: { intensity: 0.7, background: 1.0 }, bloom: { strength: 0.32, radius: 0.55, threshold: 1.8 } },      // tuned: GRAPHICS.md's exposure 1.0 / sun 3.4 / threshold 0.92 blew out this set (painted sky, bright stucco)
+      tint: [1.04, 1.0, 0.93], windows: 0.12, signs: 1.0,
+    },
+    night: {
+      day: { exposure: 0.78, sun: { color: '#8aa6ff', intensity: 0.18 }, rim: { color: '#8aa6ff', intensity: 0.3 }, hemi: { sky: '#3a4a7a', ground: '#1a1420', intensity: 0.07 },
+        hdri: { intensity: 0.06, background: 0.1 }, bloom: { strength: 0.32, radius: 0.55, threshold: 0.92 } },
+      tint: [0.92, 0.97, 1.12], windows: 1.2, signs: 2.2, fog: '#101a33',
+      lamps: { color: '#ffc98a', intensity: 5, decay: 1.6, distance: 8.5, pool: 4 },      // street lamps: a pool of the 4 nearest real lights follows the action
+    },
+  },
   tints: { wall: '#9fc3c9', blanket: { color: '#8c7ae6', noMap: true }, duvet: '#8fc0ee', rug: '#f0a184', couch: '#ffd58a', wood: '#ffe9d2', floor: '#ffeedd' },
 };

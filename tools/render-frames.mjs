@@ -2,6 +2,7 @@
 //   node tools/render-frames.mjs ep01                 full render -> episodes/ep01/frames/f_00000.png …
 //   node tools/render-frames.mjs ep01 --contact       one still per shot + framing lint -> episodes/ep01/contact_sheet.jpg
 //   options: --workers 3   --shots 4,7,12 (only these shots)   --from 0 --to 300   --force   --frame 123 (single test frame -> test.png)
+//            --query look=graphics&time=night (extra URL parameters, e.g. to test a look)
 import fs from 'node:fs'; import path from 'node:path'; import { createRequire } from 'node:module';
 import { createServer } from 'vite';
 const require = createRequire(import.meta.url);
@@ -10,7 +11,7 @@ const args = process.argv.slice(2), ep = args.find(a => !a.startsWith('--') && !
 const opt = (k, d) => { const i = args.indexOf('--' + k); return i < 0 ? d : (args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : true); };
 const dir = `episodes/${ep}`, workers = +opt('workers', 3);
 const server = await createServer({ configFile: 'web/vite.config.js', server: { port: 5173, strictPort: false }, logLevel: 'error' });
-await server.listen(); const url = `http://localhost:${server.config.server.port}/?ep=${ep}`;
+await server.listen(); const url = `http://localhost:${server.config.server.port}/?ep=${ep}` + (typeof opt('query') === 'string' ? '&' + opt('query') : '');
 const launch = () => chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--enable-webgl', '--disable-gpu-vsync', '--disable-frame-rate-limit'] });
 const browsers = [];
 async function openPage() {            // one browser process per worker: software GL is single-process, so this is what scales across cores

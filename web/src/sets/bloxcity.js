@@ -8,6 +8,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 const PAL = { pink: '#ff7fa0', yellow: '#ffd166', teal: '#3fd0c9', peach: '#f9a26c', mint: '#a8ecd6', lilac: '#c9a9e9', white: '#fff4e6', coral: '#ff6b5e', sky: '#7cc6fe' };
 let seed = 7; const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };   // seeded: every render worker builds the same city
 const mats = new Map();
+let LOOK = null; const facadeMats = [], signMats = [];      // LOOK = stage.G (GRAPHICS.md look) or null for the original EP04 look
 const mat = (color, o = {}) => { const k = color + JSON.stringify(o); if (!mats.has(k)) mats.set(k, new THREE.MeshStandardMaterial({ color, roughness: 0.62, ...o })); return mats.get(k); };
 const glow = (color, i = 2.5) => mat(color, { emissive: color, emissiveIntensity: i });
 
@@ -32,10 +33,17 @@ function sign(text, { w = 2, h = 0.5, bg = '#1b1f3b', color = '#fff', px = 1024,
   c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle';
   const lines = [].concat(text), fs = Math.min(cv.height / lines.length * 0.74, cv.width / Math.max(...lines.map(l => l.length)) * 1.5);
   c.font = font ?? `bold ${Math.round(fs)}px "DejaVu Sans", sans-serif`;
-  lines.forEach((t, i) => c.fillText(t, cv.width / 2, cv.height * (i + 0.5) / lines.length + fs * 0.04));
+  const neon = LOOK && emissive >= 0.7, drawText = () => lines.forEach((t, i) => c.fillText(t, cv.width / 2, cv.height * (i + 0.5) / lines.length + fs * 0.04));
+  if (neon) {                                                  // GRAPHICS.md neon: glow-coloured text with two blur passes + a glowing border, bloom does the rest
+    c.shadowColor = color; for (const b of [fs * 0.45, fs * 0.15]) { c.shadowBlur = b; drawText(); }
+    const lw = Math.max(3, cv.height * 0.035); c.strokeStyle = color; c.lineWidth = lw; c.shadowBlur = lw * 2.5; c.strokeRect(lw * 1.5, lw * 1.5, cv.width - lw * 3, cv.height - lw * 3); c.shadowBlur = 0;
+  }
+  drawText();
   sub?.(c, cv);
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
-  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6, emissive: '#fff', emissiveMap: tex, emissiveIntensity: emissive, side: THREE.DoubleSide }));
+  const m = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6, emissive: '#fff', emissiveMap: tex, emissiveIntensity: emissive, side: THREE.DoubleSide });
+  if (neon) signMats.push(m);
+  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), m);
 }
 export const makeSign = sign;
 
@@ -49,7 +57,7 @@ function facade(color, cols, rows, lit = 0.45) {
     c.fillStyle = on ? '#ffe7a3' : '#2c4a66'; c.fillRect(x, y, w, h); if (on) { e.fillStyle = '#ffd98a'; e.fillRect(x, y, w, h); }
   }
   const t = new THREE.CanvasTexture(cv), te = new THREE.CanvasTexture(ev); t.colorSpace = te.colorSpace = THREE.SRGBColorSpace;
-  return new THREE.MeshStandardMaterial({ map: t, roughness: 0.7, emissive: '#fff', emissiveMap: te, emissiveIntensity: 0.8 });
+  const m = new THREE.MeshStandardMaterial({ map: t, roughness: 0.7, emissive: '#fff', emissiveMap: te, emissiveIntensity: 0.8 }); facadeMats.push(m); return m;
 }
 function building(parent, name, x, z, w, h, d, color, { cols = 4, rows = 5, roof = PAL.white, lit = 0.45 } = {}) {
   const g = group(name, x, 0, z, parent);
@@ -71,8 +79,9 @@ function wheel(name, r, x, y, z, parent, w = 0.16) { const t = cyl(name, r, w, '
 // car: origin on the ground, nose toward +x
 function car(name, color, { cop = false, taxi = false } = {}) {
   const g = group(name);
-  box(name + 'Body', 2.5, 0.52, 1.25, color, 0, 0.52, 0, 0.16, g);
-  box(name + 'Cabin', 1.35, 0.46, 1.08, cop ? '#f4f6fb' : color, -0.12, 0.98, 0, 0.14, g);
+  const paint = c => LOOK ? new THREE.MeshPhysicalMaterial({ color: c, ...LOOK.carPaint }) : c;      // GRAPHICS.md clear-coat car paint
+  box(name + 'Body', 2.5, 0.52, 1.25, paint(color), 0, 0.52, 0, 0.16, g);
+  box(name + 'Cabin', 1.35, 0.46, 1.08, paint(cop ? '#f4f6fb' : color), -0.12, 0.98, 0, 0.14, g);
   box(name + 'Glass', 1.4, 0.3, 1.1, mat('#1d3350', { roughness: 0.15, metalness: 0.3 }), -0.12, 0.99, 0, 0.05, g);
   box(name + 'GlassS', 1.1, 0.3, 1.14, mat('#1d3350', { roughness: 0.15, metalness: 0.3 }), -0.12, 0.99, 0, 0.05, g);
   box(name + 'BumperF', 0.14, 0.18, 1.22, '#d9dde6', 1.24, 0.36, 0, 0.05, g); box(name + 'BumperR', 0.14, 0.18, 1.22, '#d9dde6', -1.24, 0.36, 0, 0.05, g);
@@ -107,7 +116,7 @@ function scooter(name, color, { big = false } = {}) {
 }
 
 export async function build(s) {
-  seed = 7;
+  seed = 7; LOOK = s.G; facadeMats.length = signMats.length = 0; const night = LOOK?.time === 'night';
   const tl = new THREE.TextureLoader(), tex = async (n, rx, ry) => { const o = {}; for (const [k, key, cs] of [['diff', 'map', 1], ['nor', 'normalMap', 0], ['rough', 'roughnessMap', 0]]) { const t = await tl.loadAsync(`/tex/${n}_${k}.jpg`); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rx, ry); t.anisotropy = 8; if (cs) t.colorSpace = THREE.SRGBColorSpace; o[key] = t; } return o; };
   // stylised sunset sky (equirect gradient + sun disc + soft clouds); the HDRI still lights the scene
   { const cv = document.createElement('canvas'); cv.width = 2048; cv.height = 1024; const c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, 0, 1024);
@@ -116,6 +125,13 @@ export async function build(s) {
     for (let i = 0; i < 26; i++) { const x = rnd() * 2048, y = 1024 * (0.3 + rnd() * 0.16), w = 120 + rnd() * 260, h = 10 + rnd() * 16; c.fillStyle = `rgba(255,${170 + Math.round(rnd() * 50)},${170 + Math.round(rnd() * 40)},${0.18 + rnd() * 0.2})`; for (let k = 0; k < 5; k++) { c.beginPath(); c.ellipse(x + (rnd() - 0.5) * w * 0.6, y + (rnd() - 0.5) * h, w * (0.3 + rnd() * 0.3), h * (0.6 + rnd() * 0.6), 0, 0, 7); c.fill(); } }
     const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.mapping = THREE.EquirectangularReflectionMapping; s.scene.background = t; s.scene.backgroundIntensity = 1; s.scene.backgroundRotation.set(0, Math.PI, 0); }
   s.scene.fog = new THREE.Fog('#f2a58f', 45, 230);
+  if (night) {                                                // GRAPHICS.md night: dark sky with stars, cool blue fog
+    const cv = document.createElement('canvas'); cv.width = 2048; cv.height = 1024; const c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, 0, 1024);
+    [[0, '#03050f'], [0.3, '#0a1230'], [0.46, '#1a2a5a'], [0.5, '#2a3a6a'], [0.56, '#141c3a'], [1, '#080b18']].forEach(([t, col]) => g.addColorStop(t, col)); c.fillStyle = g; c.fillRect(0, 0, 2048, 1024);
+    for (let i = 0; i < 700; i++) { const y = rnd() * 1024 * 0.46; c.fillStyle = `rgba(255,255,255,${0.25 + rnd() * 0.6})`; c.fillRect(rnd() * 2048, y, rnd() < 0.08 ? 3 : 2, rnd() < 0.08 ? 3 : 2); }
+    c.fillStyle = '#e8eeff'; c.beginPath(); c.arc(2048 * 0.3, 1024 * 0.2, 26, 0, 7); c.fill();
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.mapping = THREE.EquirectangularReflectionMapping; s.scene.background = t; s.scene.fog = new THREE.Fog(LOOK.fog, 45, 230);
+  }
   s.camera.far = 320;
   const world = group('World');
   const slab = (name, x0, x1, z0, z1, y, material, h = 0.02) => { const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, h, z1 - z0), material); m.name = name; m.position.set((x0 + x1) / 2, y - h / 2, (z0 + z1) / 2); world.add(m); return m; };
@@ -220,6 +236,17 @@ export async function build(s) {
   const ps = sign('THE PIER', { w: 3.4, h: 0.8, bg: '#14a39a', color: '#fff', emissive: 1.1 }); ps.position.set(72, 3.3, 5.14); ps.rotation.y = Math.PI; world.add(ps); for (const sx of [-1.9, 1.9]) cyl('PierSignPole', 0.08, 3.6, '#fff', 72 + sx, 1.9, 5.3, world); box('PierSignBack', 3.7, 1.0, 0.12, '#14a39a', 72, 3.3, 5.22, 0.05, world);
 
   s.add(world);
+  if (LOOK) {                                                 // GRAPHICS.md: window + sign glow per lighting state (day-ish 0.12 / night 1.2; signs ×1 / ×2.2)
+    for (const m of facadeMats) m.emissiveIntensity = LOOK.windows;
+    for (const m of signMats) m.emissiveIntensity *= LOOK.signs;
+  }
+  if (night) {                                                // a pool of real point lights jumps to the street lamps nearest the action every frame
+    const L = LOOK.lamps, heads = [];
+    for (let x = -34; x < 118; x += 9) { if (x > 46 && x < 61) continue; heads.push(new THREE.Vector3(x + 2, 3.62, -2.45)); }
+    for (const [x, z] of [[65, 6.5], [79, 6.5], [65, 17], [79, 17]]) heads.push(new THREE.Vector3(x, 2.8, z));
+    const pool = Array.from({ length: L.pool }, () => { const p = new THREE.PointLight(L.color, L.intensity, L.distance, L.decay); s.scene.add(p); return p; });
+    s.onRender = focus => { if (!focus) return; heads.sort((a, b) => a.distanceToSquared(focus) - b.distanceToSquared(focus)); pool.forEach((p, i) => p.position.copy(heads[i])); };
+  }
 
   // ---------------------------------------------------------------- vehicles + props (all movable from shots.js)
   s.add(scooter('Scooter', '#ffd166')); s.add(scooter('Bike', '#6c3fd1', { big: true }));

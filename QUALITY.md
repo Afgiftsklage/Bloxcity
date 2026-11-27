@@ -153,3 +153,15 @@ Every episode must match these settings. The machine-readable copies live in `we
   - Escalate visibly: pursuers should pile up over time (rival, then vendors, then police), so the payoff line ("the whole city chased me") is earned on screen.
   - Vary the shots in a long action stretch; do not return to the same close-up of the lead more than twice in a row.
 - **Posting text used for EP04:** title "She said 'don't open the box'… so the whole city chased me"; no GTA hashtags (original story and city).
+
+## GRAPHICS.md look (test, 27 Nov 2026)
+- `GRAPHICS.md` (contributed by nmbiv-tech) holds tested look presets from a sister pipeline. Part of it is now wired in as an **opt-in look**:
+  `set.look = 'graphics'` + `set.time = 'sunset' | 'night'` in an episode's set, or `?look=graphics&time=night` in the URL
+  (`npm run frames -- ep04 --frame 1298 --query "look=graphics&time=night"`). Values live in `QUALITY.graphics` in `web/src/quality.js`. EP01–04 are unchanged by default.
+- Wired in: GTAO, depth of field by shot width (shallow on close-ups, deep on wides, focus just behind the head), bloom, colour tint + vignette,
+  clear-coat car paint, neon signs (glow text + border), window glow per time of day, night sky + blue fog, and a pool of 4 street-lamp lights that follows the action.
+- **Units:** GRAPHICS.md's character is ≈ 5.3 units tall, ours ≈ 1.35 m, so lengths were scaled ×0.25 and point-light intensities re-tuned.
+- **Sunset:** the literal values (exposure 1.0, sun 3.4, bloom threshold 0.92) blew the Blox City frames out; tuned to exposure 0.78, sun `#ffa060` 2.8, bloom threshold 1.8.
+  Result is close to EP04's own look: slightly warmer, softer backgrounds on close-ups, stronger glow on candles and lamps.
+- **Night:** works well on wides (lit windows, neon, lamps, stars). In close-ups faces get too dark: a night episode needs a soft key on the speaker before it is used.
+- Comparison of 8 EP04 shots (before / sunset / night): `episodes/ep04/graphics_test.jpg`.

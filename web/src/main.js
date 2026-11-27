@@ -9,7 +9,8 @@ const shotMods = import.meta.glob('../../episodes/*/shots.js'), tlMods = import.
 const episode = await shotMods[`../../episodes/${ep}/shots.js`]();
 const timeline = (await tlMods[`../../episodes/${ep}/timeline.json`]()).default;
 const canvas = document.getElementById('c');
-const stage = await new Stage().init(canvas, episode.characters, episode.set);
+let set = episode.set; for (const k of ['look', 'time']) if (params.has(k)) set = { ...set, [k]: params.get(k) };      // test a look without editing the episode: ?look=graphics&time=night
+const stage = await new Stage().init(canvas, episode.characters, set);
 if (episode.set?.builder) await (await import.meta.glob('./sets/*.js')[`./sets/${episode.set.builder}.js`]()).build(stage);      // sets built in code (EP04 Blox City)
 episode.setup?.(stage);
 const beatDefs = Object.fromEntries(episode.beats.map(b => [b.id, b])), beatTimes = Object.fromEntries(timeline.beats.map(b => [b.id, b]));
