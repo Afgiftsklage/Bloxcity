@@ -21,7 +21,7 @@ export const characters = {
   ped2:    C('char_dottie', 1.48, '#B97A56', { hair: '#15161c', top: '#7cc6fe', pants: '#ff7fa0', accent: '#ffffff', shoe: '#ffffff' }),
 };
 // sun from the left and a little in front: shadows fall back-right of the characters (onto the sidewalk and the shop walls), long enough to act in
-const SUN0 = { offset: [-7, 6, 6], color: '#ffc08a', intensity: 4.4 }, SUN1 = { offset: [-7, 2.3, 6], color: '#ff8a52', intensity: 4.0 };
+const SUN0 = { offset: [-7, 6, 6], color: '#ffc08a', intensity: 4.4 }, SUN1 = { offset: [-7, 3.1, 6], color: '#ff8a52', intensity: 4.0 };
 export const set = {
   model: null, builder: 'bloxcity', lighting: 'day', shadowTwins: true, bounds: { x: [-40, 120], y: [0.12, 40], z: [-40, 60] },
   day: { exposure: 0.86, bloom: { strength: 0.16, radius: 0.5, threshold: 1.0 }, hdri: { file: 'hdri/belfast_sunset_puresky_2k.hdr', intensity: 0.6, background: 1.0, rotation: 0 },
@@ -63,7 +63,7 @@ const BD = [5.0, -3.35];                                         // Mama Lu's Di
 const BS = [34.7, -4.3], PS = [36.05, -4.72], DS = [37.35, -3.95];   // donut shop: Bean, Mr. Pickle in the doorway, Dottie
 const BB = [0.5, -3.75], MB = [-0.85, -4.2], SHX = [2.9, 4.25];  // bus stop: Bean, Max; Bean's runaway shadow across the avenue
 const DM = [23.4, 3.85], SHM = [24.6, 4.35];                     // market: Dottie at the fruit stand, the shadow beside her
-const SHD = [33.2, -4.65];                                       // the shadow at the donut-shop window
+const SHD = [32.7, -3.35];                                       // the shadow at the donut-shop window
 const SIT = [75.6, 17.45], BP = [74.4, 15.9];                    // pier: the shadow sits on the edge (feet over the water); Bean
 const GANG = { max: [71.4, 14.1], pickle: [72.6, 13.4], dottie: [73.4, 14.95] };  // the pursuers arrive on the pier
 // cameras
@@ -73,9 +73,9 @@ const dinerWide = { pos: [8.2, 1.7, 0.6], look: [7.0, 1.2, -4.6], fov: 50, focus
 const shopTwo = { pos: [35.4, 1.55, 0.1], look: [35.35, 1.15, -4.4], fov: 50, focus: 'bean' };
 const shopWide = { pos: [37.4, 2.3, 0.4], look: [35.4, 0.9, -4.6], fov: 54, focus: 'bean' };
 const busTwo = { pos: [-0.1, 1.5, 0.3], look: [-0.15, 1.15, -4.0], fov: 52, focus: 'bean' };
-const across = { pos: [2.6, 3.4, 0.6], look: [3.9, 0.1, 3.4], fov: 48, focus: [3.9, 0.3, 3.4] };
+const across = { pos: [4.6, 3.3, 1.1], look: [3.6, 0.1, 3.9], fov: 50, focus: [3.5, 0.3, 3.9] };
 const pierWide = { pos: [71.0, 2.1, 10.2], look: [74.5, 0.6, 16.8], fov: 54, focus: [74.6, 0.6, 16.6] };
-const pierGround = { pos: [73.6, 3.2, 12.6], look: [76.1, 0.15, 16.0], fov: 52, focus: [75.6, 0.4, 16.6] };
+const pierGround = { pos: [78.6, 3.3, 13.4], look: [76.6, 0.15, 16.4], fov: 52, focus: [76.2, 0.4, 16.8] };
 
 const CLOCKS = [[9.6, -4.6], [44.2, -4.6], [64.4, 4.7]];
 export function setup(s) {
@@ -158,7 +158,7 @@ export const beats = [
       own(s, 'bean').pose(P.wave(c.t));
     } },
   { id: 'copies', line: 'L02',
-    shots: [dinerWide, wall(...BD), { on: 'bean', dist: 1.62, yaw: -16, pitch: 5 }],
+    shots: [dinerWide, wall(...BD), { on: 'bean', dist: 1.8, yaw: -16, pitch: 2 }],
     sfx: [{ at: 'w:well', name: 'scratch', gain: 0.6 }, { at: 'w:almost', name: 'boing', gain: 0.45 }],
     act(s, c) {
       atDiner(s); const w = c.w('well'), up = seg(c.t, 0.15, 0.4) * (1 - seg(c.t, w - 0.1, w + 0.05));
@@ -232,7 +232,7 @@ export const beats = [
       s.bean.pose({ armL: [150, 30, 0], armR: [150, 30, 0] }).expr({ eyes: 'happy', brows: 'worried', mouth: 'teeth', sweat: true }); own(s, 'bean').pose(P.gag(c.t + 3));
     } },
   { id: 'choc', line: 'L09',
-    shots: [{ on: 'dottie', dist: 1.45, yaw: 40, pitch: 2, anchor: 0.6 }, shopTwo, { on: 'dottie', dist: 1.2, yaw: 50, pitch: 1 }],
+    shots: [{ on: 'dottie', dist: 1.6, yaw: 40, pitch: 2, anchor: 0.6 }, shopTwo, { on: 'dottie', dist: 1.2, yaw: 50, pitch: 1 }],
     sfx: [{ at: 0.02, name: 'step', gain: 0.5 }, { at: 0.2, name: 'step', gain: 0.5 }, { at: 'w:chocolate', name: 'sting', gain: 0.35 }],
     act(s, c) {
       stand(s.bean, BS, faceTo(BS, DS)).pose({ armL: idle, armR: idle }).expr({ eyes: 'wide', brows: 'raised', mouth: 'o' });
@@ -327,7 +327,7 @@ export const beats = [
     } },
   // the ticking clock
   { id: 'sunset', line: 'N04',
-    shots: [{ pos: [8.4, 2.6, -3.3], look: [9.6, 3.05, -4.6], fov: 34, focus: [9.6, 3.05, -4.6] }, { on: 'bean', dist: 1.4, yaw: -30, pitch: 2 }, { pos: [-3.5, 1.4, 1.5], look: [20, 3.5, -2], fov: 50, focus: 'bean' }],
+    shots: [{ pos: [8.4, 2.6, -3.3], look: [9.6, 3.05, -4.6], fov: 34, focus: [9.6, 3.05, -4.6] }, { on: 'bean', dist: 1.6, yaw: -30, pitch: 2 }, { pos: [-3.5, 1.4, 1.5], look: [20, 3.5, -2], fov: 50, focus: 'bean' }],
     sfx: [{ at: 0.05, name: 'tick', gain: 0.8 }, { at: 0.55, name: 'tick', gain: 0.8 }, { at: 1.05, name: 'tick', gain: 0.8 }, { at: 'w:forever', name: 'rumble', gain: 0.6 }],
     act(s, c) {
       stand(s.bean, [1.2, -3.7], 70).pose({ armL: idle, armR: idle, head: [18, 0, 0] }).expr({ eyes: 'sad', brows: 'worried', mouth: 'frown', look: [0.3, -0.4] });
@@ -352,7 +352,7 @@ export const beats = [
     } },
   // chase, beat 3 — everyone after Bean (staged in depth: camera ahead, pursuers piling up behind)
   { id: 'flybean', line: 'N07',
-    shots: [{ pos: [47.5, 1.1, 1.6], look: [41, 0.9, 1.0], fov: 46, focus: 'bean' }, { on: 'max', dist: 1.35, yaw: 20, pitch: 2, track: true }],
+    shots: [{ on: 'bean', dist: 2.6, yaw: 0, pitch: 6, track: true }, { on: 'max', dist: 1.35, yaw: 20, pitch: 2, track: true }],
     sfx: [{ at: 0.05, name: 'whoosh' }, { at: 'w:fly', name: 'boing', gain: 0.5 }],
     act(s, c) {
       const x = 40 + 4.2 * c.t;
@@ -363,7 +363,7 @@ export const beats = [
     } },
   // chase, beat 4 — the drawbridge goes up as the sun goes down; Bean leaps the gap, the others are stuck at the gate
   { id: 'bridge', line: 'N08', min: 2.6,
-    shots: [{ pos: [54.0, 1.7, 12.5], look: 'bean', track: true, fov: 48, focus: 'bean' }, { on: 'bean', dist: 1.62, yaw: 30, pitch: 8, track: true }, { pos: [62.5, 1.0, 2.4], look: [48, 1.2, 0.6], fov: 44, focus: [48.4, 1.2, 0.6] }],
+    shots: [{ pos: [54.0, 2.8, 14.5], look: 'bean', track: true, fov: 46, focus: 'bean' }, { on: 'bean', dist: 1.62, yaw: 30, pitch: 8, track: true }, { pos: [62.5, 1.0, 2.4], look: [48, 1.2, 0.6], fov: 44, focus: [48.4, 1.2, 0.6] }],
     sfx: [{ at: 0.05, name: 'creak' }, { at: 0.1, name: 'ding' }, { at: 0.5, name: 'ding' }, { at: 0.3, name: 'rumble' }, { at: 'w:sun', name: 'whoosh' }, { at: -0.35, name: 'thud' }],
     act(s, c) {
       const a = 0.36 * smooth(seg(c.t, 0, 1.2)); bridge(s, a);

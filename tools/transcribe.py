@@ -14,10 +14,16 @@ norm = lambda w: re.sub(r'[^a-z0-9]', '', w.lower())
 out = {}
 for line in script['lines']:
     lid = line['id']; dur = voices[lid]['dur']
-    segs, _ = model.transcribe(load(f'{d}/voices/{lid}.wav'), word_timestamps=True, language='en', initial_prompt=line['caption'], condition_on_previous_text=False)
-    heard = [(w.word.strip(), w.start, w.end) for s in segs for w in s.words]
-    want = line['caption'].split()
-    a, b = [norm(w) for w in want], [norm(h[0]) for h in heard]
+    audio = load(f'{d}/voices/{lid}.wav'); want = line['caption'].split(); a = [norm(w) for w in want]
+    # the script text as a prompt usually helps, but it can make whisper skip or invent words; if too few words match, retry without it
+    def hear(prompt):
+        segs, _ = model.transcribe(audio, word_timestamps=True, language='en', initial_prompt=prompt, condition_on_previous_text=False)
+        h = [(w.word.strip(), w.start, w.end) for s in segs for w in s.words]
+        sm = difflib.SequenceMatcher(None, a, [norm(x[0]) for x in h], autojunk=False)
+        return h, sum(bl.size for bl in sm.get_matching_blocks()) / max(1, len(a)) - 0.02 * max(0, len(h) - len(a))
+    heard, score = hear(line['caption'])
+    if score < 0.9: h2, s2 = hear(None); heard = h2 if s2 > score else heard
+    b = [norm(h[0]) for h in heard]
     times = [None] * len(want)
     for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
         if tag == 'equal':
