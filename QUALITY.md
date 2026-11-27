@@ -139,3 +139,17 @@ Every episode must match these settings. The machine-readable copies live in `we
   Check a new track for vocals (run whisper over it) before using it. `sfx_gain` in `script.json` trims all effects for busy episodes.
 - **Voices:** generate at most two lines at a time on the free plan (more are rejected as "busy", which is not charged).
 - **Playwright:** the renderer needs the Playwright version that matches the installed Chromium (cloud sessions: `npm install --no-save playwright@1.63.0`).
+
+## Tension in the middle (owner feedback after EP04, 27 Nov 2026)
+- **What the owner said:** EP04 is "the best one you've made", but it "doesn't really keep the attention span throughout the entire thing. It kinda falls off in the middle."
+  The episode was left as it is; fix this from the next episode on.
+- **Likely cause (Claude's reading, not the owner's words):** roughly 25–55 s of EP04 is one unbroken chase with the same picture (Dash on the scooter, front close-up)
+  and no new stakes, and four silent beats (`city`, `weave`, `copstart`, `beach`) were added only to reach the target length.
+- **Rules for the next episode:**
+  - Never pad for length. If the voices run short, write more story (new lines) rather than adding silent filler.
+  - Something must change every 8–10 s in the middle: a new threat, a new location, a reversal, or a new question. Each chase beat needs its own gag or set piece.
+  - Re-hook around the halfway mark with a second question on top of the first (EP04 idea that was planned but not built: the box starts ticking).
+  - Keep a visible ticking clock when the story has a deadline (EP04 idea: an on-screen delivery countdown from "Don't be late" until "You're late, kid").
+  - Escalate visibly: pursuers should pile up over time (rival, then vendors, then police), so the payoff line ("the whole city chased me") is earned on screen.
+  - Vary the shots in a long action stretch; do not return to the same close-up of the lead more than twice in a row.
+- **Posting text used for EP04:** title "She said 'don't open the box'… so the whole city chased me"; no GTA hashtags (original story and city).
