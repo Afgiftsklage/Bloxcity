@@ -2,7 +2,7 @@
  "id": "ep05",
  "title": "In this city, your shadow is alive",
  "fps": 30,
- "tts_model": "eleven_v4",
+ "tts_model": "omnivoice (VoiceStudio default engine), voices cloned from EP03 takes",
  "speed": 1.5,
  "characters": {
   "bean": {
@@ -74,10 +74,10 @@
    "caption": "Which is a big problem because I lie a lot"
   },
   {
-   "id": "L05",
+   "id": "N01",
    "speaker": "pickle",
-   "tts": "[cheerfully] Bean! Try my brand new candy! It's pickle flavored!",
-   "caption": "Bean! Try my brand new candy! It's pickle flavored!"
+   "tts": "[cheerfully] Bean! Try my brand new donut! It's pickle flavored!",
+   "caption": "Bean! Try my brand new donut! It's pickle flavored!"
   },
   {
    "id": "L06",
@@ -146,12 +146,6 @@
    "caption": "No shadow means no snitch! I can say anything!"
   },
   {
-   "id": "L14b",
-   "speaker": "bean",
-   "tts": "[mischievously] So I went on a little lying spree.",
-   "caption": "So I went on a little lying spree"
-  },
-  {
    "id": "L15",
    "speaker": "bean",
    "tts": "[confident] Max! I can fly. I just don't feel like it today.",
@@ -164,64 +158,52 @@
    "caption": "Whoa! That's so cool!"
   },
   {
-   "id": "L16b",
+   "id": "N02",
    "speaker": "max",
-   "tts": "[excited] Can you teach me?",
-   "caption": "Can you teach me?"
+   "tts": "[confused] Then why is your shadow over there... flapping its arms and falling on its face?",
+   "caption": "Then why is your shadow over there flapping its arms and falling on its face?"
   },
   {
-   "id": "L16c",
+   "id": "N03",
    "speaker": "bean",
-   "tts": "[smug] Sorry. It's a secret.",
-   "caption": "Sorry It's a secret"
+   "tts": "[panicked] Oh no. He's telling everyone the truth!",
+   "caption": "Oh no He's telling everyone the truth!"
   },
   {
-   "id": "L17",
+   "id": "N04",
    "speaker": "bean",
-   "tts": "[confident] Mister Pickle, that candy was the best thing I ever ate!",
-   "caption": "Mister Pickle that candy was the best thing I ever ate!"
+   "tts": "[worried] And in this city, if your shadow isn't back by sunset... it's gone. Forever.",
+   "caption": "And in this city if your shadow isn't back by sunset it's gone Forever"
   },
   {
-   "id": "L18",
+   "id": "N05",
+   "speaker": "dottie",
+   "tts": "[furious] You ate the OTHER one too?!",
+   "caption": "You ate the OTHER one too?!"
+  },
+  {
+   "id": "N06",
    "speaker": "pickle",
-   "tts": "[touched] Oh, Bean! Then take ALL of them!",
-   "caption": "Oh Bean! Then take ALL of them!"
+   "tts": "[outraged] You HATE my donuts?!",
+   "caption": "You HATE my donuts?!"
   },
   {
-   "id": "L19",
-   "speaker": "bean",
-   "tts": "[sad] Lying was easy. But then... the sun started going down.",
-   "caption": "Lying was easy But then the sun started going down"
+   "id": "N07",
+   "speaker": "max",
+   "tts": "[excited] Fly, Bean! FLY!",
+   "caption": "Fly Bean! FLY!"
   },
   {
-   "id": "L20",
+   "id": "N08",
    "speaker": "bean",
-   "tts": "[sad] Everybody's shadows came out to play...",
-   "caption": "Everybody's shadows came out to play"
+   "tts": "[breathless] The bridge was going up... and the sun was going down.",
+   "caption": "The bridge was going up and the sun was going down"
   },
   {
-   "id": "L21",
+   "id": "N09",
    "speaker": "bean",
-   "tts": "[sad] ...except mine.",
-   "caption": "except mine"
-  },
-  {
-   "id": "L21b",
-   "speaker": "bean",
-   "tts": "[sadly] Turns out, lying isn't fun... when nobody knows how you really feel.",
-   "caption": "Turns out lying isn't fun when nobody knows how you really feel"
-  },
-  {
-   "id": "L22",
-   "speaker": "bean",
-   "tts": "[worried] I looked everywhere.",
-   "caption": "I looked everywhere"
-  },
-  {
-   "id": "L23",
-   "speaker": "bean",
-   "tts": "[softly] Then I found him. At the park. All alone.",
-   "caption": "Then I found him At the park All alone"
+   "tts": "[softly] There he was. At the end of the pier. All alone.",
+   "caption": "There he was At the end of the pier All alone"
   },
   {
    "id": "L24",
@@ -234,6 +216,12 @@
    "speaker": "bean",
    "tts": "[sincere] No more lies. I promise.",
    "caption": "No more lies I promise"
+  },
+  {
+   "id": "N10",
+   "speaker": "bean",
+   "tts": "[sighs] Max, I can't fly. Mister Pickle, your donuts are terrible. And Dottie... I ate both.",
+   "caption": "Max I can't fly Mister Pickle your donuts are terrible And Dottie I ate both"
   },
   {
    "id": "L26",
@@ -272,15 +260,21 @@
    "caption": "What shadow? Don't tell anyone"
   }
  ],
- "tts_engine": "omnivoice (VoiceStudio default engine), voices cloned from EP03 takes",
+ "sfx_gain": 0.8,
  "music": {
-  "file": "audio/music_edit.wav",
-  "source": "audio/music_src.mp3 (ElevenLabs Music v2.5, 60 s instrumental); edit: 0-52 s as is, then its first 18 s slowed x0.78, -2 st, low-passed, under act 3; out before the twist",
-  "at": 0,
-  "level_db": -25,
-  "fade_out": [
-   74.8,
-   76.0
-  ]
+  "tracks": {
+   "playful": "audio/music_src.mp3",
+   "chase": "audio/music_chase.mp3",
+   "tender": "audio/music_tender.wav"
+  },
+  "level_db": -24,
+  "source": {
+   "playful": "ElevenLabs eleven_music_v2_5 instrumental, 60 s (900 credits, generated for this episode)",
+   "chase": "reused from EP04 (ElevenLabs eleven_music_v2_5)",
+   "tender": "music_src.mp3 first 24 s, slowed x0.78, -2 semitones, low-passed, light echo (ffmpeg)"
+  },
+  "prompts": {
+   "playful": "Playful, slightly mysterious instrumental cartoon underscore: soft pizzicato strings, celesta and light marimba over a gentle brushed-snare groove at about 100 bpm, quiet and sparse with lots of space for dialogue. Around 45 seconds it slows down and turns soft, wistful and tender: warm music box and felt piano, no drums, gently fading at the end."
+  }
  }
 }
