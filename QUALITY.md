@@ -169,14 +169,20 @@ Every episode must match these settings. The machine-readable copies live in `we
 - **Shadow twins** (`set.shadowTwins: true`): characters stop casting shadows themselves; each one's shadow comes from an invisible twin
   (same model, writes no colour or depth, hidden during the GTAO and depth-of-field passes). By default the twin copies its owner every frame.
   In `shots.js`: `s.shadow('bean')` frees the twin for this frame (pose / move it like a character: the shadow acts on its own),
-  `s.bean.noShadow = true` removes the shadow. Shadows read best as full silhouettes, so light the scene from the front-left and
-  film shadow gags from high up (EP05 `ground()` camera); a sun from behind puts the whole sidewalk in the buildings' shade.
+  `s.bean.noShadow = true` removes the shadow. Accessories added by a set builder (hats, helmets) still cast their own shadow.
+- **Making shadows read** (tested on Blox City, EP05): light from the front-left (sun offset `[-7, 6, 6]`) so a shadow falls back-right of the character
+  as a full silhouette, and film it from high front-right looking down (EP05 `ground()` / `wall()` cameras). The EP04 sunset fill washes shadows out:
+  EP05 uses sun 4.4, environment 0.28, hemisphere 0.2, a 0.3 shadowless front fill and exposure 0.86. Keep the shadow on plain ground:
+  glowing shop windows and the diner glass swallow it, and a sun from behind puts the whole sidewalk in the buildings' shade.
+  A character needs ~1.8 m of open ground behind it (stand them at the front edge of the sidewalk).
 - **Sun per episode / per beat** (day sets): `set.sun = { offset, color, intensity, env, background, hemi, exposure, warmth, fill, fillOffset }`
-  overrides `QUALITY.day`; `s.sky({...})` changes it for one frame (EP05 golden hour). `fill` is an optional shadowless front light.
-  EP05 day: sun `[-6, 5.2, 6]` 4.2, env 0.38, hemi 0.3, fill 0.5 (darker, readable shadows); golden hour: sun `[-7.5, 3, 6.5]` `#ffad62`, warmth 0.17.
-- **Music:** use the EP04 track system (`script.json` → `music.tracks`, `music:` cues per beat). Tracks can be cut or re-tempo'd ElevenLabs takes.
+  on top of the merged daylight preset (`QUALITY.day` + `set.day` + GRAPHICS look); `s.sky({...})` changes it for one frame.
+  EP05 sinks the sun beat by beat (offset y 6 → 3.1, colour `#ffc08a` → `#ff8a52`) as a visible story clock, next to street clocks that count down to 7:00.
+- **Music:** the EP04 track system (`script.json` → `music.tracks`, `music:` cues per beat). EP05: its own ElevenLabs bed (`playful`), EP04's `chase`,
+  and `tender` = the first 24 s of the bed slowed ×0.78, −2 semitones, low-passed (made with ffmpeg, no credits).
 - **Local voices (VoiceStudio / OmniVoice)**: when ElevenLabs credits run out, `tools/voicestudio-tts.py <ep>` (run inside a venv with
   `pip install omnivoice`; CPU works, ~50 s per line) clones each character from one of their earlier raw takes
   (`characters.<name>.ref = { ep, line }`) and writes `voices_raw/Lxx.wav`; `npm run voices` accepts `.wav` or `.mp3`.
   OmniVoice ignores ElevenLabs direction tags (they are stripped; `[sighs]`/`[laughs]` become `[sigh]`/`[laughter]`), so delivery is flatter.
   The OmniVoice weights are licensed CC-BY-NC (non-commercial): re-voice with ElevenLabs before monetising an episode.
+- **Captions:** `tools/transcribe.py` retries without the script prompt when whisper skips or invents words (it did both on EP05 takes).
