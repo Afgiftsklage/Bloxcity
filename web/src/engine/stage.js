@@ -35,7 +35,7 @@ const GradeShader = {
 export class Stage {
   // set = { model: 'room.glb', lighting: 'night' | 'day', noCast: RegExp, materials(mats) }  (default: the EP01 cozy room at night)
   async init(canvas, charDefs, set = {}) {
-    const W = Q.width, H = Q.height, day = set.lighting === 'day', D = Q.day; this.day = day;
+    const W = Q.width, H = Q.height, day = set.lighting === 'day', D = Q.day; this.day = day; this.setSun = set.sun;
     const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
     r.setPixelRatio(1); r.setSize(W, H, false);
     r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = this.exposure = day ? D.exposure : Q.exposure; r.outputColorSpace = THREE.SRGBColorSpace;
@@ -62,6 +62,20 @@ export class Stage {
 
     // characters
     this.chars = {}; Object.entries(charDefs).forEach(([n, def], i) => { const c = new Character(n, chars[i], def); this.chars[n] = c; this[n] = c; scene.add(c.group); });
+    // living shadows (set.shadowTwins): each character's shadow is cast by an invisible twin instead of the character itself, so a shadow
+    // can copy its owner (default), act on its own (stage.shadow(name) frees it for the frame) or be missing (character.noShadow = true).
+    // Twins write no colour or depth; they are hidden while the AO and depth-of-field passes draw their override materials.
+    this.shadows = {};
+    if (set.shadowTwins) {
+      const ghost = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false });
+      Object.entries(charDefs).forEach(([n, def], i) => {
+        const c = this.chars[n]; c.group.traverse(o => { if (o.isMesh) o.castShadow = false; });
+        const tw = new Character(n + '_shadow', { scene: chars[i].scene.clone(true) }, def); tw.face.mesh.visible = false; tw.face.mesh.castShadow = false;
+        tw.group.traverse(o => { if (o.isMesh && o !== tw.face.mesh) { o.material = ghost; o.castShadow = true; o.receiveShadow = false; } });
+        const a = [], b = []; c.group.children[0].traverse(o => a.push(o)); tw.group.children[0].traverse(o => b.push(o)); tw.pairs = a.map((o, k) => [o, b[k]]);
+        tw.owner = c; this.shadows[n] = tw; scene.add(tw.group);
+      });
+    }
 
     // lights
     if (day) {
@@ -71,6 +85,7 @@ export class Stage {
       this.rim = new THREE.DirectionalLight(D.rim.color, D.rim.intensity);
       this.hemi = new THREE.HemisphereLight(D.hemi.sky, D.hemi.ground, D.hemi.intensity);
       scene.add(sun, sun.target, this.rim, this.rim.target, this.hemi);
+      this.fill = new THREE.DirectionalLight('#fff4e6', 0); scene.add(this.fill, this.fill.target);          // optional shadowless front fill (set.sun.fill), follows the focus like the sun
       this.extraLights = (set.lights ?? []).map(l => { const p = new THREE.PointLight(l.color, l.intensity, l.distance ?? 6, 2); p.position.set(...l.pos); scene.add(p); return p; });
     } else {
       const key = this.key = new THREE.SpotLight(Q.key.color, Q.key.intensity, 0, Q.key.angle, Q.key.penumbra, 2);
@@ -106,6 +121,9 @@ export class Stage {
     gtao.updateGtaoMaterial({ radius: Q.gtao.radius, distanceExponent: Q.gtao.distanceExponent, thickness: Q.gtao.thickness, scale: Q.gtao.scale, samples: Q.gtao.samples });
     comp.addPass(gtao);
     this.bokeh = new BokehPass(scene, this.camera, { focus: 2, aperture: Q.dof.aperture, maxblur: Q.dof.maxblur }); comp.addPass(this.bokeh);
+    for (const pass of [gtao, this.bokeh]) { const draw = pass.render.bind(pass); pass.render = (...a) => {        // shadow twins must not show up in AO / depth
+      const vis = Object.values(this.shadows).map(t => [t, t.group.visible]); for (const [t] of vis) t.group.visible = false;
+      draw(...a); for (const [t, v] of vis) t.group.visible = v; }; }
     const bl = day ? D.bloom : Q.bloom; this.bloom = new UnrealBloomPass(new THREE.Vector2(W, H), bl.strength, bl.radius, bl.threshold); comp.addPass(this.bloom);
     comp.addPass(new OutputPass());
     this.grade = new ShaderPass(GradeShader); comp.addPass(this.grade);
@@ -115,7 +133,9 @@ export class Stage {
   obj(name) { return this.props.get(name); }
   reset() {
     for (const [o, r] of this.rest) { o.position.copy(r.p); o.quaternion.copy(r.q); o.scale.copy(r.s); o.visible = r.v; }
-    for (const c of Object.values(this.chars)) c.reset();
+    for (const c of Object.values(this.chars)) { c.reset(); c.noShadow = false; }
+    for (const t of Object.values(this.shadows)) { t.reset(); t.free = false; }
+    if (this.day) this.sky();
     if (!this.day) { this.setLights(0); this.setDoor(0); this.practical.intensity = Q.practical.intensity; this.key.intensity = Q.key.intensity; }
     this.renderer.toneMappingExposure = this.exposure;
   }
@@ -131,6 +151,26 @@ export class Stage {
     this.hemi.intensity = lerp(Q.hemi.night, Q.hemi.lit, v); this.rim.intensity = Q.rim.intensity * (1 - 0.6 * v);
     if (this.mats.ceilinglamp) this.mats.ceilinglamp.emissiveIntensity = 0.02 + 3 * v;
     if (this.mats.hallglow) this.mats.hallglow.emissiveIntensity = 2.2;
+  }
+  // shadow twin of a character, freed from copying its owner for this frame (pose / move it like any character)
+  shadow(name) { const t = this.shadows[name]; t.free = true; return t; }
+  // copy owners onto their (non-free) shadow twins; called after every character is posed for the frame
+  syncShadows(t) {
+    for (const tw of Object.values(this.shadows)) {
+      if (tw.free) { if (tw.group.visible) tw.finish(t, 0); continue; }
+      const o = tw.owner; tw.group.visible = o.group.visible && !o.noShadow;
+      tw.group.position.copy(o.group.position); tw.group.quaternion.copy(o.group.quaternion); tw.group.scale.copy(o.group.scale);
+      for (const [a, b] of tw.pairs) { b.position.copy(a.position); b.quaternion.copy(a.quaternion); b.scale.copy(a.scale); }
+    }
+  }
+  // daylight overrides for this frame (day sets only; reset() restores the episode's set.sun / QUALITY.day values)
+  //   { offset:[x,y,z] sun direction from the focus point, color, intensity, env, background, hemi, exposure, warmth }
+  sky(o = {}) {
+    const D = Q.day, base = { offset: D.sun.offset, color: D.sun.color, intensity: D.sun.intensity, env: D.hdri.intensity, background: D.hdri.background,
+      hemi: D.hemi.intensity, exposure: D.exposure, warmth: Q.grade.warmth, ...(this.setSun ?? {}) }, v = { ...base, ...o };
+    this.sunOffset = v.offset; this.fillOffset = v.fillOffset ?? [3, 4, 7]; this.fill.intensity = v.fill ?? 0; if (v.fillColor) this.fill.color.set(v.fillColor); this.key.color.set(v.color); this.key.intensity = v.intensity; this.scene.environmentIntensity = v.env; this.scene.backgroundIntensity = v.background;
+    this.hemi.intensity = v.hemi; this.exposure = v.exposure; this.renderer.toneMappingExposure = v.exposure; if (this.grade) this.grade.uniforms.warmth.value = v.warmth;
+    return v;
   }
   setDoor(open) { this.obj('DoorPivot').rotation.y = -rad(105) * open; this.doorSpill.intensity = Q.doorSpill.intensity * open; }
   // text sign on an empty (shop signs, mailbox labels, cards): returns the mesh
@@ -151,7 +191,8 @@ export class Stage {
   }
   render(focusDist, focus) {
     if (this.day && focus) {                       // the sun's shadow frustum follows the action
-      this.key.target.position.copy(focus); this.key.position.copy(focus).add(new THREE.Vector3(...Q.day.sun.offset));
+      this.key.target.position.copy(focus); this.key.position.copy(focus).add(new THREE.Vector3(...(this.sunOffset ?? Q.day.sun.offset)));
+      this.fill.target.position.copy(focus); this.fill.position.copy(focus).add(new THREE.Vector3(...this.fillOffset));
       this.rim.target.position.copy(focus); this.rim.position.copy(focus).add(new THREE.Vector3(...Q.day.rim.offset));
     }
     this.gtao.enabled = this.fx.ao; this.bokeh.enabled = this.fx.dof; this.bloom.enabled = this.fx.bloom;

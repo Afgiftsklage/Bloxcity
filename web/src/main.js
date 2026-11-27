@@ -23,6 +23,7 @@ function runAct(t) {
     w: (word, nth = 0) => { const ws = (bt.words || []).filter(x => x.text.toLowerCase().replace(/[^a-z0-9]/g, '') === word.toLowerCase()); return ws[nth] ? ws[nth].start : 0; } };
   episode.base?.(stage, ctx); def.act?.(stage, ctx);
   for (const [n, c] of Object.entries(stage.chars)) if (c.group.visible) c.finish(t, level(n));
+  stage.syncShadows(t);
   return { bt, def };
 }
 function setFrame(f) {
@@ -46,7 +47,7 @@ function lint(f) {
   const p = cam.position, B = episode.set?.bounds ?? { x: [-2.33, 2.33], y: [0.08, 2.62], z: [-2.33, 2.33] };
   if (p.x < B.x[0] || p.x > B.x[1] || p.z < B.z[0] || p.z > B.z[1] || p.y < B.y[0] || p.y > B.y[1]) issues.push('camera outside the set');
   stage.scene.updateMatrixWorld(true);
-  const solids = []; stage.scene.traverse(o => { if (o.isMesh && o.visible && o.name !== 'FaceDecal') { let v = true; o.traverseAncestors(a => { if (!a.visible) v = false; }); if (v) solids.push(o); } });
+  const solids = []; stage.scene.traverse(o => { if (o.isMesh && o.visible && o.name !== 'FaceDecal') { let v = true; o.traverseAncestors(a => { if (!a.visible || a.name.endsWith('_shadow')) v = false; }); if (v) solids.push(o); } });
   const box = new THREE.Box3(), SKIP = /^(Wall|Floor|Ceiling|Grass|Sidewalk|Road|Curb|Fan(Floor|Back|Side)|House(Interior|Roof)|Shop(Ceil|Floor)|Hill|PorchStep)/;
   for (const o of solids) { box.setFromObject(o); if (box.containsPoint(p) && !SKIP.test(o.name)) issues.push('camera inside ' + o.name); if (box.distanceToPoint(p) < 0.06 && !SKIP.test(o.name)) issues.push('camera touching ' + o.name); }
   const def = beatDefs[shot.beat], spec = def.shots[shot.setup];

@@ -120,3 +120,20 @@ Every episode must match these settings. The machine-readable copies live in `we
 - The code-synthesised music used in EP01–03 (plucked "sneak / comedy / happy / panic" loops) was judged **bad** by the owner. Do not reuse it.
 - Until a replacement is agreed: keep the synthesised **sound effects**, and decide the music approach with the owner before making the episode
   (options: no music bed, a much simpler and quieter bed, or generated music from the ElevenLabs music model).
+
+## Living shadows, sun control and local voices (EP04 onward)
+- **Shadow twins** (`set.shadowTwins: true`): characters stop casting shadows themselves; each one's shadow comes from an invisible twin
+  (same model, writes no colour or depth, hidden during the GTAO and depth-of-field passes). By default the twin copies its owner every frame.
+  In `shots.js`: `s.shadow('bean')` frees the twin for this frame (pose / move it like a character: the shadow acts on its own),
+  `s.bean.noShadow = true` removes the shadow. Shadows read best as full silhouettes, so light the scene from the front-left and
+  film shadow gags from high up (EP04 `ground()` camera); a sun from behind puts the whole sidewalk in the buildings' shade.
+- **Sun per episode / per beat** (day sets): `set.sun = { offset, color, intensity, env, background, hemi, exposure, warmth, fill, fillOffset }`
+  overrides `QUALITY.day`; `s.sky({...})` changes it for one frame (EP04 golden hour). `fill` is an optional shadowless front light.
+  EP04 day: sun `[-6, 5.2, 6]` 4.2, env 0.38, hemi 0.3, fill 0.5 (darker, readable shadows); golden hour: sun `[-7.5, 3, 6.5]` `#ffad62`, warmth 0.17.
+- **Music from a file**: `script.json` `"music": { "file": "audio/music_src.mp3", "at": 0, "level_db": -24, "fade_out": [t0, t1] }` replaces the
+  synthesised sections in `tools/synth-audio.mjs` (same ducking and mix check). EP04 uses an ElevenLabs Music v2.5 instrumental.
+- **Local voices (VoiceStudio / OmniVoice)**: when ElevenLabs credits run out, `tools/voicestudio-tts.py <ep>` (run inside a venv with
+  `pip install omnivoice`; CPU works, ~50 s per line) clones each character from one of their earlier raw takes
+  (`characters.<name>.ref = { ep, line }`) and writes `voices_raw/Lxx.wav`; `npm run voices` accepts `.wav` or `.mp3`.
+  OmniVoice ignores ElevenLabs direction tags (they are stripped; `[sighs]`/`[laughs]` become `[sigh]`/`[laughter]`), so delivery is flatter.
+  The OmniVoice weights are licensed CC-BY-NC (non-commercial): re-voice with ElevenLabs before monetising an episode.

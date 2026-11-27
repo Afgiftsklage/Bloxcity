@@ -2,7 +2,7 @@
 // Then the bed (music + sfx) is ducked under every spoken word so each word sits >= 6 dB above it.
 // usage: node tools/synth-audio.mjs ep01   ->  episodes/ep01/audio/{music,sfx,bed,voice,mix}.wav
 import fs from 'node:fs';
-import { SR, decode, writeWav, rms, db, undb } from './lib/wav.mjs';
+import { SR, decode, writeWav, rms, gatedRms, db, undb } from './lib/wav.mjs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
 const tl = JSON.parse(fs.readFileSync(`${dir}/timeline.json`));
 const N = Math.ceil(tl.duration * SR), TAU = Math.PI * 2;
@@ -68,7 +68,10 @@ const SFX = {
 // ------------------------------------------------------------------ music (sections switch at the timeline's music cues)
 const music = [new Float32Array(N), new Float32Array(N)], sfx = [new Float32Array(N), new Float32Array(N)];
 const put = (bus, x, t, gain = 1, pan = 0) => { const o = Math.round(t * SR), gl = gain * Math.cos((pan + 1) * Math.PI / 4), gr = gain * Math.sin((pan + 1) * Math.PI / 4); for (let i = 0; i < x.length && i + o < N; i++) { if (i + o < 0) continue; bus[0][i + o] += x[i] * gl * 1.414; bus[1][i + o] += x[i] * gr * 1.414; } };
-const sections = tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.duration }));
+// external music (EP04 on): script.json "music": { "file": "audio/music_src.mp3", "at": 0, "level_db": -24, "fade_out": [t0, t1] } replaces the
+// code-synthesised sections (retired after EP03); the timeline's music: cues are then ignored.
+const script = JSON.parse(fs.readFileSync(`${dir}/script.json`)), ext = script.music?.file ? script.music : null;
+const sections = ext ? [] : tl.music.map((m, i) => ({ ...m, end: tl.music[i + 1]?.t ?? tl.duration }));
 const sin2 = i => Math.sin(i * 1.7) * 0.4;
 const shaker = () => norm(decay(highpass(noise(0.05), 5000), 0.012), 0.2);
 const block = f => norm(decay(bandpass(noise(0.06), f, 8), 0.012), 0.5);
@@ -113,6 +116,12 @@ for (const c of [0, 1]) for (let i = 0; i < N; i++) music[c][i] *= 0.6;
 // one small room reverb on the music for glue (4 feedback combs)
 for (const c of [0, 1]) { const dry = music[c].slice(); for (const [d, g] of [[0.0297 + c * 0.001, 0.72], [0.0371, 0.7], [0.0411 + c * 0.0013, 0.68], [0.0437, 0.66]]) { const D = Math.round(d * SR), y = new Float32Array(N); for (let i = D; i < N; i++) y[i] = dry[i - D] + y[i - D] * g; for (let i = 0; i < N; i++) music[c][i] += y[i] * 0.045; } }
 
+if (ext) {                                        // place the music file, level it to the bed target (gated RMS), fade in/out
+  const src = [0, 1].map(c => decode(`${dir}/${ext.file}`, `pan=mono|c0=c${c}`)), o = Math.round((ext.at ?? 0) * SR), g = undb(ext.level_db ?? -24) / Math.max(gatedRms(src[0]), gatedRms(src[1]));
+  const [f0, f1] = ext.fade_out ?? [tl.duration - 1.5, tl.duration], fi = (ext.fade_in ?? 0.25) * SR;
+  for (const c of [0, 1]) for (let i = 0; i < src[c].length && i + o < N; i++) { const t = (i + o) / SR; if (i + o < 0) continue;
+    music[c][i + o] = src[c][i] * g * Math.min(1, i / fi) * (t < f0 ? 1 : t > f1 ? 0 : 0.5 + 0.5 * Math.cos(Math.PI * (t - f0) / (f1 - f0))); }
+}
 for (const c of tl.cues) { const gen = SFX[c.sfx || c.name]; if (!gen) { console.warn('unknown sfx', c.name); continue; } put(sfx, gen(c), c.t, (c.gain ?? 1) * 0.8, c.pan ?? 0); }
 
 // ------------------------------------------------------------------ voice track + ducking
