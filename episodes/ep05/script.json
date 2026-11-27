@@ -1,0 +1,286 @@
+{
+ "id": "ep05",
+ "title": "In this city, your shadow is alive",
+ "fps": 30,
+ "tts_model": "eleven_v4",
+ "speed": 1.5,
+ "characters": {
+  "bean": {
+   "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+   "voice_name": "Liam",
+   "pitch_semitones": 0,
+   "ref": {
+    "ep": "ep03",
+    "line": "L17"
+   }
+  },
+  "dottie": {
+   "voice_id": "cgSgspJ2msm6clMCkdW9",
+   "voice_name": "Jessica",
+   "pitch_semitones": 0,
+   "ref": {
+    "ep": "ep03",
+    "line": "L06"
+   }
+  },
+  "pickle": {
+   "voice_id": "pqHfZKP75CvOlQylNhV4",
+   "voice_name": "Bill",
+   "pitch_semitones": 0,
+   "ref": {
+    "ep": "ep03",
+    "line": "L19"
+   }
+  },
+  "max": {
+   "voice_id": "IKne3meq5aSn9XLyUdCD",
+   "voice_name": "Charlie",
+   "pitch_semitones": 0,
+   "ref": {
+    "ep": "ep03",
+    "line": "L14"
+   }
+  }
+ },
+ "lines": [
+  {
+   "id": "L01",
+   "speaker": "bean",
+   "tts": "[mysterious] In this city... your shadow is alive.",
+   "caption": "In this city your shadow is alive"
+  },
+  {
+   "id": "L02",
+   "speaker": "bean",
+   "tts": "It copies everything you do. Well... almost everything.",
+   "caption": "It copies everything you do Well almost everything"
+  },
+  {
+   "id": "L02b",
+   "speaker": "bean",
+   "tts": "[excited] It shows how you REALLY feel. Scared? It shakes. Happy? It dances!",
+   "caption": "It shows how you REALLY feel Scared? It shakes Happy? It dances!"
+  },
+  {
+   "id": "L03",
+   "speaker": "bean",
+   "tts": "[serious] And shadows have one rule. They can NEVER lie.",
+   "caption": "And shadows have one rule They can NEVER lie"
+  },
+  {
+   "id": "L04",
+   "speaker": "bean",
+   "tts": "[sighs] Which is a big problem... because I lie a lot.",
+   "caption": "Which is a big problem because I lie a lot"
+  },
+  {
+   "id": "L05",
+   "speaker": "pickle",
+   "tts": "[cheerfully] Bean! Try my brand new candy! It's pickle flavored!",
+   "caption": "Bean! Try my brand new candy! It's pickle flavored!"
+  },
+  {
+   "id": "L06",
+   "speaker": "bean",
+   "tts": "[forced enthusiasm] Mmm! Wow! It's delicious!",
+   "caption": "Mmm! Wow! It's delicious!"
+  },
+  {
+   "id": "L07",
+   "speaker": "pickle",
+   "tts": "[flatly] Your shadow is throwing up.",
+   "caption": "Your shadow is throwing up"
+  },
+  {
+   "id": "L08",
+   "speaker": "bean",
+   "tts": "[nervous laugh] He's... dancing!",
+   "caption": "He's dancing!"
+  },
+  {
+   "id": "L08b",
+   "speaker": "pickle",
+   "tts": "[suspicious] Uh huh.",
+   "caption": "Uh huh"
+  },
+  {
+   "id": "L09",
+   "speaker": "dottie",
+   "tts": "[suspicious] Bean. Did you eat my chocolate bar?",
+   "caption": "Bean Did you eat my chocolate bar?"
+  },
+  {
+   "id": "L10",
+   "speaker": "bean",
+   "tts": "[innocent] What? No! I would never!",
+   "caption": "What? No! I would never!"
+  },
+  {
+   "id": "L11",
+   "speaker": "dottie",
+   "tts": "[angry] Your shadow is literally licking its fingers!",
+   "caption": "Your shadow is literally licking its fingers!"
+  },
+  {
+   "id": "L11b",
+   "speaker": "dottie",
+   "tts": "[angry] I KNEW it! You owe me TWO chocolate bars!",
+   "caption": "I KNEW it! You owe me TWO chocolate bars!"
+  },
+  {
+   "id": "L12",
+   "speaker": "bean",
+   "tts": "[frustrated] That's it! I don't need you anymore! Go away!",
+   "caption": "That's it! I don't need you anymore! Go away!"
+  },
+  {
+   "id": "L13",
+   "speaker": "bean",
+   "tts": "[quietly] So... he did.",
+   "caption": "So he did"
+  },
+  {
+   "id": "L14",
+   "speaker": "bean",
+   "tts": "[excited] No shadow means no snitch! I can say anything!",
+   "caption": "No shadow means no snitch! I can say anything!"
+  },
+  {
+   "id": "L14b",
+   "speaker": "bean",
+   "tts": "[mischievously] So I went on a little lying spree.",
+   "caption": "So I went on a little lying spree"
+  },
+  {
+   "id": "L15",
+   "speaker": "bean",
+   "tts": "[confident] Max! I can fly. I just don't feel like it today.",
+   "caption": "Max! I can fly I just don't feel like it today"
+  },
+  {
+   "id": "L16",
+   "speaker": "max",
+   "tts": "[amazed] Whoa! That's so cool!",
+   "caption": "Whoa! That's so cool!"
+  },
+  {
+   "id": "L16b",
+   "speaker": "max",
+   "tts": "[excited] Can you teach me?",
+   "caption": "Can you teach me?"
+  },
+  {
+   "id": "L16c",
+   "speaker": "bean",
+   "tts": "[smug] Sorry. It's a secret.",
+   "caption": "Sorry It's a secret"
+  },
+  {
+   "id": "L17",
+   "speaker": "bean",
+   "tts": "[confident] Mister Pickle, that candy was the best thing I ever ate!",
+   "caption": "Mister Pickle that candy was the best thing I ever ate!"
+  },
+  {
+   "id": "L18",
+   "speaker": "pickle",
+   "tts": "[touched] Oh, Bean! Then take ALL of them!",
+   "caption": "Oh Bean! Then take ALL of them!"
+  },
+  {
+   "id": "L19",
+   "speaker": "bean",
+   "tts": "[sad] Lying was easy. But then... the sun started going down.",
+   "caption": "Lying was easy But then the sun started going down"
+  },
+  {
+   "id": "L20",
+   "speaker": "bean",
+   "tts": "[sad] Everybody's shadows came out to play...",
+   "caption": "Everybody's shadows came out to play"
+  },
+  {
+   "id": "L21",
+   "speaker": "bean",
+   "tts": "[sad] ...except mine.",
+   "caption": "except mine"
+  },
+  {
+   "id": "L21b",
+   "speaker": "bean",
+   "tts": "[sadly] Turns out, lying isn't fun... when nobody knows how you really feel.",
+   "caption": "Turns out lying isn't fun when nobody knows how you really feel"
+  },
+  {
+   "id": "L22",
+   "speaker": "bean",
+   "tts": "[worried] I looked everywhere.",
+   "caption": "I looked everywhere"
+  },
+  {
+   "id": "L23",
+   "speaker": "bean",
+   "tts": "[softly] Then I found him. At the park. All alone.",
+   "caption": "Then I found him At the park All alone"
+  },
+  {
+   "id": "L24",
+   "speaker": "bean",
+   "tts": "[sincere] Hey, buddy... I'm sorry. You were just telling the truth.",
+   "caption": "Hey buddy I'm sorry You were just telling the truth"
+  },
+  {
+   "id": "L25",
+   "speaker": "bean",
+   "tts": "[sincere] No more lies. I promise.",
+   "caption": "No more lies I promise"
+  },
+  {
+   "id": "L26",
+   "speaker": "bean",
+   "tts": "[happy] He came back!",
+   "caption": "He came back!"
+  },
+  {
+   "id": "L27",
+   "speaker": "dottie",
+   "tts": "[warmly] Aww. I'm so proud of you, Bean.",
+   "caption": "Aww I'm so proud of you Bean"
+  },
+  {
+   "id": "L28",
+   "speaker": "bean",
+   "tts": "[slowly] That's when I noticed something...",
+   "caption": "That's when I noticed something"
+  },
+  {
+   "id": "L29",
+   "speaker": "bean",
+   "tts": "[scared] Dottie... doesn't have a shadow.",
+   "caption": "Dottie doesn't have a shadow"
+  },
+  {
+   "id": "L30",
+   "speaker": "bean",
+   "tts": "[trembling] Dottie... where's your shadow?",
+   "caption": "Dottie where's your shadow?"
+  },
+  {
+   "id": "L31",
+   "speaker": "dottie",
+   "tts": "[sweetly] What shadow? [whispers] Don't tell anyone.",
+   "caption": "What shadow? Don't tell anyone"
+  }
+ ],
+ "tts_engine": "omnivoice (VoiceStudio default engine), voices cloned from EP03 takes",
+ "music": {
+  "file": "audio/music_edit.wav",
+  "source": "audio/music_src.mp3 (ElevenLabs Music v2.5, 60 s instrumental); edit: 0-52 s as is, then its first 18 s slowed x0.78, -2 st, low-passed, under act 3; out before the twist",
+  "at": 0,
+  "level_db": -25,
+  "fade_out": [
+   74.8,
+   76.0
+  ]
+ }
+}

@@ -2,7 +2,7 @@
 // Then the bed (music + sfx) is ducked under every spoken word so each word sits >= 6 dB above it.
 // usage: node tools/synth-audio.mjs ep01   ->  episodes/ep01/audio/{music,sfx,bed,voice,mix}.wav
 import fs from 'node:fs';
-import { SR, decode, writeWav, rms, db, undb } from './lib/wav.mjs';
+import { SR, decode, writeWav, rms, gatedRms, db, undb } from './lib/wav.mjs';
 const ep = process.argv[2] || 'ep01', dir = `episodes/${ep}`;
 const tl = JSON.parse(fs.readFileSync(`${dir}/timeline.json`));
 const N = Math.ceil(tl.duration * SR), TAU = Math.PI * 2;

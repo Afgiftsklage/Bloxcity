@@ -8,8 +8,8 @@ const TARGET_DB = -17, PEAK_DB = -3, FPS = script.fps, SPEED = script.speed ?? 1
 fs.mkdirSync(`${dir}/voices`, { recursive: true });
 const out = {};
 for (const line of script.lines) {
-  const raw = `${dir}/voices_raw/${line.id}.mp3`;
-  if (!fs.existsSync(raw)) { console.log('MISSING', raw); continue; }
+  const raw = ['mp3', 'wav'].map(e => `${dir}/voices_raw/${line.id}.${e}`).find(f => fs.existsSync(f));      // ElevenLabs takes are .mp3, local VoiceStudio/OmniVoice takes .wav
+  if (!raw) { console.log('MISSING', `${dir}/voices_raw/${line.id}.mp3`); continue; }
   const st = line.pitch_semitones ?? script.characters[line.speaker].pitch_semitones ?? 0;
   const pitch = Math.pow(2, st / 12);
   // high-pitched cartoon voice: pitch shift with formants shifted too (duration unchanged)
