@@ -3,6 +3,7 @@
 Vertical (9:16) one-minute 3D story videos with blocky avatar characters, built entirely from code:
 Blender (headless) → Three.js → ElevenLabs voices → synthesised music/SFX → Remotion.
 House style and every quality setting: see [QUALITY.md](QUALITY.md).
+Titles, descriptions and YouTube/Instagram tags (with the channel's results and niche data): see [PUBLISHING.md](PUBLISHING.md) — read it before scripting a new episode.
 
 ```
 blender/build_assets.py     EP01: toy-style characters + cozy room        -> web/public/models/*.glb
@@ -10,6 +11,7 @@ blender/build_ep02.py       block-style characters + street set (park, house, ca
 blender/bt.py               shared Blender helpers
 web/                        Three.js renderer (Vite): rig, canvas faces, camera, lights, post stack
 episodes/ep01/              script.json, shots.js (blocking + cameras), voices, timeline, audio, frames, out/
+research/                   title research data (tools/research-titles.py) used by PUBLISHING.md
 tools/                      fetch-assets, process-voices, transcribe, retime, synth-audio, check-mix, render-frames, render-video
 remotion/                   frames + voices + bed + word-by-word captions -> MP4
 ```

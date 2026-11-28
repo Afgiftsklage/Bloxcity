@@ -79,6 +79,7 @@ Every episode must match these settings. The machine-readable copies live in `we
 - Encode: H.264, **CRF 12**, yuv420p, BT.709, PNG intermediate frames, AAC 320 kb/s.
 
 ## Episode workflow
+0. **Title first** → pick the title format from [PUBLISHING.md](PUBLISHING.md) (relatable POV / "When your…", or an "In this world" rule) and make sure the story delivers it.
 1. **Script** → `episodes/<ep>/script.json` (lines, speaker, TTS text with tags, caption text).
 2. **Voices** → ElevenLabs, one take per line → `voices_raw/` → `npm run voices -- <ep>` → `npm run captions -- <ep>`.
 3. **Retime** → `npm run retime -- <ep>` fits every beat and cut to the real voice lengths (prints any shot outside 1–2 s).
@@ -88,6 +89,7 @@ Every episode must match these settings. The machine-readable copies live in `we
 6. **Frames** → `npm run frames -- <ep>`.
 7. **Video** → `npm run video -- <ep>` → `episodes/<ep>/out/<ep>.mp4`.
 8. **Final check** → still frames across the video (captions, framing) + the mix check, then deliver the MP4.
+9. **Publish** → `episodes/<ep>/publish.md` (titles, YouTube description + tags, Instagram caption + max 5 tags) per PUBLISHING.md; after posting, add the episode's views to the results table there.
 
 ## Character styles
 - **v1 "toy"** (EP01): cylinder head, wrapped face decal, 3-segment soft bevels. Models `char_*.glb`, built by `blender/build_assets.py`.
